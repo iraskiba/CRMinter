@@ -1,0 +1,16 @@
+export enum Size {
+  gutter = 4,
+  gutter2 = Size.gutter * 2,
+  gutter3 = Size.gutter * 3,
+  gutter4 = Size.gutter * 4,
+  gutter5 = Size.gutter * 5,
+  gutter6 = Size.gutter * 6,
+  small = '0.75rem',
+  medium = '0.875rem',
+  large = '1rem',
+  xlarge = '1.125rem',
+  sm = 576,
+  md = 768,
+  lg = 992,
+  xl = 1200,
+}
