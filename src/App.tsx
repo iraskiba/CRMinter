@@ -1,34 +1,9 @@
-import { Button } from 'antd'
-import UniversalSelect from './shared/ui/form-items/select/UniversalSelect.tsx'
-import React from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { useRoutes } from 'react-router-dom'
+import { rotes } from './router'
 
 function App() {
-  const methods = useForm({
-    defaultValues: {
-      test: 'option1',
-    },
-  })
+  const routs = useRoutes(rotes)
+  return routs
+}
 
-  return (
-    <div className="App">
-      <FormProvider {...methods}>
-        <UniversalSelect name={'test'} />
-        <Button type="primary">Button</Button>
-        <Button type="default">Button</Button>
-        <Test>f</Test>
-      </FormProvider>
-    </div>
-  )
-}
-function Test({
-  children,
-  ...props
-}: React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> &
-  React.PropsWithChildren) {
-  return <button {...props}>{children}</button>
-}
 export default App
