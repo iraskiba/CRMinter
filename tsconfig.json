@@ -19,14 +19,10 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["src/*"],
       "@widgets/*": ["src/widgets/*"],
-      "@assets/*": ["src/assets/*"],
       "@pages/*": ["src/pages/*"],
-      "@dashboard/*": ["src/pages/dashboard/*"],
       "@router/*": ["src/router/*"],
       "@shared/*": ["src/shared/*"],
-      "@config/*": ["src/shared/config/*"],
       "@ui/*": ["src/shared/ui/*"]
     },
     "jsx": "react-jsx"

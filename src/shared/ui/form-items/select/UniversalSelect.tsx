@@ -1,12 +1,12 @@
 import { useController, useFormContext } from 'react-hook-form'
 import { Select } from 'antd'
-import { options } from './options.ts'
 import { SelectProps } from 'antd/es/select'
 import styles from './styles.module.scss'
+import { OptionProps } from 'rc-select/lib/Option'
 
 const { Option } = Select
-type Props = { name: string } & SelectProps //кастомные пропсы + наследование пропсов из библиотеки
-const UniversalSelect = ({ name, ...selectProps }: Props) => {
+type Props = { name: string; options: OptionProps } & SelectProps //кастомные пропсы + наследование пропсов из библиотеки
+const UniversalSelect = ({ name, options, ...selectProps }: Props) => {
   const { control } = useFormContext()
   const {
     field,

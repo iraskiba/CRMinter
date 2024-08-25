@@ -1,5 +1,4 @@
 import Sidebar from '@widgets/Sidebar'
-
 import { Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
