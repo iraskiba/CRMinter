@@ -1,10 +1,11 @@
-import Sidebar from '@widgets/Sidebar'
+import Sidebar from '@widgets/sidebar'
 import { Outlet } from 'react-router-dom'
+import Header from '@ui/header/header.tsx'
 
 const Dashboard = () => {
   return (
     <div>
-      <header>header</header>
+      <Header />
       <main>
         <Sidebar />
         <section>
