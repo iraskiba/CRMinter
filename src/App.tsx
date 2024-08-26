@@ -1,12 +1,8 @@
-import { Button } from 'antd'
+import { useRoutes } from 'react-router-dom'
+import { rotes } from './router'
 
 function App() {
-  return (
-    <div className="App">
-      <Button type="primary">Button</Button>
-      <Button type="default">Button</Button>
-    </div>
-  )
+  return useRoutes(rotes)
 }
 
 export default App

@@ -1,5 +1,6 @@
 import { ThemeConfig } from 'antd'
 import { Colors } from './colors.ts'
+import { Size } from './Size.ts'
 
 export const theme: ThemeConfig = {
   token: {
@@ -16,6 +17,9 @@ export const theme: ThemeConfig = {
     colorWarning: Colors.yellow,
   },
   components: {
-    Button: {},
+    Select: {
+      selectorBg: Colors.grayMedium30,
+      optionFontSize: Size.largeNumber,
+    },
   },
 }
