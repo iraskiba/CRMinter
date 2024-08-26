@@ -11,31 +11,20 @@ $green: #2DC8A8;
 $pink: #FE8084;
 $yellow: #FFC357;
 
-$gutter-base: 4;
-$small-size: 0.75rem;
-$medium-size: 0.875rem;
-$large-size: 1rem;
-$large-number: 16;
-$xlarge-size: 1.125rem;
-$sm-breakpoint: 576px;
-$md-breakpoint: 768px;
-$lg-breakpoint: 992px;
-$xl-breakpoint: 1200px;
+$gutter: 4px;
+$gutter2: $gutter * 2;
+$gutter3: $gutter * 3;
+$gutter4: $gutter * 4;
+$gutter5: $gutter * 5;
+$gutter6: $gutter * 6;
 
-$size: (
-        gutter: $gutter-base,
-        gutter2: $gutter-base * 2,
-        gutter3: $gutter-base * 3,
-        gutter4: $gutter-base * 4,
-        gutter5: $gutter-base * 5,
-        gutter6: $gutter-base * 6,
-        small: $small-size,
-        medium: $medium-size,
-        large: $large-size,
-        largeNumber: $large-number,
-        xlarge: $xlarge-size,
-        sm: $sm-breakpoint,
-        md: $md-breakpoint,
-        lg: $lg-breakpoint,
-        xl: $xl-breakpoint
-);
+$small: 0.75rem;
+$medium: 0.875rem;
+$large: 1rem;
+$large-number: 16;
+$xlarge: 1.125rem;
+
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
