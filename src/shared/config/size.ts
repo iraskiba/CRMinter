@@ -14,4 +14,4 @@ export const Size = {
   md: 768,
   lg: 992,
   xl: 1200,
-}
+} as const
