@@ -1,7 +1,7 @@
 import Sidebar from '@widgets/sidebar'
 import { Outlet } from 'react-router-dom'
-import Header from '@ui/header/header.tsx'
-import CountElement from '@ui/count-element/count-element.tsx'
+import Header from '@widgets/header'
+import CountElement from '@shared/ui/count-element'
 import { UsergroupDeleteOutlined } from '@ant-design/icons'
 
 const Dashboard = () => {

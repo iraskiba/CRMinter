@@ -21,7 +21,6 @@ export default defineConfig({
       '@router': path.resolve(__dirname, 'src/router'),
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@widgets': path.resolve(__dirname, 'src/widgets'),
-      '@ui': path.resolve(__dirname, 'src/shared/ui'),
     },
   },
   css: {

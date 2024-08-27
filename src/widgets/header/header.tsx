@@ -1,6 +1,6 @@
 import { Button, Tooltip } from 'antd'
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
-import { logo } from '@ui/header/logo.tsx'
+import { logo } from './logo.tsx'
 import styles from './styles.module.scss'
 
 const Header = () => {
