@@ -6,7 +6,10 @@
   align-items: center;
   gap: $gutter4;
   width: 90px;
-  min-height: 100vh;
+  height: 100vh;
+  border-right: solid 1px $grayMedium30;
+  padding-top: $gutter5;
+  background-color: $lightGrey10;
 }
 
 .link {
