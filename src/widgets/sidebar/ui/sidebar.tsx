@@ -8,7 +8,7 @@ import {
   TableOutlined,
 } from '@ant-design/icons'
 import { Button } from 'antd'
-import styles from '../styles.module.scss'
+import styles from './styles.module.scss'
 import { NavLink } from 'react-router-dom'
 import { Paths } from '../../../app/router/path.ts'
 

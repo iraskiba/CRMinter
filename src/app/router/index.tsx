@@ -4,12 +4,17 @@ import Dashboard from '@pages/dashboard/ui/dashboard.tsx'
 import { Navigate } from 'react-router-dom'
 import Deals from '@pages/deals/ui/deals.tsx'
 import Customers from '@pages/customers/ui/customers.tsx'
+import DashboardContent from '@pages/dashboard/ui/dashboard-content.tsx'
 
 export const rotes: RouteObject[] = [
   {
     path: Paths.home.path,
     element: <Dashboard />,
     children: [
+      {
+        path: Paths.home.path,
+        element: <DashboardContent />,
+      },
       {
         path: Paths.deals.path,
         element: <Deals />,

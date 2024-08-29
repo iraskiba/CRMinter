@@ -1,8 +1,9 @@
 import { Avatar, Button, Table, AvatarProps } from 'antd'
 import styles from './styles.module.scss'
 import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
+import { ColumnsType } from 'antd/es/table'
 
-const columns = [
+const columns: ColumnsType<Customer> = [
   {
     title: <UserSwitchOutlined />,
     dataIndex: 'avatar',
@@ -33,30 +34,29 @@ const columns = [
     title: 'Edit',
     dataIndex: 'edit',
     key: 'edit',
+    render: (_, record) => <Button icon={<EditOutlined />} />,
   },
 ]
 
-type Deal = {
+type Customer = {
+  id: string
   name: string
   area: string
   appointmentDate: string
   price: string
   status: string
-  edit: React.ReactNode
   avatarProps?: AvatarProps
-  render?: () => JSX.Element
 }
 
-const data: Deal[] = [
+const data: Customer[] = [
   {
+    id: '1',
     name: 'John Doe',
     area: '475 Spruce Drive',
     appointmentDate: '475 Spruce Drive',
     price: '300$',
     status: 'in progress',
-    render: () => <Button icon={<EditOutlined />} />,
     avatarProps: {},
-    edit: <Button icon={<EditOutlined />} />,
   },
 ]
 const Customers = () => {

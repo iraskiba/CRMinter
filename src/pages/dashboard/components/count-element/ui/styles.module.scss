@@ -1,13 +1,15 @@
-@import "src/shared/config/vars";
+@import 'src/shared/config/vars';
 
 .container{
   width: 268px;
   height: 168px;
   display: flex;
-  gap:45px;
+  justify-content: space-between;
+  box-sizing: border-box;
   align-items: center;
   border: solid 1px $grayMedium30;
   border-radius: $gutter3;
+  padding:$gutter6;
 }
 
 .title{

@@ -28,6 +28,7 @@ export default tseslint.config({
       { allowConstantExport: true },
     ],
     'prettier/prettier': 'warn',
+    "no-unused-vars": "off",
   },
   linterOptions: {
     reportUnusedDisableDirectives: true,
