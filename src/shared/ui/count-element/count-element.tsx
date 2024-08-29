@@ -22,7 +22,7 @@ const CountElement: FC<Props> = ({ icon, title, count, ...avatarProps }) => {
           size={80}
           icon={icon}
           {...avatarProps}
-          className={styles.gradient}
+          className={styles.gradientGreen}
         />
       </div>
     </div>

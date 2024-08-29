@@ -3,6 +3,7 @@ import { Paths } from './path.ts'
 import Dashboard from '@pages/dashboard/ui/dashboard.tsx'
 import { Navigate } from 'react-router-dom'
 import Deals from '@pages/deals/ui/deals.tsx'
+import Customers from '@pages/customers/ui/customers.tsx'
 
 export const rotes: RouteObject[] = [
   {
@@ -15,7 +16,7 @@ export const rotes: RouteObject[] = [
       },
       {
         path: Paths.customers.path,
-        element: <div>test</div>,
+        element: <Customers />,
       },
       {
         path: Paths.tasks.path,

@@ -15,11 +15,20 @@
   color: $grayDark;
 }
 
-.gradient {
+.gradientGreen {
   background-image: linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
   background: -webkit-linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
   background: -moz-linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
   background: linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
+  background-size: cover;
+  background-clip: padding-box;
+}
+
+.gradientPink {
+  background-image: linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background: -webkit-linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background: -moz-linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background: linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
   background-size: cover;
   background-clip: padding-box;
 }
