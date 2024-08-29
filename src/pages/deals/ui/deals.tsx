@@ -43,7 +43,7 @@ const columns: ColumnsType<Deal> = [
     title: 'Edit',
     dataIndex: 'edit',
     key: 'edit',
-    render: (_, record) => <Button icon={<EditOutlined />} />,
+    render: () => <Button icon={<EditOutlined />} />,
   },
 ]
 

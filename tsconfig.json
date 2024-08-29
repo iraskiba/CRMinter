@@ -19,6 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
+      "@app/*": ["src/app/*"],
       "@widgets/*": ["src/widgets/*"],
       "@pages/*": ["src/pages/*"],
       "@router/*": ["src/router/*"],
