@@ -1,11 +1,5 @@
 @import "src/shared/config/vars";
 
-.customButton{
-  border-radius: 70px;
-  height: 50px;
-  width: 130px ;
-}
-
 li{
   list-style-type: none;
   padding: 0;
@@ -64,4 +58,5 @@ ul{
   height: 90px;
   background-color: $grayMedium30;
   left: 0;
+  bottom:0
 }

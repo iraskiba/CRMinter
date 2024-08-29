@@ -1,2 +1,2 @@
-import Header from './header.tsx'
+import Header from './ui/header.tsx'
 export default Header

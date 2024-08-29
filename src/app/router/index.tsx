@@ -1,7 +1,8 @@
-import { RouteObject } from 'react-router/dist/lib/context'
+import { RouteObject } from 'react-router-dom'
 import { Paths } from './path.ts'
-import Dashboard from '../pages/dashboard/dashboard.tsx'
+import Dashboard from '@pages/dashboard/ui/dashboard.tsx'
 import { Navigate } from 'react-router-dom'
+import Deals from '@pages/deals/ui/deals.tsx'
 
 export const rotes: RouteObject[] = [
   {
@@ -10,7 +11,7 @@ export const rotes: RouteObject[] = [
     children: [
       {
         path: Paths.deals.path,
-        element: <div>test</div>,
+        element: <Deals />,
       },
       {
         path: Paths.customers.path,

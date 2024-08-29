@@ -6,6 +6,8 @@
   display: flex;
   gap:45px;
   align-items: center;
+  border: solid 1px $grayMedium30;
+  border-radius: $gutter3;
 }
 
 .title{

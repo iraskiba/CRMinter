@@ -1,0 +1,27 @@
+@import "src/shared/config/vars";
+
+.container{
+  display: flex;
+  align-items: center;
+  gap:24px;
+  justify-content: space-between;
+  margin-bottom:$gutter4 ;
+  color:$primaryNavy;
+}
+
+.containerButton{
+  display: flex;
+  align-items: center;
+  gap:$gutter4
+}
+
+.button{
+  height:50px ;
+  width: auto;
+  border-radius: 30px;
+}
+
+.wrapper{
+  margin-top:$gutter4;
+}
+

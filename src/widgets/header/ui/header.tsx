@@ -1,7 +1,8 @@
 import { Button, Tooltip } from 'antd'
-import { PlusOutlined, SearchOutlined } from '@ant-design/icons'
+import { SearchOutlined } from '@ant-design/icons'
 import { logo } from './logo.tsx'
 import styles from './styles.module.scss'
+import CustomButton from '@shared/ui/custom-button-plus'
 
 const Header = () => {
   return (
@@ -15,14 +16,7 @@ const Header = () => {
       <div className={styles.profile}>
         <ul>
           <li>
-            <Button
-              className={styles.customButton}
-              type="primary"
-              icon={<PlusOutlined />}
-              iconPosition="end"
-            >
-              Add New
-            </Button>
+            <CustomButton variant={'new'} />
           </li>
           <li>
             <Tooltip title="search">
