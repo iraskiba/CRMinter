@@ -2,6 +2,7 @@ import Sidebar from '@widgets/sidebar'
 import { Outlet } from 'react-router-dom'
 import Header from '@widgets/header'
 import styles from './styles.module.scss'
+import CustomerDetails from '@pages/customer-details/ui/customer-details.tsx'
 
 const Dashboard = () => {
   return (
@@ -9,6 +10,7 @@ const Dashboard = () => {
       <Header />
       <main className={styles.main}>
         <Sidebar />
+        <CustomerDetails />
         <section className={styles.section}>
           <Outlet />
         </section>
