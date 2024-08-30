@@ -1,6 +1,8 @@
 import React from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import { Input as AntInput, InputRef, Form } from 'antd'
+import './styles.module.scss'
+import styles from '@widgets/header/ui/styles.module.scss'
 
 type InputType = {
   type: string
@@ -33,6 +35,7 @@ const Input: React.FC<InputType> = ({
   return (
     <Form.Item label={label}>
       <AntInput
+        className={styles.input}
         {...field}
         {...rest}
         type={type}

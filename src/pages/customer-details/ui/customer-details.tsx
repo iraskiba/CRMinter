@@ -8,24 +8,24 @@ const CustomerDetails: React.FC = () => {
   }
   type FormData = {
     username: string
-    password: string
   }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Input
-          label="Пароль"
+          label="First Name"
           type="text"
           name="username"
-          placeholder="Введите имя пользователя"
+          placeholder="Barbara"
           required={true}
           defaultValue=""
         />
         <Input
-          label="Пароль"
-          type="password"
-          name="password"
-          placeholder="Введите пароль"
+          label="First Name"
+          type="text"
+          name="username"
+          placeholder="Barbara"
           required={true}
           defaultValue=""
         />

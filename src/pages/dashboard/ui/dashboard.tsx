@@ -9,8 +9,8 @@ const Dashboard = () => {
     <div>
       <Header />
       <main className={styles.main}>
-        <Sidebar />
         <CustomerDetails />
+        <Sidebar />
         <section className={styles.section}>
           <Outlet />
         </section>
