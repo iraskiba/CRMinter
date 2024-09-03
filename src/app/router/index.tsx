@@ -5,6 +5,8 @@ import { Navigate } from 'react-router-dom'
 import Deals from '@pages/deals/ui/deals.tsx'
 import Customers from '@pages/customers/ui/customers.tsx'
 import DashboardContent from '@pages/dashboard/ui/dashboard-content.tsx'
+import CustomerDetails from '@pages/customer-details/ui/customer-details.tsx'
+import Tasks from '@pages/tasks/ui/tasks.tsx'
 
 export const rotes: RouteObject[] = [
   {
@@ -25,11 +27,11 @@ export const rotes: RouteObject[] = [
       },
       {
         path: Paths.tasks.path,
-        element: <div>test</div>,
+        element: <Tasks />,
       },
       {
         path: Paths.calendar.path,
-        element: <div>test</div>,
+        element: <CustomerDetails />,
       },
       {
         path: Paths.reminder.path,

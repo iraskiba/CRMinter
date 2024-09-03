@@ -1,7 +1,7 @@
 import { Avatar, Button, Table, AvatarProps } from 'antd'
 import styles from './style.module.scss'
 import {
-  SearchOutlined,
+  FilterOutlined,
   EditOutlined,
   PictureOutlined,
 } from '@ant-design/icons'
@@ -80,7 +80,7 @@ const Deals = () => {
           <Button
             className={styles.button}
             type="default"
-            icon={<SearchOutlined />}
+            icon={<FilterOutlined />}
           >
             Filter
           </Button>

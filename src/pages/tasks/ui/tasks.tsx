@@ -1,38 +1,28 @@
-import { Avatar, Button, Table, AvatarProps } from 'antd'
+import { Checkbox, Button, Table } from 'antd'
 import styles from './styles.module.scss'
 import {
-  UserSwitchOutlined,
   EditOutlined,
   FilterOutlined,
+  PictureOutlined,
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
 
-const columns: ColumnsType<Customer> = [
+const columns: ColumnsType<Tasks> = [
   {
-    title: <UserSwitchOutlined />,
-    dataIndex: 'avatar',
+    title: <PictureOutlined />,
+    dataIndex: 'check',
     key: 'avatar',
-    render: () => <Avatar size="large" />,
+    render: () => <Checkbox />,
   },
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Due Date',
+    dataIndex: 'date',
+    key: 'date',
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Tasks',
+    dataIndex: 'tasks',
+    key: 'tasks',
   },
   {
     title: 'Edit',
@@ -42,28 +32,20 @@ const columns: ColumnsType<Customer> = [
   },
 ]
 
-type Customer = {
+type Tasks = {
   id: string
-  name: string
-  area: string
-  appointmentDate: string
-  price: string
-  status: string
-  avatarProps?: AvatarProps
+  date: string
+  tasks: string | string[]
 }
 
-const data: Customer[] = [
+const data: Tasks[] = [
   {
     id: '1',
-    name: 'John Doe',
-    area: '475 Spruce Drive',
-    appointmentDate: '475 Spruce Drive',
-    price: '300$',
-    status: 'in progress',
-    avatarProps: {},
+    date: '14 Nov 2021',
+    tasks: 'Task 1',
   },
 ]
-const Customers = () => {
+const Tasks = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -86,4 +68,4 @@ const Customers = () => {
   )
 }
 
-export default Customers
+export default Tasks

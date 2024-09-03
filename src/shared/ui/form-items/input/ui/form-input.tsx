@@ -1,23 +1,19 @@
-import React from 'react'
+import { FC } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
-import { Input as AntInput, InputRef, Form } from 'antd'
-import './styles.module.scss'
-import styles from '@widgets/header/ui/styles.module.scss'
+import { Input as AntInput, InputProps } from 'antd'
+import styles from './styles.module.scss'
 
 type InputType = {
   type: string
   name: string
-  minLength?: number
   required: boolean
   defaultValue: string
   placeholder: string
-  label: string
-} & React.RefAttributes<InputRef>
-
-const Input: React.FC<InputType> = ({
+  label?: string
+} & InputProps
+const FormInput: FC<InputType> = ({
   type,
   name,
-  minLength,
   required,
   placeholder,
   defaultValue,
@@ -28,22 +24,21 @@ const Input: React.FC<InputType> = ({
   const { field } = useController({
     name,
     control,
-    rules: { required, minLength },
+    rules: { required },
     defaultValue,
   })
-
   return (
-    <Form.Item label={label}>
+    <div>
+      <label>{label}</label>
       <AntInput
         className={styles.input}
         {...field}
         {...rest}
         type={type}
         placeholder={placeholder}
-        ref={field.ref as React.Ref<InputRef>}
       />
-    </Form.Item>
+    </div>
   )
 }
 
-export default Input
+export default FormInput

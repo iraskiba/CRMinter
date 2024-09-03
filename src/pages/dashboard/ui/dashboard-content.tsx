@@ -1,6 +1,7 @@
 import Appoitment from '../components/appointment'
 import CountElement from '@pages/dashboard/components/count-element'
 import { UsergroupDeleteOutlined } from '@ant-design/icons'
+import TasksModal from '@pages/tasks/ui/tasks-modal.tsx'
 
 const DashboardContent = () => {
   return (
@@ -18,6 +19,9 @@ const DashboardContent = () => {
         title={'Customers'}
         count={100}
       />
+      <div>
+        <TasksModal visible={true} />
+      </div>
     </div>
   )
 }
