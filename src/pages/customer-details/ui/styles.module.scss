@@ -1,17 +1,11 @@
 @import "src/shared/config/vars";
 
-.main{
- width: 859px;
-}
 
-.items{
-  display: flex;
-  gap: 24px;
-  margin-bottom: $gutter6;
+.recentDeals{
+  background-color: #EEF6FB;
 }
 
 .uploadWrapper{
-  width: 859px;
   background-color:$lightGrey10 ;
   height: 200px;
 }
@@ -28,7 +22,6 @@
 }
 
 .icon{
-  z-index: 1;
   position: absolute;
   bottom: 0;
   left: 90px;
@@ -37,16 +30,6 @@
 
 div{
   position: relative;
-  z-index: 0;
-}
-
-.address{
-  margin-bottom: $gutter6;
-}
-
-.details{
-  display: flex;
-  justify-content: space-between;
 }
 
 .delete{

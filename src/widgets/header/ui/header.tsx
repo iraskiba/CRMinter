@@ -2,9 +2,14 @@ import { Button, Tooltip } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { logo } from './logo.tsx'
 import styles from './styles.module.scss'
-import CustomButton from '@shared/ui/custom-button-plus'
+import AddNewTask from '@pages/tasks/ui/add-new-task.tsx'
+import { FC } from 'react'
 
-const Header = () => {
+type TaskModalProps = {
+  visible: boolean
+  onClose: () => void
+}
+const Header: FC<TaskModalProps> = ({ visible, onClose }) => {
   return (
     <header className={styles.header}>
       <div className={styles.containerLogo}>
@@ -16,7 +21,7 @@ const Header = () => {
       <div className={styles.profile}>
         <ul>
           <li>
-            <CustomButton variant={'new'} />
+            <AddNewTask visible={visible} onClose={onClose} />
           </li>
           <li>
             <Tooltip title="search">

@@ -1,26 +1,30 @@
 import { Button, Modal, Input } from 'antd'
 import { FC } from 'react'
 import { CloseOutlined } from '@ant-design/icons'
-interface TaskModalProps {
+
+type TaskModalProps = {
   visible: boolean
-  //onClose: () => void
+  onClose: () => void
 }
 
-const TaskModal: FC<TaskModalProps> = ({ visible }) => {
+const TasksModal: FC<TaskModalProps> = ({ visible, onClose }) => {
   return (
     <>
       <Modal
         centered={true}
         visible={visible}
-        //onCancel={onClose}
+        onCancel={onClose}
         footer={[
-          <Button key="cancel" type="default">
+          <Button onClick={onClose} key="cancel" type="default">
             Cancel
           </Button>,
           <Button
             key="ok"
             type="primary"
-            onClick={() => console.log('Task opened')}
+            onClick={() => {
+              console.log('Task opened')
+              onClose()
+            }}
           >
             Save Task
           </Button>,
@@ -36,4 +40,4 @@ const TaskModal: FC<TaskModalProps> = ({ visible }) => {
   )
 }
 
-export default TaskModal
+export default TasksModal

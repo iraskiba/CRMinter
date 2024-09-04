@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, HTMLAttributes } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import { Input as AntInput, InputProps } from 'antd'
 import styles from './styles.module.scss'
@@ -10,6 +10,7 @@ type InputType = {
   defaultValue: string
   placeholder: string
   label?: string
+  containerProps?: HTMLAttributes<HTMLDivElement>
 } & InputProps
 const FormInput: FC<InputType> = ({
   type,
@@ -18,6 +19,7 @@ const FormInput: FC<InputType> = ({
   placeholder,
   defaultValue,
   label,
+  containerProps,
   ...rest
 }) => {
   const { control } = useFormContext()
@@ -28,7 +30,7 @@ const FormInput: FC<InputType> = ({
     defaultValue,
   })
   return (
-    <div>
+    <div {...containerProps}>
       <label>{label}</label>
       <AntInput
         className={styles.input}
