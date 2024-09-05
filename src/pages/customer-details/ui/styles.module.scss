@@ -21,7 +21,7 @@
   background: center center / cover no-repeat;
 }
 
-.icon{
+.iconEdit{
   position: absolute;
   bottom: 0;
   left: 90px;
@@ -32,8 +32,29 @@ div{
   position: relative;
 }
 
-.delete{
+.deleteIcon{
   position: absolute;
   bottom: 10px;
   right: 20px;
+}
+
+.dealsTitle{
+  font-size:$large ;
+  color: $gray;
+  font-weight: 700;
+}
+
+.deal {
+  display: flex;
+  gap:24px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.button{
+  color: $primaryBlue;
+  margin: 0 auto;
+}
+.buttonc{
+  display: flex;
 }

@@ -46,7 +46,7 @@ const AvatarUpload = () => {
             ></div>
             <Button
               shape="circle"
-              className={styles.icon}
+              className={styles.iconEdit}
               icon={<EditOutlined />}
             />
           </Upload>
@@ -54,7 +54,7 @@ const AvatarUpload = () => {
       />
       <Button
         shape="circle"
-        className={styles.delete}
+        className={styles.deleteIcon}
         icon={<DeleteOutlined />}
       />
     </div>

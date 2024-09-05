@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
 
-const columns: ColumnsType<Tasks> = [
+const columns: ColumnsType<TasksTable> = [
   {
     title: <PictureOutlined />,
     dataIndex: 'check',
@@ -32,20 +32,20 @@ const columns: ColumnsType<Tasks> = [
   },
 ]
 
-type Tasks = {
+type TasksTable = {
   id: string
   date: string
   tasks: string | string[]
 }
 
-const data: Tasks[] = [
+const data: TasksTable[] = [
   {
     id: '1',
     date: '14 Nov 2021',
     tasks: 'Task 1',
   },
 ]
-const Tasks = () => {
+const TasksTable = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -68,4 +68,4 @@ const Tasks = () => {
   )
 }
 
-export default Tasks
+export default TasksTable

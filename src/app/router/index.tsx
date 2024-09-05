@@ -6,7 +6,7 @@ import Deals from '@pages/deals/ui/deals.tsx'
 import Customers from '@pages/customers/ui/customers.tsx'
 import DashboardContent from '@pages/dashboard/ui/dashboard-content.tsx'
 import CustomerDetails from '@pages/customer-details/ui/customer-details.tsx'
-import Tasks from '@pages/tasks/ui/tasks.tsx'
+import TasksTable from '@pages/tasks/ui/tasks-table.tsx'
 
 export const rotes: RouteObject[] = [
   {
@@ -27,7 +27,7 @@ export const rotes: RouteObject[] = [
       },
       {
         path: Paths.tasks.path,
-        element: <Tasks />,
+        element: <TasksTable />,
       },
       {
         path: Paths.calendar.path,

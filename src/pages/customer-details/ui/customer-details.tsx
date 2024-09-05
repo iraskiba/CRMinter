@@ -2,7 +2,8 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import FormInput from '@shared/ui/form-items/input'
 import styles from './styles.module.scss'
 import AvatarUpload from '@pages/customer-details/ui/avatar-upload.tsx'
-import { Button, Col, Row } from 'antd'
+import { Avatar, Button, Col, Row } from 'antd'
+import { useState } from 'react'
 
 type FormData = {
   username: string
@@ -16,9 +17,58 @@ type FormData = {
 }
 const CustomerDetails = () => {
   const methods = useForm<FormData>()
+  const [showMoreDeals, setShowMoreDeals] = useState(false)
+  const showDeals = () => {
+    setShowMoreDeals(true)
+  }
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data)
   }
+  const mockDeals = [
+    {
+      avatar: 'A',
+      title: '319 Haul Road,Saint Paul,MN',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+    {
+      avatar: 'B',
+      title: '3290 Levy Court,Lawrence,MA',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+    {
+      avatar: 'С',
+      title: '3290 Levy Court,Lawrence,MA',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+    {
+      avatar: 'D',
+      title: '3290 Levy Court,Lawrence,MA',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+    {
+      avatar: 'E',
+      title: '3290 Levy Court,Lawrence,MA',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+    {
+      avatar: 'F',
+      title: '3290 Levy Court,Lawrence,MA',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+    {
+      avatar: 'G',
+      title: '3290 Levy Court,Lawrence,MA',
+      time: 'Nov 14, 09:00',
+      price: '$6000',
+    },
+  ]
 
   return (
     <Row gutter={24}>
@@ -122,6 +172,30 @@ const CustomerDetails = () => {
             </Button>
           </Col>
         </Row>
+
+        {(showMoreDeals ? mockDeals : mockDeals.slice(0, 3)).map(
+          (deal, index) => (
+            <div key={index} className={styles.deal}>
+              <Avatar size="large">{deal.avatar}</Avatar>
+              <Row gutter={18}>
+                <Col span={24}>
+                  <span className={styles.dealsTitle}>{deal.title}</span>
+                </Col>
+                <Col span={12}>
+                  <span>{deal.time}</span>
+                  <span>{deal.price}</span>
+                </Col>
+              </Row>
+            </div>
+          ),
+        )}
+        <div className={styles.buttonc}>
+          {!showMoreDeals && (
+            <Button onClick={showDeals} type="text" className={styles.button}>
+              Load More
+            </Button>
+          )}
+        </div>
       </Col>
     </Row>
   )
