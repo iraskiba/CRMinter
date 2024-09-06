@@ -8,6 +8,7 @@
 .uploadWrapper{
   background-color:$lightGrey10 ;
   height: 200px;
+  position: relative;
 }
 
 .avatar{
@@ -23,13 +24,9 @@
 
 .iconEdit{
   position: absolute;
-  bottom: 0;
+  bottom: 50%;
   left: 90px;
   transform: translate(50%, 50%)
-}
-
-div{
-  position: relative;
 }
 
 .deleteIcon{
@@ -55,6 +52,7 @@ div{
   color: $primaryBlue;
   margin: 0 auto;
 }
-.buttonc{
+
+.buttonLoadMore{
   display: flex;
 }

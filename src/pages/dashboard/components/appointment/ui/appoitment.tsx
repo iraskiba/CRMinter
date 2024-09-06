@@ -1,6 +1,7 @@
 import styles from './style.module.scss'
 import { Avatar, AvatarProps, Button } from 'antd'
 import { FC } from 'react'
+import dayjs from 'dayjs'
 
 type AppointmentProps = {
   deal: string
@@ -21,15 +22,7 @@ const Appoitment: FC<Props> = ({
   countP,
   ...avatarProps
 }) => {
-  const parsedDate = new Date(date)
-  const formattedDate = parsedDate.toLocaleString('en-US', {
-    month: 'short',
-    day: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
+  const formattedDate = dayjs(date).format('MMM DD, YYYY HH:mm')
   return (
     <div className={styles.container}>
       <h3>Next Appointment</h3>

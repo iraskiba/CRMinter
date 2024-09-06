@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import type { UploadFile } from 'antd/es/upload/interface'
 import styles from './styles.module.scss'
 
-interface FormValues {
+type FormValues = {
   avatar: UploadFile | null
 }
 
