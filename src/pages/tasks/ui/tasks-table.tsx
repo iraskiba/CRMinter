@@ -1,36 +1,9 @@
-import { Checkbox, Button, Table } from 'antd'
+import { Button, Table } from 'antd'
 import styles from './styles.module.scss'
-import {
-  EditOutlined,
-  FilterOutlined,
-  PictureOutlined,
-} from '@ant-design/icons'
-import { ColumnsType } from 'antd/es/table'
-
-const columns: ColumnsType<TasksTable> = [
-  {
-    title: <PictureOutlined />,
-    dataIndex: 'check',
-    key: 'avatar',
-    render: () => <Checkbox />,
-  },
-  {
-    title: 'Due Date',
-    dataIndex: 'date',
-    key: 'date',
-  },
-  {
-    title: 'Tasks',
-    dataIndex: 'tasks',
-    key: 'tasks',
-  },
-  {
-    title: 'Edit',
-    dataIndex: 'edit',
-    key: 'edit',
-    render: () => <Button icon={<EditOutlined />} />,
-  },
-]
+import { FilterOutlined } from '@ant-design/icons'
+import { useState } from 'react'
+import EditTaskModal from '@pages/tasks/ui/edit-task-modal.tsx'
+import TasksColumns from '@pages/tasks/ui/tasks-columns.tsx'
 
 type TasksTable = {
   id: string
@@ -46,6 +19,14 @@ const data: TasksTable[] = [
   },
 ]
 const TasksTable = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const handleEdit = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleClose = () => {
+    setIsModalVisible(false)
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -63,7 +44,12 @@ const TasksTable = () => {
           </Button>
         </div>
       </div>
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 7 }} />
+      <Table
+        columns={TasksColumns({ handleEdit })}
+        dataSource={data}
+        pagination={{ pageSize: 7 }}
+      />
+      <EditTaskModal visible={isModalVisible} onClose={handleClose} />
     </div>
   )
 }

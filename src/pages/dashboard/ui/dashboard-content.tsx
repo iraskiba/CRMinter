@@ -1,10 +1,10 @@
-import Appoitment from '../components/appointment'
-import CountElement from '@pages/dashboard/components/count-element'
+import Appoitment from './appoitment.tsx'
+import CountElement from './count-element.tsx'
 import { UsergroupDeleteOutlined } from '@ant-design/icons'
 
 const DashboardContent = () => {
   return (
-    <div>
+    <>
       <Appoitment
         deal="Deal Name"
         description="This is a description of the deal."
@@ -18,7 +18,7 @@ const DashboardContent = () => {
         title={'Customers'}
         count={100}
       />
-    </div>
+    </>
   )
 }
 

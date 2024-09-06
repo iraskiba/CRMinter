@@ -1,12 +1,11 @@
 import { RouteObject } from 'react-router-dom'
 import { Paths } from './path.ts'
-import Dashboard from '@pages/dashboard'
 import { Navigate } from 'react-router-dom'
 import Deals from '@pages/deals'
 import Customers from '@pages/customers'
-import DashboardContent from '@pages/dashboard/ui'
 import CustomerDetails from '@pages/customer-details'
 import TasksTable from '@pages/tasks'
+import { Dashboard, DashboardContent } from '@pages/dashboard'
 
 export const rotes: RouteObject[] = [
   {

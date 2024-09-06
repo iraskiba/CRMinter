@@ -18,6 +18,7 @@ const FormInput: FC<InputType> = ({
   required,
   placeholder,
   label,
+  rules,
   containerProps,
   ...rest
 }) => {
@@ -25,7 +26,7 @@ const FormInput: FC<InputType> = ({
   const { field } = useController({
     name,
     control,
-    rules: { required },
+    rules: { required, ...rules },
   })
   return (
     <div {...containerProps}>

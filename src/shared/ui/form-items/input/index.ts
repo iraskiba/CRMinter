@@ -1,3 +1,3 @@
-import FormInput from './ui/form-input.tsx'
+import FormInput from './form-input.tsx'
 
 export default FormInput

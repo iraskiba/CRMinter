@@ -13,12 +13,21 @@ const AvatarUpload = () => {
   const { control } = useForm<FormValues>()
   const [imageUrl, setImageUrl] = useState<string | null>(null)
 
-  const handleUpload = (file: File) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      setImageUrl(reader.result as string)
+  const myPromiseUpload = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = reject
+      reader.readAsDataURL(file)
+    })
+  }
+  const handleUpload = async (file: File) => {
+    try {
+      const result = await myPromiseUpload(file)
+      setImageUrl(result)
+    } catch (error) {
+      console.error(error)
     }
-    reader.readAsDataURL(file)
   }
 
   return (
@@ -30,8 +39,8 @@ const AvatarUpload = () => {
           <Upload
             {...field}
             showUploadList={false}
-            beforeUpload={(file) => {
-              handleUpload(file)
+            beforeUpload={async (file) => {
+              await handleUpload(file)
               field.onChange(file)
               return false
             }}

@@ -1,4 +1,4 @@
-import styles from './style.module.scss'
+import styles from './styles.module.scss'
 import { Avatar, AvatarProps, Button } from 'antd'
 import { FC } from 'react'
 import dayjs from 'dayjs'
@@ -24,7 +24,7 @@ const Appoitment: FC<Props> = ({
 }) => {
   const formattedDate = dayjs(date).format('MMM DD, YYYY HH:mm')
   return (
-    <div className={styles.container}>
+    <div className={styles.containerAppointment}>
       <h3>Next Appointment</h3>
       <div className={styles.avatarBlock}>
         <Avatar size="large" {...avatarProps} />
