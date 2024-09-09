@@ -4,24 +4,53 @@ import styles from './styles.module.scss'
 import AvatarUpload from '@pages/customer-details/ui'
 import { Avatar, Button, Col, Row } from 'antd'
 import { useState } from 'react'
-import mockDeals from '@pages/customer-details/mock/mock-deals.ts'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { zocker } from 'zocker'
 
-type Deal = {
-  username: string | null
-  user: string | null
-  email: string | null
-  phone: string | null
-  address: string | null
-  city: string | null
-  province?: string | null
-  code?: string | null
-}
+const dealScheme = z.object({
+  avatar: z.string().length(1),
+  title: z.string().length(30),
+  time: z.string().length(30),
+  price: z.string().length(5),
+})
+const dealArrayScheme = z.array(dealScheme)
+const mockDeals = zocker(dealArrayScheme).generate()
+
+const schemeCustomer = z.object({
+  firstName: z.union([
+    z.string().regex(/^[A-Za-z]+$/, 'Must contain only Latin letters'),
+    z.null(),
+  ]),
+  lastName: z.union([
+    z.string().regex(/^[A-Za-z]+$/, 'Must contain only Latin letters'),
+    z.null(),
+  ]),
+  email: z.union([z.string().email('Email is not correct'), z.null()]),
+  phone: z.union([
+    z
+      .string()
+      .regex(
+        /^\d{7,}$/,
+        'Phone number must be at least 7 digits long and contain only numbers',
+      ),
+    z.null(),
+  ]),
+  address: z.union([z.string(), z.null()]),
+  city: z.union([z.string(), z.null()]),
+  province: z.union([z.string(), z.null()]).optional(),
+  code: z.union([z.string(), z.null()]).optional(),
+})
+
+type Customer = z.infer<typeof schemeCustomer>
+
 const CustomerDetails = () => {
-  const methods = useForm<Deal>({
+  const methods = useForm<Customer>({
     mode: 'onChange',
+    resolver: zodResolver(schemeCustomer),
     defaultValues: {
-      username: '',
-      user: '',
+      firstName: '',
+      lastName: '',
       email: '',
       phone: '',
       address: '',
@@ -40,7 +69,7 @@ const CustomerDetails = () => {
     setShowMoreDeals(true)
   }
 
-  const onSubmit: SubmitHandler<Deal> = (data) => {
+  const onSubmit: SubmitHandler<Customer> = (data) => {
     console.log(data)
   }
 
@@ -55,28 +84,23 @@ const CustomerDetails = () => {
                 <FormInput
                   label="First Name"
                   type="text"
-                  rules={{
-                    required: true,
-                    pattern: {
-                      value: /^[A-Za-z]+$/,
-                      message: 'Only letters',
-                    },
-                  }}
-                  name="username"
+                  name="firstName"
                   placeholder="Barbara"
                 />
-                {!isValid && errors.username && (
-                  <div style={{ color: 'red' }}>{errors.username.message}</div>
+                {!isValid && errors.firstName && (
+                  <div style={{ color: 'red' }}>{errors.firstName.message}</div>
                 )}
               </Col>
               <Col span={12}>
                 <FormInput
                   label="Last Name"
                   type="text"
-                  name="user"
+                  name="lastName"
                   placeholder="Anderson"
-                  required={true}
                 />
+                {!isValid && errors.lastName && (
+                  <div style={{ color: 'red' }}>{errors.lastName.message}</div>
+                )}
               </Col>
 
               <Col span={12}>
@@ -85,8 +109,10 @@ const CustomerDetails = () => {
                   type="email"
                   name="email"
                   placeholder="banderson@gmail.com"
-                  required={true}
                 />
+                {!isValid && errors.email && (
+                  <div style={{ color: 'red' }}>{errors.email.message}</div>
+                )}
               </Col>
               <Col span={12}>
                 <FormInput
@@ -94,8 +120,10 @@ const CustomerDetails = () => {
                   type="tel"
                   name="phone"
                   placeholder="310-685-3335"
-                  required={true}
                 />
+                {!isValid && errors.phone && (
+                  <div style={{ color: 'red' }}>{errors.phone.message}</div>
+                )}
               </Col>
 
               <Col span={24}>
@@ -104,33 +132,21 @@ const CustomerDetails = () => {
                   type="text"
                   name="address"
                   placeholder="Street Address"
-                  required={true}
                 />
               </Col>
 
               <Col span={8}>
-                <FormInput
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  required={true}
-                />
+                <FormInput type="text" name="city" placeholder="City" />
               </Col>
               <Col span={8}>
                 <FormInput
                   type="text"
                   name="province"
                   placeholder="State/ Province"
-                  required={true}
                 />
               </Col>
               <Col span={8}>
-                <FormInput
-                  type="text"
-                  name="code"
-                  placeholder="Zip Code"
-                  required={true}
-                />
+                <FormInput type="text" name="code" placeholder="Zip Code" />
               </Col>
             </Row>
           </form>
