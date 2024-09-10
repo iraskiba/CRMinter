@@ -1,28 +1,36 @@
-import { RouteObject } from 'react-router/dist/lib/context'
+import { RouteObject } from 'react-router-dom'
 import { Paths } from './path.ts'
-import Dashboard from '../pages/dashboard/dashboard.tsx'
 import { Navigate } from 'react-router-dom'
+import Deals from '@pages/deals'
+import Customers from '@pages/customers'
+import CustomerDetails from '@pages/customer-details'
+import TasksTable from '@pages/tasks'
+import { Dashboard, DashboardContent } from '@pages/dashboard'
 
 export const rotes: RouteObject[] = [
   {
     path: Paths.home.path,
-    element: <Dashboard />,
+    element: <Dashboard visible={true} onClose={() => {}} />,
     children: [
       {
+        path: Paths.home.path,
+        element: <DashboardContent />,
+      },
+      {
         path: Paths.deals.path,
-        element: <div>test</div>,
+        element: <Deals />,
       },
       {
         path: Paths.customers.path,
-        element: <div>test</div>,
+        element: <Customers />,
       },
       {
         path: Paths.tasks.path,
-        element: <div>test</div>,
+        element: <TasksTable />,
       },
       {
         path: Paths.calendar.path,
-        element: <div>test</div>,
+        element: <CustomerDetails />,
       },
       {
         path: Paths.reminder.path,

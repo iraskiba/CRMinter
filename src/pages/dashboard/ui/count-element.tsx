@@ -15,14 +15,14 @@ const CountElement: FC<Props> = ({ icon, title, count, ...avatarProps }) => {
     <div className={styles.container}>
       <div>
         <h3 className={styles.title}>{title}</h3>
-        <h1>{count}</h1>
+        <h2>{count}</h2>
       </div>
       <div className={styles.avatarContainer}>
         <Avatar
           size={80}
           icon={icon}
           {...avatarProps}
-          className={styles.gradient}
+          className={styles.gradientGreen}
         />
       </div>
     </div>

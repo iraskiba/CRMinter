@@ -1,0 +1,76 @@
+@import "src/shared/config/vars";
+
+
+.recentDeals{
+  background-color: $grayLightBg20;
+  padding-top: $gutter6;
+  margin-bottom: 24px;
+}
+
+.uploadWrapper{
+  background-color:$lightGrey10 ;
+  height: 200px;
+  position: relative;
+}
+
+.avatar{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  top: 30px;
+  left: 30px;
+  background: center center / cover no-repeat;
+  object-fit: cover;
+}
+
+.avatarBlock{
+  display: flex;
+  gap: $gutter4;
+  margin-bottom:$gutter ;
+  align-items: center;
+}
+
+.iconEdit{
+  position: absolute;
+  bottom: 50%;
+  left: 90px;
+  transform: translate(50%, 50%)
+}
+
+.deleteIcon{
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+.dealsTitle{
+  font-size:$large ;
+  color: $gray;
+  font-weight: 700;
+}
+
+.deal {
+  display: flex;
+  gap:$gutter6;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.dealDetails{
+  color: $grayDark;
+}
+
+.button{
+  color: $primaryBlue;
+  margin: 0 auto;
+}
+
+.buttonLoadMore{
+  display: flex;
+}
+
+label{
+  color: $primaryNavy;
+}

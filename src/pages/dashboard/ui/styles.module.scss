@@ -1,0 +1,104 @@
+@import "src/shared/config/vars";
+
+.main {
+  display: flex;
+}
+
+.section{
+  width: 100%;
+  padding-left: $gutter6;
+}
+
+.container{
+  width: 268px;
+  height: 168px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+  border: solid 1px $grayMedium30;
+  border-radius: $gutter3;
+  padding:$gutter6;
+}
+
+.containerAppointment{
+  width: 100%;
+  height: auto;
+  max-width: 268px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: solid 1px $grayMedium30;
+  display: flex;
+  flex-direction: column;
+  background-color: $primaryBlue;
+  color: $white;
+  padding: $gutter6;
+  gap:$gutter6;
+  font-size: $medium;
+}
+
+.title{
+  font-size:$xlarge;
+  color: $grayDark;
+}
+
+.gradientGreen {
+  background-image: linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
+  background: -webkit-linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
+  background: -moz-linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
+  background: linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
+  background-size: cover;
+  background-clip: padding-box;
+}
+
+.gradientPink {
+  background-image: linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background: -webkit-linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background: -moz-linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background: linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background-size: cover;
+  background-clip: padding-box;
+}
+
+.avatarContainer {
+  overflow: hidden;
+}
+h3{
+  margin:0;
+}
+
+.button{
+  border-radius:70px;
+  height: 50px;
+  width: 132px;
+}
+
+.avatarBlock{
+  display: flex;
+  align-items: center;
+  gap:$gutter3
+}
+
+.deal{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap:$gutter;
+}
+
+.common{
+  display: flex;
+  flex-direction: column;
+}
+
+.details{
+  display: flex;
+  gap:$gutter4;
+}
+
+.priceBlock{
+  display: flex;
+  gap: $gutter4;
+  justify-content: space-between;
+}
+
