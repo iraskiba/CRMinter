@@ -8,46 +8,44 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { zocker } from 'zocker'
 
-const dealScheme = z.object({
+const DealScheme = z.object({
   avatar: z.string().length(1),
-  title: z.string().length(30),
-  time: z.string().length(30),
-  price: z.string().length(5),
-})
-const dealArrayScheme = z.array(dealScheme)
-const mockDeals = zocker(dealArrayScheme).generate()
-
-const schemeCustomer = z.object({
-  firstName: z.union([
-    z.string().regex(/^[A-Za-z]+$/, 'Must contain only Latin letters'),
-    z.null(),
-  ]),
-  lastName: z.union([
-    z.string().regex(/^[A-Za-z]+$/, 'Must contain only Latin letters'),
-    z.null(),
-  ]),
-  email: z.union([z.string().email('Email is not correct'), z.null()]),
-  phone: z.union([
-    z
-      .string()
-      .regex(
-        /^\d{7,}$/,
-        'Phone number must be at least 7 digits long and contain only numbers',
-      ),
-    z.null(),
-  ]),
-  address: z.union([z.string(), z.null()]),
-  city: z.union([z.string(), z.null()]),
-  province: z.union([z.string(), z.null()]).optional(),
-  code: z.union([z.string(), z.null()]).optional(),
+  title: z.string(),
+  time: z.string(),
+  price: z.number(),
 })
 
-type Customer = z.infer<typeof schemeCustomer>
+const MockDeals = zocker(DealScheme.array().length(5)).generate()
+
+const SchemeCustomer = z.object({
+  firstName: z
+    .string()
+    .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
+    .nullable(),
+  lastName: z
+    .string()
+    .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
+    .nullable(),
+  email: z.string().email('Email is not correct').nullable(),
+  phone: z
+    .string()
+    .regex(
+      /^\d{7,}$/,
+      'Phone number must be at least 7 digits long and contain only numbers',
+    )
+    .nullable(),
+  address: z.string().nullable(),
+  city: z.string().nullable(),
+  province: z.string().nullable().optional(),
+  code: z.string().nullable().optional(),
+})
+
+type Customer = z.infer<typeof SchemeCustomer>
 
 const CustomerDetails = () => {
   const methods = useForm<Customer>({
     mode: 'onChange',
-    resolver: zodResolver(schemeCustomer),
+    resolver: zodResolver(SchemeCustomer),
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -153,7 +151,7 @@ const CustomerDetails = () => {
         </FormProvider>
       </Col>
       <Col className={styles.recentDeals} span={6}>
-        <Row gutter={12}>
+        <Row style={{ marginBottom: '24px' }} gutter={12}>
           <Col span={20}>
             <span>Recent Deals</span>
           </Col>
@@ -164,17 +162,17 @@ const CustomerDetails = () => {
           </Col>
         </Row>
 
-        {(showMoreDeals ? mockDeals : mockDeals.slice(0, 3)).map(
+        {(showMoreDeals ? MockDeals : MockDeals.slice(0, 3)).map(
           (deal, index) => (
             <div key={index} className={styles.deal}>
-              <Avatar size="large">{deal.avatar}</Avatar>
               <Row gutter={18}>
-                <Col span={24}>
+                <Col className={styles.avatarBlock} span={24}>
+                  <Avatar size="large">{deal.avatar}</Avatar>
                   <span className={styles.dealsTitle}>{deal.title}</span>
                 </Col>
                 <Col span={12}>
-                  <span>{deal.time}</span>
-                  <span>{deal.price}</span>
+                  <span className={styles.dealDetails}>{deal.time}</span>
+                  <span className={styles.dealDetails}>{deal.price}</span>
                 </Col>
               </Row>
             </div>

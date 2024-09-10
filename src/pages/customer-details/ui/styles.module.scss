@@ -2,7 +2,9 @@
 
 
 .recentDeals{
-  background-color: #EEF6FB;
+  background-color: $grayLightBg20;
+  padding-top: $gutter6;
+  margin-bottom: 24px;
 }
 
 .uploadWrapper{
@@ -12,14 +14,22 @@
 }
 
 .avatar{
-  width: 100px;
   height: 100px;
+  width: 100px;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
   top: 30px;
   left: 30px;
   background: center center / cover no-repeat;
+  object-fit: cover;
+}
+
+.avatarBlock{
+  display: flex;
+  gap: $gutter4;
+  margin-bottom:$gutter ;
+  align-items: center;
 }
 
 .iconEdit{
@@ -43,9 +53,13 @@
 
 .deal {
   display: flex;
-  gap:24px;
+  gap:$gutter6;
   align-items: center;
   margin-bottom: 18px;
+}
+
+.dealDetails{
+  color: $grayDark;
 }
 
 .button{
@@ -55,4 +69,8 @@
 
 .buttonLoadMore{
   display: flex;
+}
+
+label{
+  color: $primaryNavy;
 }
