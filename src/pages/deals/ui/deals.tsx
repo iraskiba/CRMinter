@@ -6,6 +6,8 @@ import {
   PictureOutlined,
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 const columns: ColumnsType<Deal> = [
   {
@@ -57,22 +59,27 @@ type Deal = {
   avatarProps?: AvatarProps
 }
 
-const data: Deal[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    area: '475 Spruce Drive',
-    appointmentDate: '475 Spruce Drive',
-    price: '300$',
-    status: 'in progress',
-    avatarProps: {},
-  },
-]
 const Deals = () => {
+  const [data, setData] = useState([])
+  const [totalDeals, setTotalDeals] = useState(0)
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: 'http://localhost:3001/deals',
+    })
+      .then((response) => {
+        setData(response.data)
+        setTotalDeals(response.data.length)
+      })
+      .catch((error) => {
+        console.error('There was an error!', error)
+      })
+  }, [])
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <span>Total: </span>
+        <span>Total:{totalDeals} deals</span>
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
@@ -90,7 +97,7 @@ const Deals = () => {
         className={styles.containerTable}
         columns={columns}
         dataSource={data}
-        pagination={{ pageSize: 7 }}
+        pagination={false}
       />
     </div>
   )
