@@ -9,14 +9,16 @@ import { ColumnsType } from 'antd/es/table'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import Loader from '@shared/ui/loader/loader.tsx'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const columns: ColumnsType<Deal> = [
   {
     title: <PictureOutlined />,
     dataIndex: 'avatar',
     key: 'avatar',
-    render: (avatar) => <Avatar size="large" src={avatar} />,
+    render: (_, { avatar, avatarProps }) => (
+      <Avatar size="large" src={avatar} {...avatarProps} />
+    ),
   },
   {
     title: 'Name',
@@ -58,34 +60,36 @@ type Deal = {
   appointmentDate: string
   price: string
   status: string
+  avatar: string
   avatarProps?: AvatarProps
 }
-const fetchDeals = async (): Promise<{
-  content: Deal[]
+
+type PaginationResponse<T> = {
+  page: number
+  pageSize: number
   totalCount: number
-}> => {
-  const response = await axios.post('http://localhost:3001/deals')
+  content: T[]
+}
+
+const fetchDeals = async (
+  currentPage: number,
+): Promise<PaginationResponse<Deal>> => {
+  console.log(currentPage)
+  const response = await axios.post<PaginationResponse<Deal>>(
+    'http://localhost:3001/deals',
+    { currentPage: currentPage - 1 },
+  )
+  console.log(response.data)
   return response.data
 }
 const Deals = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [deals, setDeals] = useState<Deal[]>([])
-
   const { data, error, isLoading } = useQuery({
     queryKey: ['deals', currentPage],
-    queryFn: () => fetchDeals(),
+    queryFn: () => fetchDeals(currentPage),
   })
-  useEffect(() => {
-    if (data) {
-      setDeals((prev) => [...prev, ...data.content])
-    }
-  }, [data])
 
-  const loadMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1)
-  }
-
-  if (isLoading && currentPage === 1) {
+  if (isLoading) {
     return <Loader />
   }
   if (error) {
@@ -112,11 +116,14 @@ const Deals = () => {
       <Table
         className={styles.containerTable}
         columns={columns}
-        dataSource={deals}
+        dataSource={data?.content || []}
         pagination={false}
       />
       <div className={styles.wrapperButton}>
-        <Button onClick={loadMore} className={styles.loadMoreButton}>
+        <Button
+          className={styles.loadMoreButton}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+        >
           Load More
         </Button>
       </div>
