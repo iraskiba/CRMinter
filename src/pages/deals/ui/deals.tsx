@@ -8,7 +8,6 @@ import {
 import { ColumnsType } from 'antd/es/table'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import Loader from '@shared/ui/loader/loader.tsx'
 import { useState } from 'react'
 
 const columns: ColumnsType<Deal> = [
@@ -71,15 +70,11 @@ type PaginationResponse<T> = {
   content: T[]
 }
 
-const fetchDeals = async (
-  currentPage: number,
-): Promise<PaginationResponse<Deal>> => {
-  console.log(currentPage)
+const fetchDeals = async (currentPage: number) => {
   const response = await axios.post<PaginationResponse<Deal>>(
     'http://localhost:3001/deals',
     { currentPage: currentPage - 1 },
   )
-  console.log(response.data)
   return response.data
 }
 const Deals = () => {
@@ -89,9 +84,6 @@ const Deals = () => {
     queryFn: () => fetchDeals(currentPage),
   })
 
-  if (isLoading) {
-    return <Loader />
-  }
   if (error) {
     return <div>Error loading data</div>
   }
@@ -118,6 +110,7 @@ const Deals = () => {
         columns={columns}
         dataSource={data?.content || []}
         pagination={false}
+        loading={isLoading}
       />
       <div className={styles.wrapperButton}>
         <Button
