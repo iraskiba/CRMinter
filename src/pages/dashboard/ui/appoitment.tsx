@@ -1,5 +1,5 @@
 import styles from './styles.module.scss'
-import { Avatar, AvatarProps, Button } from 'antd'
+import { Avatar, AvatarProps, Button, Col, Row } from 'antd'
 import { FC } from 'react'
 import dayjs from 'dayjs'
 
@@ -26,13 +26,15 @@ const Appoitment: FC<Props> = ({
   return (
     <div className={styles.containerAppointment}>
       <h3>Next Appointment</h3>
-      <div className={styles.avatarBlock}>
-        <Avatar size="large" {...avatarProps} />
-        <div className={styles.deal}>
+      <Row>
+        <Col span={6}>
+          <Avatar size="large" {...avatarProps} />
+        </Col>
+        <Col span={18} className={styles.deal}>
           <span>{deal}</span>
           <span>{description}</span>
-        </div>
-      </div>
+        </Col>
+      </Row>
       <div className={styles.common}>
         <span>Appointment Date</span>
         <span>{formattedDate}</span>
