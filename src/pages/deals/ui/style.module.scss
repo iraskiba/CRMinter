@@ -36,3 +36,14 @@
   justify-content: center;
   margin-top: $gutter6;
 }
+
+.statusColor{
+background-color: #ECECFE;
+border-radius: 70px;
+  width: 120px;
+  height: 40px;
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $primaryBlue;
+}

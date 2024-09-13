@@ -6,13 +6,18 @@ import {
   FilterOutlined,
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
+import axios from 'axios'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 const columns: ColumnsType<Customer> = [
   {
     title: <UserSwitchOutlined />,
     dataIndex: 'avatar',
     key: 'avatar',
-    render: () => <Avatar size="large" />,
+    render: (_, { avatar, avatarProps }) => {
+      return <Avatar size="large" src={avatar} {...avatarProps} />
+    },
   },
   {
     title: 'Name',
@@ -45,29 +50,41 @@ const columns: ColumnsType<Customer> = [
 type Customer = {
   id: string
   name: string
-  area: string
-  appointmentDate: string
-  price: string
-  status: string
+  email: string
+  phone: number
+  address: string
+  avatar: string
   avatarProps?: AvatarProps
 }
 
-const data: Customer[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    area: '475 Spruce Drive',
-    appointmentDate: '475 Spruce Drive',
-    price: '300$',
-    status: 'in progress',
-    avatarProps: {},
-  },
-]
+type PaginationResponse<T> = {
+  page: number
+  pageSize: number
+  totalCount: number
+  content: T[]
+}
+
+const fetchCustomers = async (currentPage: number) => {
+  const response = await axios.post<PaginationResponse<Customer>>(
+    'http://localhost:3001/customers',
+    { currentPage: currentPage - 1 },
+  )
+  return response.data
+}
+
 const Customers = () => {
+  const [page, setPage] = useState(1)
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['customers', page],
+    queryFn: () => fetchCustomers(page),
+  })
+  if (error) {
+    return <div>Error loading data</div>
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <span>Total: </span>
+        <span>Total: {data?.totalCount || 0} customers</span>
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
@@ -81,7 +98,20 @@ const Customers = () => {
           </Button>
         </div>
       </div>
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 7 }} />
+      <Table
+        columns={columns}
+        dataSource={data?.content || []}
+        pagination={false}
+        loading={isLoading}
+      />
+      <div className={styles.wrapperButton}>
+        <Button
+          className={styles.loadMoreButton}
+          onClick={() => setPage((prev) => prev + 1)}
+        >
+          Load More
+        </Button>
+      </div>
     </div>
   )
 }

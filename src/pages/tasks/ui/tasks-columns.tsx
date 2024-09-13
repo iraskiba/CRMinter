@@ -5,7 +5,7 @@ import { EditOutlined, PictureOutlined } from '@ant-design/icons'
 type TasksTable = {
   id: string
   date: string
-  tasks: string | string[]
+  tasks: string
 }
 
 type ColumnsProps = {

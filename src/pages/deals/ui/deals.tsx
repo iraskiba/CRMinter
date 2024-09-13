@@ -1,4 +1,4 @@
-import { Avatar, Button, Table, AvatarProps } from 'antd'
+import { Avatar, Button, Table, AvatarProps, Tag } from 'antd'
 import styles from './style.module.scss'
 import {
   FilterOutlined,
@@ -43,6 +43,9 @@ const columns: ColumnsType<Deal> = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: (_, { status }) => {
+      return <Tag className={styles.statusColor}>{status}</Tag>
+    },
   },
   {
     title: 'Edit',
