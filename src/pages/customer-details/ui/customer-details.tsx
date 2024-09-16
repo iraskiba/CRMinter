@@ -3,10 +3,12 @@ import FormInput from '@shared/ui/form-items/input'
 import styles from './styles.module.scss'
 import AvatarUpload from '@pages/customer-details/ui'
 import { Avatar, Button, Col, Row } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { zocker } from 'zocker'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const DealScheme = z.object({
   avatar: z.string().length(1),
@@ -43,6 +45,8 @@ const SchemeCustomer = z.object({
 type Customer = z.infer<typeof SchemeCustomer>
 
 const CustomerDetails = () => {
+  const { id } = useParams<{ id: string }>()
+
   const methods = useForm<Customer>({
     mode: 'onChange',
     resolver: zodResolver(SchemeCustomer),
@@ -58,9 +62,21 @@ const CustomerDetails = () => {
     },
   })
   const {
+    reset,
     handleSubmit,
     formState: { errors, isValid },
   } = methods
+
+  useEffect(() => {
+    const fetchCustomer = async () => {
+      const response = await axios.get<Customer>(
+        `http://localhost:3001/customers/${id}`,
+      )
+      reset(response.data)
+    }
+
+    fetchCustomer()
+  }, [id, reset])
 
   const [showMoreDeals, setShowMoreDeals] = useState(false)
   const showDeals = () => {

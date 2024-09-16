@@ -9,6 +9,7 @@ import { ColumnsType } from 'antd/es/table'
 import axios from 'axios'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 
 const columns: ColumnsType<Customer> = [
   {
@@ -73,6 +74,11 @@ const fetchCustomers = async (currentPage: number) => {
 }
 
 const Customers = () => {
+  const navigate = useNavigate()
+  const handleClick = (record: Customer) => {
+    navigate(`/customers/${record.id}`)
+  }
+
   const [page, setPage] = useState(1)
   const { data, error, isLoading } = useQuery({
     queryKey: ['customers', page],
@@ -103,6 +109,9 @@ const Customers = () => {
         dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}
+        onRow={(record) => ({
+          onClick: () => handleClick(record),
+        })}
       />
       <div className={styles.wrapperButton}>
         <Button
