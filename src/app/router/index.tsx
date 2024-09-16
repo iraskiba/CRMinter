@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router-dom'
-import { Paths } from './path.ts'
+import Paths from './path.ts'
 import { Navigate } from 'react-router-dom'
 import Deals from '@pages/deals'
 import Customers from '@pages/customers'

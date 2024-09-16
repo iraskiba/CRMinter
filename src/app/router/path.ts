@@ -1,4 +1,4 @@
-export const Paths: Record<string, { name: string; path: string }> = {
+const Paths: Record<string, { name: string; path: string }> = {
   home: { name: 'Dashboard', path: '/' },
   deals: { name: 'Deals', path: '/deals' },
   //dealDetails: { name: 'Deal Details', path: '/deals/:id'},
@@ -9,3 +9,4 @@ export const Paths: Record<string, { name: string; path: string }> = {
   reminder: { name: 'Reminder', path: '/reminder' },
   settings: { name: 'Settings', path: '/settings' },
 }
+export default Paths

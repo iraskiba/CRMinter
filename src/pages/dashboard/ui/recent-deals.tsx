@@ -24,7 +24,9 @@ const RecentDeals: FC<Props> = ({
     <>
       <Row gutter={[16, 16]}>
         <Col span={16}>
-          <span>Recent Deals</span>
+          <span className={(styles.textTitle, styles.textTitleSpace)}>
+            Recent Deals
+          </span>
           <Row gutter={[16, 24]}>
             <Col span={4}>
               <Avatar size={50} {...avatarProps} />
@@ -32,22 +34,24 @@ const RecentDeals: FC<Props> = ({
 
             <Col span={20}>
               <Row>
-                <span className={styles.dealName}>{dealName}</span>
+                <span className={styles.textTitle}>{dealName}</span>
               </Row>
               <Row>
-                <span className={styles.dealDescription}>{description}</span>
+                <span className={styles.textDescription}>{description}</span>
               </Row>
             </Col>
           </Row>
         </Col>
 
         <Col span={8}>
-          <Button type="text">View All</Button>
+          <Button className={styles.textTitleSpace} type="text">
+            View All
+          </Button>
 
           <Row>
-            <span className={styles.dealName}>{`$${priceInfo}`}</span>
+            <span className={styles.textTitle}>{`$${priceInfo}`}</span>
           </Row>
-          <span className={styles.dealDescription}>{formattedDate}</span>
+          <span className={styles.textDescription}>{formattedDate}</span>
         </Col>
       </Row>
     </>

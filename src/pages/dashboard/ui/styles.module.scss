@@ -63,6 +63,7 @@
 .avatarContainer {
   overflow: hidden;
 }
+
 h3{
   margin:0;
 }
@@ -102,16 +103,18 @@ h3{
   justify-content: space-between;
 }
 
-.recentDeals{
-  width:40% ;
-}
-
-.dealName{
+.textTitle{
   color: $primaryNavy;
   font-size: $large-number;
   font-weight: 700;
 }
 
-.dealDescription{
+.textDescription{
 color: $grayDark;
+}
+
+.textTitleSpace{
+  display: inline-block;
+  margin-top: $gutter6;
+  margin-bottom: $gutter6;
 }
