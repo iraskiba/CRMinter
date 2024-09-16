@@ -9,11 +9,11 @@ type TasksTable = {
 }
 
 type ColumnsProps = {
-  handleEdit: () => void
+  showModal: () => void
 }
 
 const TasksColumns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
-  handleEdit,
+  showModal,
 }) => [
   {
     title: <PictureOutlined />,
@@ -35,7 +35,7 @@ const TasksColumns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
     title: 'Edit',
     dataIndex: 'edit',
     key: 'edit',
-    render: () => <Button icon={<EditOutlined />} onClick={handleEdit} />,
+    render: () => <Button icon={<EditOutlined />} onClick={showModal} />,
   },
 ]
 export default TasksColumns

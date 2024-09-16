@@ -6,6 +6,7 @@ import EditTaskModal from '@pages/tasks/ui/edit-task-modal.tsx'
 import TasksColumns from '@pages/tasks/ui/tasks-columns.tsx'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import useModelStore from '@pages/customers/model/modal-store.ts'
 
 type TasksTable = {
   id: string
@@ -28,7 +29,7 @@ const fetchCTasks = async (currentPage: number) => {
 }
 
 const TasksTable = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const { isModalVisible, showModal, hiddenModal } = useModelStore()
   const [currentPage, setCurrentPage] = useState(1)
 
   const { data, error, isLoading } = useQuery({
@@ -38,13 +39,6 @@ const TasksTable = () => {
 
   if (error) {
     return <div>Error loading data</div>
-  }
-  const handleEdit = () => {
-    setIsModalVisible(true)
-  }
-
-  const handleClose = () => {
-    setIsModalVisible(false)
   }
 
   return (
@@ -65,12 +59,12 @@ const TasksTable = () => {
         </div>
       </div>
       <Table
-        columns={TasksColumns({ handleEdit })}
+        columns={TasksColumns({ showModal })}
         dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}
       />
-      <EditTaskModal visible={isModalVisible} onClose={handleClose} />
+      <EditTaskModal visible={isModalVisible} onClose={hiddenModal} />
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}

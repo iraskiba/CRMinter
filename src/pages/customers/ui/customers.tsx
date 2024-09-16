@@ -7,9 +7,10 @@ import {
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import usePaginationStore from '@pages/customers/model/store.ts'
 
 const columns: ColumnsType<Customer> = [
   {
@@ -79,11 +80,18 @@ const Customers = () => {
     navigate(`/customers/${record.id}`)
   }
 
-  const [page, setPage] = useState(1)
+  const { page, setPage, setTotalCount } = usePaginationStore()
   const { data, error, isLoading } = useQuery({
     queryKey: ['customers', page],
     queryFn: () => fetchCustomers(page),
   })
+
+  useEffect(() => {
+    if (data) {
+      setTotalCount(data.totalCount)
+    }
+  }, [data, setTotalCount])
+
   if (error) {
     return <div>Error loading data</div>
   }
@@ -109,14 +117,16 @@ const Customers = () => {
         dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}
-        onRow={(record) => ({
-          onClick: () => handleClick(record),
-        })}
+        onRow={(record) => {
+          return {
+            onClick: () => handleClick(record),
+          }
+        }}
       />
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={() => setPage(page + 1)}
         >
           Load More
         </Button>
