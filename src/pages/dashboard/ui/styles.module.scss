@@ -63,6 +63,7 @@
 .avatarContainer {
   overflow: hidden;
 }
+
 h3{
   margin:0;
 }
@@ -102,3 +103,18 @@ h3{
   justify-content: space-between;
 }
 
+.textTitle{
+  color: $primaryNavy;
+  font-size: $large-number;
+  font-weight: 700;
+}
+
+.textDescription{
+color: $grayDark;
+}
+
+.textTitleSpace{
+  display: inline-block;
+  margin-top: $gutter6;
+  margin-bottom: $gutter6;
+}

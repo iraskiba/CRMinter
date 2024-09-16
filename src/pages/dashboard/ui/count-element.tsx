@@ -10,7 +10,13 @@ type LogoContainerProps = {
 
 type Props = LogoContainerProps & AvatarProps
 
-const CountElement: FC<Props> = ({ icon, title, count, ...avatarProps }) => {
+const CountElement: FC<Props> = ({
+  icon,
+  title,
+  count,
+  className,
+  ...avatarProps
+}) => {
   return (
     <div className={styles.container}>
       <div>
@@ -18,12 +24,7 @@ const CountElement: FC<Props> = ({ icon, title, count, ...avatarProps }) => {
         <h2>{count}</h2>
       </div>
       <div className={styles.avatarContainer}>
-        <Avatar
-          size={80}
-          icon={icon}
-          {...avatarProps}
-          className={styles.gradientGreen}
-        />
+        <Avatar size={80} icon={icon} {...avatarProps} className={className} />
       </div>
     </div>
   )
