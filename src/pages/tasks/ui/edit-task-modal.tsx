@@ -1,8 +1,8 @@
 import { Button, Modal, Input, Form, Checkbox } from 'antd'
 import { FC } from 'react'
 import { CloseOutlined } from '@ant-design/icons'
-import axios from 'axios'
 import { useMutation } from '@tanstack/react-query'
+import { postTask } from '../model/api.tsx'
 
 type TaskModalProps = {
   visible: boolean
@@ -16,11 +16,6 @@ type TaskFormValues = {
 }
 
 const EditTaskModal: FC<TaskModalProps> = ({ visible, onClose }) => {
-  const postTask = async (task: TaskFormValues) => {
-    const response = await axios.post('http://localhost:3001/tasks', task)
-    return response.data
-  }
-
   const mutation = useMutation({
     mutationFn: postTask,
   })

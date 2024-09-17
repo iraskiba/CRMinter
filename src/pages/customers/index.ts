@@ -1,2 +1,4 @@
 import Customers from './ui/customers.tsx'
-export default Customers
+import usePaginationStore from './model/store.ts'
+
+export { Customers, usePaginationStore }

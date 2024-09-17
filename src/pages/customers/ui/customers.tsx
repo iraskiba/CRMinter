@@ -10,7 +10,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import usePaginationStore from '@pages/customers/model/store.ts'
+import { usePaginationStore } from '@pages/customers'
 
 const columns: ColumnsType<Customer> = [
   {
@@ -80,17 +80,18 @@ const Customers = () => {
     navigate(`/customers/${record.id}`)
   }
 
-  const { page, setPage, setTotalCount } = usePaginationStore()
+  const { params, setParams } = usePaginationStore()
+  const { page, pageSize, totalCount } = params
   const { data, error, isLoading } = useQuery({
-    queryKey: ['customers', page],
+    queryKey: ['customers', page, pageSize],
     queryFn: () => fetchCustomers(page),
   })
 
   useEffect(() => {
     if (data) {
-      setTotalCount(data.totalCount)
+      setParams({ totalCount: data.totalCount })
     }
-  }, [data, setTotalCount])
+  }, [data, setParams])
 
   if (error) {
     return <div>Error loading data</div>
@@ -98,7 +99,7 @@ const Customers = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <span>Total: {data?.totalCount || 0} customers</span>
+        <span>Total: {totalCount || 0} customers</span>
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
@@ -126,7 +127,7 @@ const Customers = () => {
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}
-          onClick={() => setPage(page + 1)}
+          onClick={() => setParams({ page: page + 1 })}
         >
           Load More
         </Button>

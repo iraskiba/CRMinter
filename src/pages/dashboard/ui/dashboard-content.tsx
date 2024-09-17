@@ -3,7 +3,7 @@ import CountElement from './count-element.tsx'
 import { UsergroupDeleteOutlined } from '@ant-design/icons'
 import styles from './styles.module.scss'
 import { Col, Row } from 'antd'
-import RecentDeals from '@pages/dashboard/ui/recent-deals.tsx'
+import RecentDeals from './recent-deals.tsx'
 
 const DashboardContent = () => {
   return (
