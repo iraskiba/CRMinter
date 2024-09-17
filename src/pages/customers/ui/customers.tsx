@@ -1,78 +1,12 @@
-import { Avatar, Button, Table, AvatarProps } from 'antd'
+import { Button, Table } from 'antd'
 import styles from './styles.module.scss'
-import {
-  UserSwitchOutlined,
-  EditOutlined,
-  FilterOutlined,
-} from '@ant-design/icons'
-import { ColumnsType } from 'antd/es/table'
-import axios from 'axios'
+import { FilterOutlined } from '@ant-design/icons'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { usePaginationStore } from '@pages/customers'
-
-const columns: ColumnsType<Customer> = [
-  {
-    title: <UserSwitchOutlined />,
-    dataIndex: 'avatar',
-    key: 'avatar',
-    render: (_, { avatar, avatarProps }) => {
-      return <Avatar size="large" src={avatar} {...avatarProps} />
-    },
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'phone',
-    key: 'phone',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Edit',
-    dataIndex: 'edit',
-    key: 'edit',
-    render: () => <Button icon={<EditOutlined />} />,
-  },
-]
-
-type Customer = {
-  id: string
-  name: string
-  email: string
-  phone: number
-  address: string
-  avatar: string
-  avatarProps?: AvatarProps
-}
-
-type PaginationResponse<T> = {
-  page: number
-  pageSize: number
-  totalCount: number
-  content: T[]
-}
-
-const fetchCustomers = async (currentPage: number) => {
-  const response = await axios.post<PaginationResponse<Customer>>(
-    'http://localhost:3001/customers',
-    { currentPage: currentPage - 1 },
-  )
-  return response.data
-}
+import { Customer, fetchCustomers } from '@pages/customers/model/api.tsx'
+import { CustomersColumns } from '@pages/customers'
 
 const Customers = () => {
   const navigate = useNavigate()
@@ -114,7 +48,7 @@ const Customers = () => {
         </div>
       </div>
       <Table
-        columns={columns}
+        columns={CustomersColumns()}
         dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}
