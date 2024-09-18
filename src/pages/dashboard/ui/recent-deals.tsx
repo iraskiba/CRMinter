@@ -1,4 +1,4 @@
-import { Avatar, AvatarProps, Button, Col, Row } from 'antd'
+import { Avatar, AvatarProps, Button } from 'antd'
 import dayjs from 'dayjs'
 import { FC } from 'react'
 import styles from './styles.module.scss'
@@ -20,40 +20,82 @@ const RecentDeals: FC<Props> = ({
   ...avatarProps
 }) => {
   const formattedDate = dayjs(date).format('MMM DD, YYYY HH:mm')
+  const deals = [
+    {
+      dealName: '319 Haul Road',
+      description: 'Prime location',
+      date: '2023-09-18T10:00:00Z',
+      priceInfo: '500,000',
+      avatarProps,
+    },
+    {
+      dealName: '456 Elm Street',
+      description: 'Spacious and modern',
+      date: '2023-09-17T14:30:00Z',
+      priceInfo: '750,000',
+      avatarProps,
+    },
+    {
+      dealName: '789 Maple Avenue',
+      description: 'Cozy and affordable',
+      date: '2023-09-16T09:15:00Z',
+      priceInfo: '300,000',
+      avatarProps,
+    },
+    {
+      dealName: '789 Maple Avenue',
+      description: 'Cozy and affordable',
+      date: '2023-09-16T09:15:00Z',
+      priceInfo: '300,000',
+      avatarProps,
+    },
+  ]
   return (
     <>
-      <Row gutter={[16, 16]}>
-        <Col span={16}>
-          <span className={(styles.textTitle, styles.textTitleSpace)}>
-            Recent Deals
-          </span>
-          <Row gutter={[16, 24]}>
-            <Col span={4}>
-              <Avatar size={50} {...avatarProps} />
-            </Col>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+        }}
+      >
+        <span className={(styles.textTitle, styles.textTitleSpace)}>
+          Recent Deals
+        </span>
+        <Button className={styles.textTitleSpace} type="text">
+          View All
+        </Button>
+      </div>
 
-            <Col span={20}>
-              <Row>
-                <span className={styles.textTitle}>{dealName}</span>
-              </Row>
-              <Row>
-                <span className={styles.textDescription}>{description}</span>
-              </Row>
-            </Col>
-          </Row>
-        </Col>
+      {deals.map((deal, index) => (
+        <div
+          key={index}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: '24px',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar size={50} {...avatarProps} />
+            <div>
+              <p className={styles.textTitle}>{deal.dealName}</p>
+              <p className={styles.textDescription}>{deal.description}</p>
+            </div>
+          </div>
 
-        <Col span={8}>
-          <Button className={styles.textTitleSpace} type="text">
-            View All
-          </Button>
-
-          <Row>
-            <span className={styles.textTitle}>{`$${priceInfo}`}</span>
-          </Row>
-          <span className={styles.textDescription}>{formattedDate}</span>
-        </Col>
-      </Row>
+          <div>
+            <p className={styles.textTitle}>{`$${deal.priceInfo}`}</p>
+            <p className={styles.textDescription}>{formattedDate}</p>
+          </div>
+        </div>
+      ))}
     </>
   )
 }

@@ -1,12 +1,13 @@
-import { Button, Table } from 'antd'
+import { Button, Checkbox, Table } from 'antd'
 import styles from './styles.module.scss'
 import { FilterOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import EditTaskModal from '@pages/tasks/ui/edit-task-modal.tsx'
-import TasksColumns from '@pages/tasks/ui/tasks-columns.tsx'
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import useModelStore from '@pages/customers/model/modal-store.ts'
+import { ColumnsType } from 'antd/es/table'
+import { EditOutlined, PictureOutlined } from '@ant-design/icons'
+import { fetchCTasks } from '@pages/tasks/api/api.tsx'
 
 type TasksTable = {
   id: string
@@ -14,19 +15,36 @@ type TasksTable = {
   tasks: string
 }
 
-type PaginationResponse<T> = {
-  page: number
-  pageSize: number
-  totalCount: number
-  content: T[]
+type ColumnsProps = {
+  showModal: () => void
 }
-const fetchCTasks = async (currentPage: number) => {
-  const response = await axios.post<PaginationResponse<TasksTable>>(
-    'http://localhost:3001/tasks',
-    { currentPage: currentPage - 1 },
-  )
-  return response.data
-}
+
+const columns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
+  showModal,
+}) => [
+  {
+    title: <PictureOutlined />,
+    dataIndex: 'check',
+    key: 'avatar',
+    render: () => <Checkbox />,
+  },
+  {
+    title: 'Due Date',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: 'Tasks',
+    dataIndex: 'tasks',
+    key: 'tasks',
+  },
+  {
+    title: 'Edit',
+    dataIndex: 'edit',
+    key: 'edit',
+    render: () => <Button icon={<EditOutlined />} onClick={showModal} />,
+  },
+]
 
 const TasksTable = () => {
   const { isModalVisible, showModal, hiddenModal } = useModelStore()
@@ -59,7 +77,7 @@ const TasksTable = () => {
         </div>
       </div>
       <Table
-        columns={TasksColumns({ showModal })}
+        columns={columns({ showModal })}
         dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}

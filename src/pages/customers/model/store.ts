@@ -5,7 +5,6 @@ type State = {
   params: {
     page: number
     pageSize: number
-    totalCount: number
     sortByCreationDate: boolean
     sortByDueDate: boolean
   }
@@ -18,7 +17,6 @@ const initialState: State = {
   params: {
     page: 1,
     pageSize: 7,
-    totalCount: 0,
     sortByCreationDate: false,
     sortByDueDate: false,
   },
