@@ -56,7 +56,7 @@ const RecentDeals: FC<Props> = ({
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
         }}
       >
         <span className={(styles.textTitle, styles.textTitleSpace)}>
@@ -73,7 +73,7 @@ const RecentDeals: FC<Props> = ({
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
           }}
         >
           <div
