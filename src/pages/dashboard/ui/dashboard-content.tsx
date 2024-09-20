@@ -1,14 +1,15 @@
 import Appoitment from './appoitment.tsx'
 import CountElement from './count-element.tsx'
-import { UsergroupDeleteOutlined } from '@ant-design/icons'
+import { EditOutlined, UsergroupDeleteOutlined } from '@ant-design/icons'
 import styles from './styles.module.scss'
 import { Col, Row } from 'antd'
-import RecentDeals from '@pages/dashboard/ui/recent-deals.tsx'
+import RecentDeals from './recent-deals.tsx'
+import DashboardCustomers from '@pages/dashboard/ui/dashboard-customers.tsx'
 
 const DashboardContent = () => {
   return (
     <>
-      <Row gutter={[16, 24]}>
+      <Row gutter={[48, 48]}>
         <Col span={4}>
           <Appoitment
             deal="Deal Name"
@@ -19,7 +20,7 @@ const DashboardContent = () => {
             countP={5}
           />
         </Col>
-        <Col span={12}>
+        <Col span={10}>
           <RecentDeals
             dealName={'319 Haul Road'}
             description={'Glenrock,WY'}
@@ -29,11 +30,10 @@ const DashboardContent = () => {
         </Col>
 
         <Col span={8}>
-          <RecentDeals
-            dealName={'cdcmdcdcd'}
-            description={'cdlkcdmckdmc'}
-            priceInfo={'55555'}
-            date={'dmckdmcs'}
+          <DashboardCustomers
+            name={'Deanna Annis'}
+            email={'deannannis@gmail.com'}
+            icon={<EditOutlined />}
           />
         </Col>
       </Row>

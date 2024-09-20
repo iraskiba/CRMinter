@@ -1,6 +1,7 @@
 import { Button, Modal, Input } from 'antd'
 import { FC } from 'react'
 import { CloseOutlined } from '@ant-design/icons'
+import { eventBus } from '@shared/lib/event-bus.ts'
 
 type TaskModalProps = {
   visible: boolean
@@ -8,6 +9,14 @@ type TaskModalProps = {
 }
 
 const TasksModal: FC<TaskModalProps> = ({ visible, onClose }) => {
+  const handleSaveTask = () => {
+    console.log('Task opened')
+    eventBus.emit('notification', {
+      type: 'success',
+      message: 'Task Saved',
+    })
+    onClose()
+  }
   return (
     <>
       <Modal
@@ -18,14 +27,7 @@ const TasksModal: FC<TaskModalProps> = ({ visible, onClose }) => {
           <Button onClick={onClose} key="cancel" type="default">
             Cancel
           </Button>,
-          <Button
-            key="ok"
-            type="primary"
-            onClick={() => {
-              console.log('Task opened')
-              onClose()
-            }}
-          >
+          <Button key="ok" type="primary" onClick={handleSaveTask}>
             Save Task
           </Button>,
         ]}

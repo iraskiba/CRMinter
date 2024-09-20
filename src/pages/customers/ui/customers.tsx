@@ -1,15 +1,23 @@
-import { Avatar, Button, Table, AvatarProps } from 'antd'
+import { AvatarProps, Button, Table, Avatar } from 'antd'
 import styles from './styles.module.scss'
-import {
-  UserSwitchOutlined,
-  EditOutlined,
-  FilterOutlined,
-} from '@ant-design/icons'
-import { ColumnsType } from 'antd/es/table'
-import axios from 'axios'
-import { useState } from 'react'
+import { FilterOutlined } from '@ant-design/icons'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { usePaginationStore } from '@pages/customers'
+import { fetchCustomers } from '@pages/customers/api/api.tsx'
+import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
+import { ColumnsType } from 'antd/es/table'
+
+type Customer = {
+  id: string
+  name: string
+  email: string
+  phone: number
+  address: string
+  avatar: string
+  avatarProps?: AvatarProps
+}
 
 const columns: ColumnsType<Customer> = [
   {
@@ -47,50 +55,33 @@ const columns: ColumnsType<Customer> = [
     render: () => <Button icon={<EditOutlined />} />,
   },
 ]
-
-type Customer = {
-  id: string
-  name: string
-  email: string
-  phone: number
-  address: string
-  avatar: string
-  avatarProps?: AvatarProps
-}
-
-type PaginationResponse<T> = {
-  page: number
-  pageSize: number
-  totalCount: number
-  content: T[]
-}
-
-const fetchCustomers = async (currentPage: number) => {
-  const response = await axios.post<PaginationResponse<Customer>>(
-    'http://localhost:3001/customers',
-    { currentPage: currentPage - 1 },
-  )
-  return response.data
-}
-
 const Customers = () => {
   const navigate = useNavigate()
   const handleClick = (record: Customer) => {
     navigate(`/customers/${record.id}`)
   }
 
-  const [page, setPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(0)
+  const { params, setParams } = usePaginationStore()
+  const { page, pageSize } = params
   const { data, error, isLoading } = useQuery({
-    queryKey: ['customers', page],
+    queryKey: ['customers', page, pageSize],
     queryFn: () => fetchCustomers(page),
   })
+
+  useEffect(() => {
+    if (data) {
+      setTotalCount(data.totalCount)
+    }
+  }, [data])
+
   if (error) {
     return <div>Error loading data</div>
   }
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <span>Total: {data?.totalCount || 0} customers</span>
+        <span>Total: {totalCount || 0} customers</span>
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
@@ -116,7 +107,7 @@ const Customers = () => {
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={() => setParams({ page: page + 1 })}
         >
           Load More
         </Button>

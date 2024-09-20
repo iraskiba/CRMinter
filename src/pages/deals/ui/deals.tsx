@@ -6,9 +6,9 @@ import {
   PictureOutlined,
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
-import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import { fetchDeals } from '@pages/deals/api/api.ts'
 
 const columns: ColumnsType<Deal> = [
   {
@@ -66,20 +66,6 @@ type Deal = {
   avatarProps?: AvatarProps
 }
 
-type PaginationResponse<T> = {
-  page: number
-  pageSize: number
-  totalCount: number
-  content: T[]
-}
-
-const fetchDeals = async (currentPage: number) => {
-  const response = await axios.post<PaginationResponse<Deal>>(
-    'http://localhost:3001/deals',
-    { currentPage: currentPage - 1 },
-  )
-  return response.data
-}
 const Deals = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const { data, error, isLoading } = useQuery({
