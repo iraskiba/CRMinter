@@ -1,4 +1,3 @@
-//import BASE_URL from '@shared/lib/axios.tsx'
 import { $api } from '@shared/lib/axios.tsx'
 
 type TaskFormValues = {
