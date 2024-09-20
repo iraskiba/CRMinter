@@ -1,6 +1,5 @@
 import { AvatarProps } from 'antd'
-import createAxiosInstance from '@shared/lib/interceptors.tsx'
-import BASE_URL from '@shared/constants.ts'
+import instance from '@shared/lib/axios.tsx'
 
 type Deal = {
   id: string
@@ -19,16 +18,15 @@ type PaginationResponse<T> = {
   totalCount: number
   content: T[]
 }
-const dealsAxios = createAxiosInstance(`${BASE_URL}/deals`)
 
 export const fetchDeals = async (currentPage: number) => {
   try {
-    const { data } = await dealsAxios.post<PaginationResponse<Deal>>('', {
+    const { data } = await instance.post<PaginationResponse<Deal>>('/deals', {
       currentPage: currentPage - 1,
     })
     return data
   } catch (error) {
-    console.error('Failed to fetch:', error)
+    console.error('Failed to fetch deals:', error)
     return null
   }
 }
