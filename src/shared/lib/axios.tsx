@@ -1,14 +1,13 @@
 import axios from 'axios'
-const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3001'
+const BASE_URL = 'http://localhost:3001/api'
 
-const instance = axios.create({
+export const $api = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
 })
-instance.interceptors.request.use(
+$api.interceptors.request.use(
   (config) => {
     console.log('Sent:', config)
     return config
@@ -19,7 +18,7 @@ instance.interceptors.request.use(
   },
 )
 
-instance.interceptors.response.use(
+$api.interceptors.response.use(
   (response) => {
     if (response.status === 200) {
       console.log('Ok:', response.data)
@@ -33,5 +32,3 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-
-export default instance

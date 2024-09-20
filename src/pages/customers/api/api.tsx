@@ -1,7 +1,5 @@
 import { AvatarProps } from 'antd'
-import instance from '@shared/lib/axios.tsx'
-import BASE_URL from '@shared/lib/axios.tsx'
-
+import { $api } from '@shared/lib/axios.tsx'
 export type Customer = {
   id: string
   name: string
@@ -19,12 +17,10 @@ type PaginationResponse<T> = {
   content: T[]
 }
 
-const customersAxios = instance
-customersAxios.defaults.baseURL = `${BASE_URL}/customers`
 export const fetchCustomers = async (currentPage: number) => {
   try {
-    const { data } = await customersAxios.post<PaginationResponse<Customer>>(
-      '',
+    const { data } = await $api.post<PaginationResponse<Customer>>(
+      '/customers',
       {
         currentPage: currentPage - 1,
       },

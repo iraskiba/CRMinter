@@ -1,5 +1,5 @@
 import { AvatarProps } from 'antd'
-import instance from '@shared/lib/axios.tsx'
+import { $api } from '@shared/lib/axios.tsx'
 
 type Deal = {
   id: string
@@ -21,7 +21,7 @@ type PaginationResponse<T> = {
 
 export const fetchDeals = async (currentPage: number) => {
   try {
-    const { data } = await instance.post<PaginationResponse<Deal>>('/deals', {
+    const { data } = await $api.post<PaginationResponse<Deal>>('/deals', {
       currentPage: currentPage - 1,
     })
     return data
