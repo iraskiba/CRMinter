@@ -1,4 +1,4 @@
-type EventCallback = (...args: any[]) => void
+type EventCallback = (...args: unknown[]) => void
 
 const createEventBus = () => {
   const events: Record<string, Set<EventCallback>> = {}
@@ -16,7 +16,7 @@ const createEventBus = () => {
 
       events[event].delete(callback)
     },
-
+    // eslint-disable-next-line
     emit(event: string, ...args: any) {
       if (!events[event]) return
 
