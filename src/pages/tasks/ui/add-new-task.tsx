@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 import TasksModal from '@pages/tasks/ui/tasks-modal.tsx'
 
 type TaskModalProps = {
-  visible: boolean
+  open: boolean
   onClose: () => void
 }
 const AddNewTask: FC<TaskModalProps> = () => {
@@ -19,7 +19,7 @@ const AddNewTask: FC<TaskModalProps> = () => {
 
   return (
     <div>
-      <TasksModal visible={isModalVisible} onClose={handleClose} />
+      <TasksModal open={isModalVisible} onClose={handleClose} />
       <CustomButton variant={'new'} onClick={showModal} />
     </div>
   )

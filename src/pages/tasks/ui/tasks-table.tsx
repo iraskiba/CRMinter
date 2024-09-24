@@ -82,7 +82,7 @@ const TasksTable = () => {
         pagination={false}
         loading={isLoading}
       />
-      <EditTaskModal visible={isModalVisible} onClose={hiddenModal} />
+      <EditTaskModal open={isModalVisible} onClose={hiddenModal} />
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}

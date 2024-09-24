@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 type ModalStore = {
   isModalVisible: boolean
   showModal: () => void

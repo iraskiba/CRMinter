@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { postTask } from '../api/api.tsx'
 
 type TaskModalProps = {
-  visible: boolean
+  open: boolean
   onClose: () => void
 }
 
@@ -15,7 +15,7 @@ type TaskFormValues = {
   description: string
 }
 
-const EditTaskModal: FC<TaskModalProps> = ({ visible, onClose }) => {
+const EditTaskModal: FC<TaskModalProps> = ({ open, onClose }) => {
   const mutation = useMutation({
     mutationFn: postTask,
   })
@@ -35,7 +35,7 @@ const EditTaskModal: FC<TaskModalProps> = ({ visible, onClose }) => {
   return (
     <Modal
       centered={true}
-      visible={visible}
+      open={open}
       onCancel={onClose}
       footer={[
         <Button danger onClick={onClose} key="cancel" type="text">

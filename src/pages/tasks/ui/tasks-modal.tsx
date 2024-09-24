@@ -4,11 +4,11 @@ import { CloseOutlined } from '@ant-design/icons'
 import { eventBus } from '@shared/lib/event-bus.ts'
 
 type TaskModalProps = {
-  visible: boolean
+  open: boolean
   onClose: () => void
 }
 
-const TasksModal: FC<TaskModalProps> = ({ visible, onClose }) => {
+const TasksModal: FC<TaskModalProps> = ({ open, onClose }) => {
   const handleSaveTask = () => {
     console.log('Task opened')
     eventBus.emit('notification', {
@@ -21,7 +21,7 @@ const TasksModal: FC<TaskModalProps> = ({ visible, onClose }) => {
     <>
       <Modal
         centered={true}
-        visible={visible}
+        open={open}
         onCancel={onClose}
         footer={[
           <Button onClick={onClose} key="cancel" type="default">
