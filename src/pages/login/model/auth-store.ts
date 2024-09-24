@@ -1,7 +1,7 @@
 import { create } from 'zustand'
-import { immer } from 'zustand/middleware/immer'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
-type UserState = {
+type State = {
   user: {
     id: string
     name: string
@@ -11,26 +11,32 @@ type UserState = {
   } | null
 }
 
-type UserActions = {
-  setUser: (user: UserState['user']) => void
+type Actions = {
+  setUser: (user: State['user']) => void
   resetUser: () => void
 }
 
-const initialUserState: UserState = {
+const initialUserState: State = {
   user: null,
 }
 
-const useUserStore = create<UserState & UserActions>()(
-  immer((set) => ({
-    ...initialUserState,
-    setUser: (user) =>
-      set((state) => {
-        state.user = user
-      }),
-    resetUser: () =>
-      set((state) => {
-        state.user = initialUserState.user
-      }),
-  })),
+const useUserStore = create<State & Actions>()(
+  persist(
+    (set) => ({
+      ...initialUserState,
+      setUser: (user) =>
+        set(() => ({
+          user: user,
+        })),
+      resetUser: () =>
+        set(() => ({
+          user: initialUserState.user,
+        })),
+    }),
+    {
+      name: 'user-storage',
+      storage: createJSONStorage(() => sessionStorage),
+    },
+  ),
 )
 export default useUserStore
