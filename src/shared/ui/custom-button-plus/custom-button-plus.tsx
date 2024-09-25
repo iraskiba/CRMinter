@@ -6,11 +6,12 @@ import { ButtonProps } from 'antd/es/button/button'
 
 const buttonTexts = {
   new: 'Add New',
+  task: 'Add New Task',
   deal: 'Add New Deal',
   customer: 'Add New Customer',
 }
 
-type ButtonVariant = 'new' | 'deal' | 'customer'
+export type ButtonVariant = 'new' | 'task' | 'deal' | 'customer'
 
 type CustomButtonProps = {
   variant: ButtonVariant

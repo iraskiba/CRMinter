@@ -5,7 +5,8 @@ import styles from './styles.module.scss'
 import { OptionProps } from 'rc-select/lib/Option'
 
 const { Option } = Select
-type Props = { name: string; options: OptionProps } & SelectProps //кастомные пропсы + наследование пропсов из библиотеки
+
+type Props = { name: string; options: OptionProps[] } & SelectProps //кастомные пропсы + наследование пропсов из библиотеки
 const UniversalSelect = ({ name, options, ...selectProps }: Props) => {
   const { control } = useFormContext()
   const {

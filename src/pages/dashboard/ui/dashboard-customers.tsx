@@ -3,13 +3,13 @@ import React, { FC } from 'react'
 import styles from './styles.module.scss'
 import { EditOutlined } from '@ant-design/icons'
 
-type CustomersProps = {
+export type CustomersProps = {
   name: string
   email: string
   icon: React.ReactNode
 }
 
-type Props = CustomersProps & AvatarProps
+export type Props = CustomersProps & AvatarProps
 
 const DashboardCustomers: FC<Props> = ({
   name,

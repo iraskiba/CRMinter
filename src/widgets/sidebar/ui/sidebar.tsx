@@ -13,7 +13,12 @@ import { NavLink } from 'react-router-dom'
 import Paths from '@app/router/path.ts'
 
 const items = [
-  { icon: <AppstoreAddOutlined />, to: Paths.home.path, name: Paths.home.name },
+  {
+    icon: <AppstoreAddOutlined />,
+    to: Paths.home.path,
+    name: Paths.home.name,
+    buttonVariant: 'new',
+  },
   { icon: <ShoppingOutlined />, to: Paths.deals.path, name: Paths.deals.name },
   {
     icon: <UsergroupAddOutlined />,
