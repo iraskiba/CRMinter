@@ -100,4 +100,3 @@ export const ModalContentMap: FC<ModalContentProps> = ({ path, onSubmit }) => {
     </div>
   )
 }
-export default ModalContentMap

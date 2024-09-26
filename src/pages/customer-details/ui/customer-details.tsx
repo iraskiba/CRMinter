@@ -10,16 +10,17 @@ import { zocker } from 'zocker'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
-const DealScheme = z.object({
+const CustomerScheme = z.object({
   avatar: z.string().length(1),
   title: z.string(),
   time: z.string(),
   price: z.number(),
 })
 
-const MockDeals = zocker(DealScheme.array().length(5)).generate()
+const MockCustomer = zocker(CustomerScheme.array().length(5)).generate()
 
 const SchemeCustomer = z.object({
+  id: z.string(),
   firstName: z
     .string()
     .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
@@ -28,6 +29,7 @@ const SchemeCustomer = z.object({
     .string()
     .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
     .nullable(),
+  avatar: z.string(),
   email: z.string().email('Email is not correct').nullable(),
   phone: z
     .string()
@@ -69,10 +71,14 @@ const CustomerDetails = () => {
 
   useEffect(() => {
     const fetchCustomer = async () => {
-      const response = await axios.get<Customer>(
-        `http://localhost:3001/customers/${id}`,
-      )
-      reset(response.data)
+      try {
+        const { data } = await axios.get<Customer>(
+          `http://localhost:3001/customers/${id}`,
+        )
+        reset(data)
+      } catch (error) {
+        console.error('Error fetching customer data:', error)
+      }
     }
 
     fetchCustomer()
@@ -178,7 +184,7 @@ const CustomerDetails = () => {
           </Col>
         </Row>
 
-        {(showMoreDeals ? MockDeals : MockDeals.slice(0, 3)).map(
+        {(showMoreDeals ? MockCustomer : MockCustomer.slice(0, 3)).map(
           (deal, index) => (
             <div key={index} className={styles.deal}>
               <Row gutter={18}>

@@ -7,7 +7,7 @@ type InputType = {
   type: string
   name: string
   required?: boolean
-  placeholder: string
+  placeholder?: string
   label?: string
   rules?: RegisterOptions
 } & InputProps

@@ -1,28 +1,22 @@
 import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import styles from './style.module.scss'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { ButtonProps } from 'antd/es/button/button'
 
-const buttonTexts = {
-  new: 'Add New',
-  task: 'Add New Task',
-  deal: 'Add New Deal',
-  customer: 'Add New Customer',
-}
-
-export type ButtonVariant = 'new' | 'task' | 'deal' | 'customer'
-
 type CustomButtonProps = {
-  variant: ButtonVariant
+  children?: ReactNode
+  icon?: ReactNode
+  buttonText?: string
 } & ButtonProps
+
 const CustomButton: FC<CustomButtonProps> = ({
-  variant,
+  children,
+  icon,
+  buttonText = 'Add New',
   onClick,
   ...props
 }) => {
-  const buttonText = buttonTexts[variant] || 'Add New'
-
   return (
     <Button
       onClick={onClick}
@@ -32,7 +26,7 @@ const CustomButton: FC<CustomButtonProps> = ({
       iconPosition="end"
       {...props}
     >
-      {buttonText}
+      {children || buttonText}
     </Button>
   )
 }

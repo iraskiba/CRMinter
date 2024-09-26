@@ -1,13 +1,17 @@
 import { Button, Checkbox, Table } from 'antd'
 import styles from './styles.module.scss'
-import { FilterOutlined } from '@ant-design/icons'
-import { useState } from 'react'
-import EditTaskModal from '@pages/tasks/ui/edit-task-modal.tsx'
+import {
+  FilterOutlined,
+  EditOutlined,
+  PictureOutlined,
+} from '@ant-design/icons'
+import { useEffect, useState } from 'react'
+import EditTaskModal from '../../../enteties/tasks/ui/edit-task-modal.tsx'
 import { useQuery } from '@tanstack/react-query'
-import useModelStore from '@pages/customers/model/modal-store.ts'
+import { useModelStore } from '@pages/customers'
 import { ColumnsType } from 'antd/es/table'
-import { EditOutlined, PictureOutlined } from '@ant-design/icons'
 import { fetchCTasks } from '@pages/tasks/api/api.tsx'
+import { eventBus } from '@shared/lib/event-bus.ts'
 
 type TasksTable = {
   id: string
@@ -15,13 +19,7 @@ type TasksTable = {
   tasks: string
 }
 
-type ColumnsProps = {
-  showModal: () => void
-}
-
-const columns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
-  showModal,
-}) => [
+const columns: ColumnsType<TasksTable> = [
   {
     title: <PictureOutlined />,
     dataIndex: 'check',
@@ -42,7 +40,14 @@ const columns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
     title: 'Edit',
     dataIndex: 'edit',
     key: 'edit',
-    render: () => <Button icon={<EditOutlined />} onClick={showModal} />,
+    render: (_, record) => (
+      <Button
+        icon={<EditOutlined />}
+        onClick={() =>
+          eventBus.emit('openModal', { modalType: 'second', modalData: record })
+        }
+      />
+    ),
   },
 ]
 
@@ -54,6 +59,19 @@ const TasksTable = () => {
     queryKey: ['tasks', currentPage],
     queryFn: () => fetchCTasks(currentPage),
   })
+
+  useEffect(() => {
+    const handleOpenModal = (event: unknown) => {
+      const modalEvent = event as { modalType: string }
+      if (modalEvent.modalType === 'second') {
+        showModal()
+      }
+    }
+    eventBus.subscribe('openModal', handleOpenModal)
+    return () => {
+      eventBus.unsubscribe('openModal', handleOpenModal)
+    }
+  }, [showModal])
 
   if (error) {
     return <div>Error loading data</div>
@@ -77,7 +95,7 @@ const TasksTable = () => {
         </div>
       </div>
       <Table
-        columns={columns({ showModal })}
+        columns={columns}
         dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}

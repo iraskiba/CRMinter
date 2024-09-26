@@ -2,7 +2,7 @@ import { Button, Modal, Input, Form, Checkbox } from 'antd'
 import { FC } from 'react'
 import { CloseOutlined } from '@ant-design/icons'
 import { useMutation } from '@tanstack/react-query'
-import { postTask } from '../api/api.tsx'
+import { postTask } from '@pages/tasks/api/api.tsx'
 
 type TaskModalProps = {
   open: boolean
