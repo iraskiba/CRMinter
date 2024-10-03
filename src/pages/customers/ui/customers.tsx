@@ -8,6 +8,7 @@ import { usePaginationStore } from '@pages/customers'
 import { fetchCustomers } from '@pages/customers/api/api.tsx'
 import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
+import useCustomerStore from '@pages/customers/model/customers-store.ts'
 
 type Customer = {
   id: string
@@ -58,12 +59,10 @@ const columns: ColumnsType<Customer> = [
 const Customers = () => {
   const navigate = useNavigate()
 
-  const handleClick = (record: Customer) => {
-    navigate(`/customers/${record.id}`, { state: { customer: record } })
-  }
-
   const [totalCount, setTotalCount] = useState(0)
   const { params, setParams } = usePaginationStore()
+  const { customer, setCustomer } = useCustomerStore()
+
   const { page, pageSize } = params
   const { data, error, isLoading } = useQuery({
     queryKey: ['customers', page, pageSize],
@@ -73,8 +72,9 @@ const Customers = () => {
   useEffect(() => {
     if (data) {
       setTotalCount(data.totalCount)
+      setCustomer(data.content)
     }
-  }, [data])
+  }, [data, setCustomer])
 
   if (error) {
     return <div>Error loading data</div>
@@ -98,11 +98,15 @@ const Customers = () => {
       </div>
       <Table
         columns={columns}
-        dataSource={data?.content || []}
+        dataSource={customer}
+        //dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}
         onRow={(record) => ({
-          onClick: () => handleClick(record),
+          onClick: () =>
+            navigate(`/customers/${record.id}`, {
+              state: { customer: record },
+            }),
         })}
       />
       <div className={styles.wrapperButton}>

@@ -1,27 +1,35 @@
-import { Avatar, AvatarProps, Button } from 'antd'
-import React, { FC } from 'react'
+import { Avatar, Button } from 'antd'
 import styles from './styles.module.scss'
-import { EditOutlined } from '@ant-design/icons'
-
+import useCustomerStore from '@pages/customers/model/customers-store.ts'
+import { ReactNode, useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { fetchCustomers } from '@pages/customers/api/api.tsx'
 export type CustomersProps = {
   name: string
   email: string
-  icon: React.ReactNode
+  icon: ReactNode
 }
+const DashboardCustomers = ({ icon }: CustomersProps) => {
+  const { customer, setCustomer } = useCustomerStore()
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['dashboardCustomers'],
+    queryFn: () => fetchCustomers(1),
+  })
 
-export type Props = CustomersProps & AvatarProps
+  useEffect(() => {
+    if (data) {
+      setCustomer(data.content)
+    }
+  }, [data, setCustomer])
 
-const DashboardCustomers: FC<Props> = ({
-  name,
-  email,
-  icon,
-  ...avatarProps
-}) => {
-  const customers = [
-    { name: 'John Doe', email: 'john@example.com', avatarProps },
-    { name: 'Jane Smith', email: 'jane@example.com', avatarProps },
-    { name: 'Alice Johnson', email: 'alice@example.com', avatarProps },
-  ]
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error loading data</div>
+  }
+
   return (
     <>
       <div
@@ -38,7 +46,7 @@ const DashboardCustomers: FC<Props> = ({
           View All
         </Button>
       </div>
-      {customers.map((customer, index) => (
+      {customer.slice(0, 4).map((customer, index: number) => (
         <div
           key={index}
           style={{
@@ -52,7 +60,7 @@ const DashboardCustomers: FC<Props> = ({
             <p className={styles.textTitle}>{customer.name}</p>
             <p className={styles.textDescription}>{customer.email}</p>
           </div>
-          <Button icon={<EditOutlined />} />
+          <Button icon={icon} />
         </div>
       ))}
     </>
