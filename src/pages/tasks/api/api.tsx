@@ -1,9 +1,9 @@
 import { $api } from '@shared/lib/axios.tsx'
 
 type TaskFormValues = {
-  complete: boolean
-  dueDate: string
-  description: string
+  id: string
+  date: string
+  tasks: string
 }
 
 type TasksTable = {

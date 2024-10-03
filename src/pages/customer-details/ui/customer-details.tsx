@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { zocker } from 'zocker'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const CustomerScheme = z.object({
@@ -48,11 +48,13 @@ type Customer = z.infer<typeof SchemeCustomer>
 
 const CustomerDetails = () => {
   const { id } = useParams<{ id: string }>()
+  const location = useLocation()
+  const customer = location.state?.customer
 
   const methods = useForm<Customer>({
     mode: 'onChange',
     resolver: zodResolver(SchemeCustomer),
-    defaultValues: {
+    defaultValues: customer || {
       firstName: '',
       lastName: '',
       email: '',
@@ -70,19 +72,23 @@ const CustomerDetails = () => {
   } = methods
 
   useEffect(() => {
-    const fetchCustomer = async () => {
-      try {
-        const { data } = await axios.get<Customer>(
-          `http://localhost:3001/customers/${id}`,
-        )
-        reset(data)
-      } catch (error) {
-        console.error('Error fetching customer data:', error)
+    if (customer) {
+      reset(customer)
+    } else {
+      const fetchCustomer = async () => {
+        try {
+          const { data } = await axios.get(
+            `http://localhost:3001/customers/${id}`,
+          )
+          reset(data)
+        } catch (error) {
+          console.error('Error fetching customer data:', error)
+        }
       }
-    }
 
-    fetchCustomer()
-  }, [id, reset])
+      fetchCustomer()
+    }
+  }, [id, customer, reset])
 
   const [showMoreDeals, setShowMoreDeals] = useState(false)
   const showDeals = () => {

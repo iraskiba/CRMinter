@@ -1,29 +1,42 @@
-import { Avatar, Button, Modal } from 'antd'
-import { FC } from 'react'
-import { CloseOutlined } from '@ant-design/icons'
+import { Avatar, AvatarProps, Button, Col, Row } from 'antd'
+import { FormEvent } from 'react'
 import { eventBus } from '@shared/lib/event-bus.ts'
 import { FormProvider, useForm } from 'react-hook-form'
 import FormInput from '@shared/ui/form-items/input'
 import DateInput from './day-picker.tsx'
 import UniversalSelect from '@shared/ui/form-items/select'
 import { OptionProps } from 'rc-select/lib/Option'
+import { ModalEvent } from '../../../process/modal/index.ts'
+import styles from './styles.module.scss'
 
-type ModalProps = {
-  open: boolean
-  onClose: () => void
+type Deal = {
+  id?: string
+  name: string
+  area: string
+  appointmentDate: string
+  price: string
+  status: string
+  avatar?: string
+  avatarProps?: AvatarProps
 }
+const AddDeals = ({ deal }: { deal: Deal }) => {
+  const methods = useForm({
+    defaultValues: deal || {},
+  })
 
-const AddDeals: FC<ModalProps> = ({ open, onClose }) => {
-  const methods = useForm()
-  const handleSaveCustomer = () => {
+  const handleSaveDeal = () => {
     eventBus.emit('notification', {
       type: 'success',
       message: 'Deals Saved',
     })
-    onClose()
   }
-  const onSubmit = () => {
-    methods.handleSubmit(handleSaveCustomer)
+  const handleClose = () => {
+    ModalEvent.close()
+  }
+  const onSubmit = (event: FormEvent) => {
+    event.preventDefault()
+    methods.handleSubmit(handleSaveDeal)()
+    handleClose()
   }
 
   type CustomOptionProps = Omit<OptionProps, 'children'> & {
@@ -38,50 +51,92 @@ const AddDeals: FC<ModalProps> = ({ open, onClose }) => {
   ]
 
   return (
-    <>
-      <Modal
-        centered={true}
-        open={open}
-        onCancel={onClose}
-        footer={[
-          <Button onClick={onClose} key="cancel" type="default">
-            Cancel
-          </Button>,
-          <Button key="ok" type="primary" onClick={handleSaveCustomer}>
-            Save Deal
-          </Button>,
-        ]}
-        closeIcon={<CloseOutlined />}
-        title="Add New Deal"
-      >
-        <FormProvider {...methods}>
-          <form onSubmit={onSubmit}>
-            <div>
-              <Avatar size={50} />
-              <div>
-                <p>Customer</p>
-                <p>Customer Name</p>
-                <Button type="default">Change Customer</Button>
-              </div>
-            </div>
+    <FormProvider {...methods}>
+      <h2>{deal ? 'Edit Deal' : 'Add New Deal'}</h2>
+      <form onSubmit={onSubmit}>
+        <div>
+          <Avatar size={50} src={deal?.avatar} />
+          <Button type="default">Change Customer</Button>
+        </div>
+        <FormInput
+          style={{ marginBottom: '20px' }}
+          type="text"
+          name="name"
+          label="Street Address"
+        />
 
-            <FormInput type="text" name="address" label="Street Address" />
-            <FormInput type="text" name="city" />
-            <FormInput type="text" name="state" />
-            <FormInput type="text" name="code" />
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={8}>
+            <FormInput type="text" name="area" placeholder="City" />
+          </Col>
+          <Col span={8}>
+            <FormInput type="text" name="state" placeholder="State/ Province" />
+          </Col>
+          <Col span={8}>
+            <FormInput type="text" name="code" placeholder="Zip Code" />
+          </Col>
+        </Row>
+
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}>
             <FormInput label="Room Area (m2)" type="text" name="area" />
+          </Col>
+          <Col span={12}>
             <FormInput type="text" name="code" label="# of People" />
-            <DateInput />
+          </Col>
+        </Row>
+
+        <DateInput />
+        <FormInput
+          style={{ marginBottom: '20px' }}
+          type="text"
+          name="instructions"
+          placeholder="Special Instructions"
+          label="Special Instructions"
+        />
+
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}>
+            <UniversalSelect
+              label="Room Access"
+              name="roomAccess"
+              options={roomAccessOptions}
+            />
+          </Col>
+          <Col span={12}>
             <FormInput
               type="text"
-              name="instructions"
-              placeholder="Special Instructions"
+              name="price"
+              placeholder="500"
+              label="Price"
             />
-            <UniversalSelect name="roomAccess" options={roomAccessOptions} />
-          </form>
-        </FormProvider>
-      </Modal>
-    </>
+          </Col>
+        </Row>
+
+        <UniversalSelect
+          label="Progress"
+          name="progress"
+          options={roomAccessOptions}
+        />
+
+        {!deal && (
+          <Button
+            onClick={handleClose}
+            type="default"
+            className={styles.commonButton}
+          >
+            Cancel
+          </Button>
+        )}
+        <Button
+          type="primary"
+          htmlType="submit"
+          className={styles.commonButton}
+        >
+          {deal ? 'Done' : 'Save Deal'}
+        </Button>
+      </form>
+    </FormProvider>
   )
 }
 

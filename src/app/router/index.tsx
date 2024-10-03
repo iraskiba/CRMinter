@@ -51,7 +51,7 @@ export const rotes: RouteObject[] = [
         element: <div>test</div>,
       },
       {
-        path: Paths.reminder.path,
+        path: Paths.events.path,
         element: <div>test</div>,
       },
       {

@@ -7,11 +7,21 @@ import {
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { fetchDeals } from '@pages/deals/api/api.ts'
-import { eventBus } from '@shared/lib/event-bus.ts'
-import { useModelStore } from '@pages/customers'
+import { ModalEvent } from '../../../process/modal/index.ts'
 import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
+
+type Deal = {
+  id?: string
+  name: string
+  area: string
+  appointmentDate: string
+  price: string
+  status: string
+  avatar?: string
+  avatarProps?: AvatarProps
+}
 
 const columns: ColumnsType<Deal> = [
   {
@@ -54,44 +64,23 @@ const columns: ColumnsType<Deal> = [
     title: 'Edit',
     dataIndex: 'edit',
     key: 'edit',
-    render: () => (
+    render: (_, record) => (
       <Button
         icon={<EditOutlined />}
-        onClick={() => eventBus.emit('openEditModal')}
+        onClick={() => {
+          ModalEvent.open(<AddDeals deal={record} />)
+        }}
       />
     ),
   },
 ]
 
-type Deal = {
-  id: string
-  name: string
-  area: string
-  appointmentDate: string
-  price: string
-  status: string
-  avatar: string
-  avatarProps?: AvatarProps
-}
-
 const Deals = () => {
-  const { isModalVisible, showModal, hiddenModal } = useModelStore()
-
   const [currentPage, setCurrentPage] = useState(1)
   const { data, error, isLoading } = useQuery({
     queryKey: ['deals', currentPage],
     queryFn: () => fetchDeals(currentPage),
   })
-
-  useEffect(() => {
-    const handleOpenModal = () => {
-      showModal()
-    }
-    eventBus.subscribe('openEditModal', handleOpenModal)
-    return () => {
-      eventBus.unsubscribe('openEditModal', handleOpenModal)
-    }
-  }, [showModal])
 
   if (error) {
     return <div>Error loading data</div>
@@ -121,7 +110,6 @@ const Deals = () => {
         pagination={false}
         loading={isLoading}
       />
-      <AddDeals open={isModalVisible} onClose={hiddenModal} />
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}

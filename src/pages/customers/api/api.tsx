@@ -1,10 +1,10 @@
 import { AvatarProps } from 'antd'
 import { $api } from '@shared/lib/axios.tsx'
-export type Customer = {
+type Customer = {
   id: string
-  name: string
+  name?: string
   email: string
-  phone: number
+  phone: string
   address: string
   avatar: string
   avatarProps?: AvatarProps

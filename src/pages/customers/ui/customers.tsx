@@ -11,9 +11,9 @@ import { ColumnsType } from 'antd/es/table'
 
 type Customer = {
   id: string
-  name: string
+  name?: string
   email: string
-  phone: number
+  phone: string
   address: string
   avatar: string
   avatarProps?: AvatarProps
@@ -57,8 +57,9 @@ const columns: ColumnsType<Customer> = [
 ]
 const Customers = () => {
   const navigate = useNavigate()
+
   const handleClick = (record: Customer) => {
-    navigate(`/customers/${record.id}`)
+    navigate(`/customers/${record.id}`, { state: { customer: record } })
   }
 
   const [totalCount, setTotalCount] = useState(0)

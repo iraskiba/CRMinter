@@ -33,8 +33,8 @@ const items = [
   },
   {
     icon: <SignatureOutlined />,
-    to: Paths.reminder.path,
-    name: Paths.reminder.name,
+    to: Paths.events.path,
+    name: Paths.events.name,
   },
   {
     icon: <SettingOutlined />,
