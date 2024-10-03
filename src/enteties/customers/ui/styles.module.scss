@@ -3,9 +3,11 @@
   height: 50px;
   width: 120px;
 }
+
 .commonButton{
   @include button-styles
 }
+
 .buttonContainer{
   display: flex;
   align-items: center;

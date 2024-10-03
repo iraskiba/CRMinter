@@ -9,7 +9,7 @@ import { OptionProps } from 'rc-select/lib/Option'
 import { ModalEvent } from '../../../process/modal/index.ts'
 import styles from './styles.module.scss'
 
-type Deal = {
+export type Deal = {
   id?: string
   name: string
   area: string

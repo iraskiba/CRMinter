@@ -7,9 +7,10 @@ import { useLocation } from 'react-router-dom'
 import CustomButton from '@shared/ui/custom-button-plus'
 import Paths from '@app/router/path.ts'
 import AddCustomer from '../../../enteties/customers/ui/modal-add-customers.tsx'
-import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
+import AddDeals, { Deal } from '../../../enteties/deals/ui/modal-add-deals.tsx'
 import AddTasks from '../../../enteties/tasks/ui/modal-add-tasks.tsx'
 import { ModalEvent } from '../../../process/modal/index.ts'
+import AddNew from '../../../enteties/dashboard/modal-add-new.tsx'
 
 const getPageTitle = (pathname: string) => {
   const pathKey = Object.keys(Paths).find((key) => Paths[key].path === pathname)
@@ -23,7 +24,8 @@ const getButtonText = (path: string): string => {
   const pathEntry = Object.values(Paths).find((entry) => entry.path === path)
   return pathEntry ? `Add New ${pathEntry.name}` : 'Add New'
 }
-const Header = () => {
+
+const Header = ({ deal }: { deal: Deal }) => {
   const location = useLocation()
   const pageTitle = getPageTitle(location.pathname)
   const buttonText = getButtonText(location.pathname)
@@ -32,9 +34,11 @@ const Header = () => {
     if (buttonText.includes('Customers')) {
       return <AddCustomer />
     } else if (buttonText.includes('Deals')) {
-      return <AddDeals />
+      return <AddDeals deal={deal} />
     } else if (buttonText.includes('Tasks')) {
       return <AddTasks />
+    } else if (buttonText.includes('New')) {
+      return <AddNew deal={deal} />
     }
     return null
   }
