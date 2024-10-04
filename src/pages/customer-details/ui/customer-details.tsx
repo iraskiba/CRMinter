@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { zocker } from 'zocker'
 import { useLocation, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { useCustomerStore } from '@pages/customers'
 
 const CustomerScheme = z.object({
   avatar: z.string().length(1),
@@ -30,7 +31,12 @@ const SchemeCustomer = z.object({
     .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
     .nullable(),
   avatar: z.string(),
-  email: z.string().email('Email is not correct').nullable(),
+  email: z
+    .string()
+    .email('Email is not correct')
+    .nullable()
+    .or(z.literal(''))
+    .optional(),
   phone: z
     .string()
     .regex(
@@ -50,6 +56,7 @@ const CustomerDetails = () => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const customer = location.state?.customer
+  const { updateCustomer } = useCustomerStore()
 
   const methods = useForm<Customer>({
     mode: 'onChange',
@@ -96,6 +103,7 @@ const CustomerDetails = () => {
   }
 
   const onSubmit: SubmitHandler<Customer> = (data) => {
+    updateCustomer(data.id, data)
     console.log(data)
   }
 

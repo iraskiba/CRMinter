@@ -2,16 +2,12 @@ import Sidebar from '@widgets/sidebar'
 import { Outlet } from 'react-router-dom'
 import Header from '@widgets/header'
 import styles from './styles.module.scss'
-import { FC } from 'react'
+import { Deal } from '../../../enteties/deals/ui/modal-add-deals.tsx'
 
-type TaskModalProps = {
-  visible: boolean
-  onClose: () => void
-}
-const Dashboard: FC<TaskModalProps> = ({ visible, onClose }) => {
+const Dashboard = ({ deal }: { deal: Deal }) => {
   return (
     <div>
-      <Header visible={visible} onClose={onClose} />
+      <Header deal={deal} />
       <main className={styles.main}>
         <Sidebar />
         <section className={styles.section}>

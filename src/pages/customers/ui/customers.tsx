@@ -11,12 +11,12 @@ import { ColumnsType } from 'antd/es/table'
 import useCustomerStore from '@pages/customers/model/customers-store.ts'
 
 type Customer = {
-  id: string
-  name?: string
-  email: string
-  phone: string
-  address: string
-  avatar: string
+  id: string | null
+  name?: string | null
+  email: string | null
+  phone: string | null
+  address: string | null
+  avatar: string | null
   avatarProps?: AvatarProps
 }
 
@@ -99,7 +99,6 @@ const Customers = () => {
       <Table
         columns={columns}
         dataSource={customer}
-        //dataSource={data?.content || []}
         pagination={false}
         loading={isLoading}
         onRow={(record) => ({
