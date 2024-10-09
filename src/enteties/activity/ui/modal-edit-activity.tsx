@@ -2,8 +2,8 @@ import { Button, Input } from 'antd'
 import { FormEvent } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { eventBus } from '@shared/lib/event-bus.ts'
-import { ModalEvent } from '../../process/modal/index.ts'
-import DateInput from '../deals/ui/day-picker.tsx'
+import { ModalEvent } from '@process/modal'
+import DateInput from '../../deals/ui/day-picker.tsx'
 
 const EditActivity = () => {
   const methods = useForm()

@@ -7,9 +7,10 @@ import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { zocker } from 'zocker'
-import { useLocation, useParams } from 'react-router-dom'
-import axios from 'axios'
+import { useParams } from 'react-router-dom'
 import { useCustomerStore } from '@pages/customers'
+import { useQuery } from '@tanstack/react-query'
+import { $api } from '@shared/lib/axios.tsx'
 
 const CustomerScheme = z.object({
   avatar: z.string().length(1),
@@ -18,50 +19,50 @@ const CustomerScheme = z.object({
   price: z.number(),
 })
 
-const MockCustomer = zocker(CustomerScheme.array().length(5)).generate()
+const MockCustomerBlock = zocker(CustomerScheme.array().length(5)).generate()
 
 const SchemeCustomer = z.object({
   id: z.string(),
-  firstName: z
-    .string()
-    .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
-    .nullable(),
-  lastName: z
-    .string()
-    .regex(/^[A-Za-z]+$/, 'Must contain only Latin letters')
-    .nullable(),
+  firstName: z.string().regex(/^[A-Za-z]+$/, 'Must contain only Latin letters'),
+  lastName: z.string().regex(/^[A-Za-z]+$/, 'Must contain only Latin letters'),
   avatar: z.string(),
-  email: z
-    .string()
-    .email('Email is not correct')
-    .nullable()
-    .or(z.literal(''))
-    .optional(),
+  email: z.string().email('Email is not correct').or(z.literal('')),
   phone: z
     .string()
     .regex(
       /^\d{7,}$/,
       'Phone number must be at least 7 digits long and contain only numbers',
-    )
-    .nullable(),
-  address: z.string().nullable(),
+    ),
+  address: z.string(),
   city: z.string().nullable(),
-  province: z.string().nullable().optional(),
-  code: z.string().nullable().optional(),
+  province: z.string().optional().nullable(),
+  code: z.string().optional().nullable(),
+  creationDate: z.string().optional().default(''),
+  dueDate: z.string().optional().default(''),
 })
 
 type Customer = z.infer<typeof SchemeCustomer>
 
 const CustomerDetails = () => {
   const { id } = useParams<{ id: string }>()
-  const location = useLocation()
-  const customer = location.state?.customer
   const { updateCustomer } = useCustomerStore()
+
+  const fetchCustomer = async (id: string) => {
+    try {
+      console.log(id)
+
+      const { data } = await $api.get(`/customers/${id}`)
+      return data
+    } catch (error) {
+      console.error('Error fetching customer data:', error)
+      return null
+    }
+  }
 
   const methods = useForm<Customer>({
     mode: 'onChange',
     resolver: zodResolver(SchemeCustomer),
-    defaultValues: customer || {
+    defaultValues: {
       firstName: '',
       lastName: '',
       email: '',
@@ -78,24 +79,18 @@ const CustomerDetails = () => {
     formState: { errors, isValid },
   } = methods
 
-  useEffect(() => {
-    if (customer) {
-      reset(customer)
-    } else {
-      const fetchCustomer = async () => {
-        try {
-          const { data } = await axios.get(
-            `http://localhost:3001/customers/${id}`,
-          )
-          reset(data)
-        } catch (error) {
-          console.error('Error fetching customer data:', error)
-        }
-      }
+  const { data, error } = useQuery({
+    queryKey: ['customer', id],
+    queryFn: () => fetchCustomer(id!),
+    enabled: !!id,
+  })
 
-      fetchCustomer()
+  useEffect(() => {
+    if (data) {
+      console.log(data)
+      reset(data)
     }
-  }, [id, customer, reset])
+  }, [data, reset])
 
   const [showMoreDeals, setShowMoreDeals] = useState(false)
   const showDeals = () => {
@@ -106,6 +101,7 @@ const CustomerDetails = () => {
     updateCustomer(data.id, data)
     console.log(data)
   }
+  if (error) return <div>Error fetching customer data</div>
 
   return (
     <Row gutter={24}>
@@ -198,22 +194,23 @@ const CustomerDetails = () => {
           </Col>
         </Row>
 
-        {(showMoreDeals ? MockCustomer : MockCustomer.slice(0, 3)).map(
-          (deal, index) => (
-            <div key={index} className={styles.deal}>
-              <Row gutter={18}>
-                <Col className={styles.avatarBlock} span={24}>
-                  <Avatar size="large">{deal.avatar}</Avatar>
-                  <span className={styles.dealsTitle}>{deal.title}</span>
-                </Col>
-                <Col span={12}>
-                  <span className={styles.dealDetails}>{deal.time}</span>
-                  <span className={styles.dealDetails}>{deal.price}</span>
-                </Col>
-              </Row>
-            </div>
-          ),
-        )}
+        {(showMoreDeals
+          ? MockCustomerBlock
+          : MockCustomerBlock.slice(0, 3)
+        ).map((deal, index) => (
+          <div key={index} className={styles.deal}>
+            <Row gutter={18}>
+              <Col className={styles.avatarBlock} span={24}>
+                <Avatar size="large">{deal.avatar}</Avatar>
+                <span className={styles.dealsTitle}>{deal.title}</span>
+              </Col>
+              <Col span={12}>
+                <span className={styles.dealDetails}>{deal.time}</span>
+                <span className={styles.dealDetails}>{deal.price}</span>
+              </Col>
+            </Row>
+          </div>
+        ))}
         <div className={styles.buttonLoadMore}>
           {!showMoreDeals && (
             <Button onClick={showDeals} type="text" className={styles.button}>

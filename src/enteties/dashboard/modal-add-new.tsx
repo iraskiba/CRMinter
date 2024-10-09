@@ -5,12 +5,12 @@ import {
   ArrowRightOutlined,
 } from '@ant-design/icons'
 import { ModalEvent } from '../../process/modal/index.ts'
-import AddDeals, { Deal } from '../deals/ui/modal-add-deals.tsx'
+import AddDeals from '../deals/ui/modal-add-deals.tsx'
 import AddCustomer from '../customers/ui/modal-add-customers.tsx'
 
-const AddNew = ({ deal }: { deal: Deal }) => {
+const AddNew = () => {
   const openDealModal = () => {
-    ModalEvent.open(<AddDeals deal={deal} />)
+    ModalEvent.open(<AddDeals />)
   }
 
   const openCustomerModal = () => {

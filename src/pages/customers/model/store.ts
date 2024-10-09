@@ -1,14 +1,18 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
+type SortBy = 'creationDate' | 'dueDate'
+type SortOrder = 'desc' | 'asc'
+
 type State = {
   params: {
     page: number
     pageSize: number
-    sortByCreationDate: boolean
-    sortByDueDate: boolean
+    sortBy: SortBy
+    sortOrder: SortOrder
   }
 }
+
 type Actions = {
   setParams: (params: Partial<State['params']>) => void
   resetParams: () => void
@@ -17,8 +21,8 @@ const initialState: State = {
   params: {
     page: 1,
     pageSize: 7,
-    sortByCreationDate: false,
-    sortByDueDate: false,
+    sortBy: 'creationDate',
+    sortOrder: 'desc',
   },
 }
 

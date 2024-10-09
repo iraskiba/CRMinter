@@ -1,16 +1,5 @@
-import { AvatarProps } from 'antd'
 import { $api } from '@shared/lib/axios.tsx'
-
-type Deal = {
-  id: string
-  name: string
-  area: string
-  appointmentDate: string
-  price: string
-  status: string
-  avatar: string
-  avatarProps?: AvatarProps
-}
+import { Deal } from '@pages/deals/types.ts'
 
 type PaginationResponse<T> = {
   page: number
@@ -19,14 +8,26 @@ type PaginationResponse<T> = {
   content: T[]
 }
 
-export const fetchDeals = async (currentPage: number) => {
+export const fetchDeals = async (
+  currentPage: number,
+  sortBy: 'creationDate' | 'dueDate',
+  sortOrder: 'desc' | 'asc',
+) => {
   try {
     const { data } = await $api.post<PaginationResponse<Deal>>('/deals', {
       currentPage: currentPage - 1,
     })
-    return data
+    return {
+      ...data,
+      content: data.content?.sort((a, b) => {
+        if (sortOrder === 'asc') {
+          return a[sortBy] > b[sortBy] ? 1 : -1
+        } else {
+          return a[sortBy] < b[sortBy] ? 1 : -1
+        }
+      }),
+    }
   } catch (error) {
-    console.error('Failed to fetch deals:', error)
-    return null
+    console.error('Failed to fetch:', error)
   }
 }

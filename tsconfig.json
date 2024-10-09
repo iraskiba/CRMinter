@@ -24,7 +24,9 @@
       "@pages/*": ["src/pages/*"],
       "@router/*": ["src/router/*"],
       "@shared/*": ["src/shared/*"],
-      "@process/*": ["src/process/*"]
+      "@process/*": ["src/process/*"],
+      "@enteties/*": ["src/enteties/*"]
+
     },
     "jsx": "react-jsx"
   },

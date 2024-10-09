@@ -1,4 +1,4 @@
-import { Avatar, AvatarProps, Button, Col, Row } from 'antd'
+import { Avatar, Button, Col, Row } from 'antd'
 import { FormEvent } from 'react'
 import { eventBus } from '@shared/lib/event-bus.ts'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -8,22 +8,16 @@ import UniversalSelect from '@shared/ui/form-items/select'
 import { OptionProps } from 'rc-select/lib/Option'
 import { ModalEvent } from '../../../process/modal/index.ts'
 import styles from './styles.module.scss'
+import { Deal } from '@pages/deals/types.ts'
 
-export type Deal = {
-  id?: string
-  name: string
-  area: string
-  appointmentDate: string
-  price: string
-  status: string
-  avatar?: string
-  avatarProps?: AvatarProps
+type Props = {
+  deal?: Deal
 }
-const AddDeals = ({ deal }: { deal: Deal }) => {
+const AddDeals = ({ deal }: Props) => {
   const methods = useForm({
     defaultValues: deal || {},
   })
-
+  console.log('1', deal)
   const handleSaveDeal = () => {
     eventBus.emit('notification', {
       type: 'success',

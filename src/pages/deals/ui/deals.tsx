@@ -1,4 +1,4 @@
-import { Avatar, Button, Table, AvatarProps, Tag } from 'antd'
+import { Avatar, Button, Select, Table, Tag } from 'antd'
 import styles from './style.module.scss'
 import {
   FilterOutlined,
@@ -7,21 +7,13 @@ import {
 } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchDeals } from '@pages/deals/api/api.ts'
 import { ModalEvent } from '../../../process/modal/index.ts'
 import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
-
-type Deal = {
-  id?: string
-  name: string
-  area: string
-  appointmentDate: string
-  price: string
-  status: string
-  avatar?: string
-  avatarProps?: AvatarProps
-}
+import { Deal } from '@pages/deals/types.ts'
+import { usePaginationStore } from '@pages/customers'
+import useDealStore from '@pages/deals/model/deal-store.ts'
 
 const columns: ColumnsType<Deal> = [
   {
@@ -76,23 +68,52 @@ const columns: ColumnsType<Deal> = [
 ]
 
 const Deals = () => {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(0)
+  const { params, setParams } = usePaginationStore()
+  const { deal, setDeal } = useDealStore()
+
+  const { page, pageSize, sortBy, sortOrder } = params
   const { data, error, isLoading } = useQuery({
-    queryKey: ['deals', currentPage],
-    queryFn: () => fetchDeals(currentPage),
+    queryKey: ['deals', page, pageSize, sortBy, sortOrder],
+    queryFn: () => fetchDeals(page, sortBy, sortOrder),
   })
+
+  useEffect(() => {
+    if (data) {
+      setTotalCount(data.totalCount ?? 0)
+      setDeal(data.content ?? [])
+    }
+  }, [data, setDeal])
 
   if (error) {
     return <div>Error loading data</div>
   }
-
+  const handleSortChange = (value: string) => {
+    const [sortBy, sortOrder] = value.split('.') as [
+      'creationDate' | 'dueDate',
+      'asc' | 'desc',
+    ]
+    setParams({ sortBy, sortOrder })
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <span>Total: {data?.totalCount || 0} deals</span>
+        <span>Total: {totalCount || 0} deals</span>
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
+            <Select
+              popupMatchSelectWidth={false}
+              options={[
+                { value: 'creationDate.desc', label: 'Date Created ↓' },
+                { value: 'creationDate.asc', label: 'Date Created ↑' },
+                { value: 'dueDate.desc', label: 'Due Date ↓' },
+                { value: 'dueDate.asc', label: 'Due Date ↑' },
+              ]}
+              defaultValue="creationDate.desc"
+              style={{ marginLeft: 8 }}
+              onChange={handleSortChange}
+            />
           </Button>
           <Button
             className={styles.button}
@@ -106,14 +127,14 @@ const Deals = () => {
       <Table
         className={styles.containerTable}
         columns={columns}
-        dataSource={data?.content || []}
+        dataSource={deal}
         pagination={false}
         loading={isLoading}
       />
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => setParams({ page: page + 1 })}
         >
           Load More
         </Button>

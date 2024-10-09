@@ -1,4 +1,4 @@
-import { AvatarProps, Button, Table, Avatar } from 'antd'
+import { Button, Table, Avatar, Select } from 'antd'
 import styles from './styles.module.scss'
 import { FilterOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
@@ -9,16 +9,7 @@ import { fetchCustomers } from '@pages/customers/api/api.tsx'
 import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
 import { ColumnsType } from 'antd/es/table'
 import useCustomerStore from '@pages/customers/model/customers-store.ts'
-
-type Customer = {
-  id: string | null
-  name?: string | null
-  email: string | null
-  phone: string | null
-  address: string | null
-  avatar: string | null
-  avatarProps?: AvatarProps
-}
+import { Customer } from '@pages/customers/types.ts'
 
 const columns: ColumnsType<Customer> = [
   {
@@ -63,22 +54,31 @@ const Customers = () => {
   const { params, setParams } = usePaginationStore()
   const { customer, setCustomer } = useCustomerStore()
 
-  const { page, pageSize } = params
+  const { page, pageSize, sortBy, sortOrder } = params
   const { data, error, isLoading } = useQuery({
-    queryKey: ['customers', page, pageSize],
-    queryFn: () => fetchCustomers(page),
-  })
+    queryKey: ['customers', page, pageSize, sortBy, sortOrder],
 
+    queryFn: () => fetchCustomers(page, sortBy, sortOrder),
+  })
   useEffect(() => {
     if (data) {
-      setTotalCount(data.totalCount)
-      setCustomer(data.content)
+      setTotalCount(data.totalCount ?? 0)
+      setCustomer(data.content ?? [])
     }
   }, [data, setCustomer])
 
   if (error) {
     return <div>Error loading data</div>
   }
+
+  const handleSortChange = (value: string) => {
+    const [sortBy, sortOrder] = value.split('.') as [
+      'creationDate' | 'dueDate',
+      'asc' | 'desc',
+    ]
+    setParams({ sortBy, sortOrder })
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -86,7 +86,20 @@ const Customers = () => {
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
+            <Select
+              popupMatchSelectWidth={false}
+              options={[
+                { value: 'creationDate.desc', label: 'Date Created ↓' },
+                { value: 'creationDate.asc', label: 'Date Created ↑' },
+                { value: 'dueDate.desc', label: 'Due Date ↓' },
+                { value: 'dueDate.asc', label: 'Due Date ↑' },
+              ]}
+              defaultValue="creationDate.desc"
+              style={{ marginLeft: 8 }}
+              onChange={handleSortChange}
+            />
           </Button>
+
           <Button
             className={styles.button}
             type="default"

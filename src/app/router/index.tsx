@@ -22,7 +22,7 @@ export const rotes: RouteObject[] = [
     path: Paths.home.path,
     element: (
       <ProtectedRoute>
-        <Dashboard visible={true} onClose={() => {}} />
+        <Dashboard />
       </ProtectedRoute>
     ),
     children: [

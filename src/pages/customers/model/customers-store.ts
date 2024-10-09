@@ -1,16 +1,6 @@
 import { create } from 'zustand'
-import { AvatarProps } from 'antd'
 import { immer } from 'zustand/middleware/immer'
-
-type Customer = {
-  id: string | null
-  name?: string | null
-  email?: string | null
-  phone: string | null
-  address: string | null
-  avatar: string | null
-  avatarProps?: AvatarProps
-}
+import { Customer } from '@pages/customers/types.ts'
 
 type CustomerStore = {
   customer: Customer[]
