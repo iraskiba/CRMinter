@@ -2,23 +2,49 @@ import { Button, Tooltip } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { logo } from './logo.tsx'
 import styles from './styles.module.scss'
-import AddNewTask from '@pages/tasks/ui/add-new-task.tsx'
-import { FC } from 'react'
-import Paths from '@app/router/path.ts'
+import { ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
+import CustomButton from '@shared/ui/custom-button-plus'
+import Paths from '@app/router/path.ts'
+import AddCustomer from '../../../enteties/customers/ui/modal-add-customers.tsx'
+import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
+import AddTasks from '../../../enteties/tasks/ui/modal-add-tasks.tsx'
+import { ModalEvent } from '../../../process/modal/index.ts'
+import AddNew from '../../../enteties/dashboard/modal-add-new.tsx'
 
-type TaskModalProps = {
-  visible: boolean
-  onClose: () => void
-}
 const getPageTitle = (pathname: string) => {
   const pathKey = Object.keys(Paths).find((key) => Paths[key].path === pathname)
   return pathKey ? Paths[pathKey].name : 'Dashboard'
 }
 
-const Header: FC<TaskModalProps> = ({ visible, onClose }) => {
+const getButtonText = (path: string): string => {
+  if (path === Paths.home.path) {
+    return 'Add New'
+  }
+  const pathEntry = Object.values(Paths).find((entry) => entry.path === path)
+  return pathEntry ? `Add New ${pathEntry.name}` : 'Add New'
+}
+
+const Header = () => {
   const location = useLocation()
   const pageTitle = getPageTitle(location.pathname)
+  const buttonText = getButtonText(location.pathname)
+
+  const getChildren = (): ReactNode => {
+    if (buttonText.includes('Customers')) {
+      return <AddCustomer />
+    } else if (buttonText.includes('Deals')) {
+      return <AddDeals />
+    } else if (buttonText.includes('Tasks')) {
+      return <AddTasks />
+    } else if (buttonText.includes('New')) {
+      return <AddNew />
+    }
+    return null
+  }
+  const handleOpenModal = () => {
+    ModalEvent.open(getChildren())
+  }
 
   return (
     <header className={styles.header}>
@@ -31,7 +57,7 @@ const Header: FC<TaskModalProps> = ({ visible, onClose }) => {
       <div className={styles.profile}>
         <ul>
           <li>
-            <AddNewTask visible={visible} onClose={onClose} />
+            <CustomButton onClick={handleOpenModal}>{buttonText}</CustomButton>
           </li>
           <li>
             <Tooltip title="search">

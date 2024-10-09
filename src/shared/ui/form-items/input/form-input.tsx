@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { RegisterOptions, useController, useFormContext } from 'react-hook-form'
 import { Input, InputProps } from 'antd'
 import styles from './styles.module.scss'
@@ -7,9 +7,10 @@ type InputType = {
   type: string
   name: string
   required?: boolean
-  placeholder: string
+  placeholder?: string
   label?: string
   rules?: RegisterOptions
+  icon?: ReactNode
 } & InputProps
 const FormInput: FC<InputType> = ({
   type,
@@ -18,6 +19,7 @@ const FormInput: FC<InputType> = ({
   placeholder,
   label,
   rules,
+  icon,
   ...rest
 }) => {
   const { control } = useFormContext()
@@ -33,6 +35,7 @@ const FormInput: FC<InputType> = ({
         className={styles.input}
         {...field}
         {...rest}
+        addonAfter={icon}
         type={type}
         placeholder={placeholder}
       />
