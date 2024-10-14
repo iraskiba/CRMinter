@@ -62,11 +62,11 @@ const AddCustomer = () => {
       </div>
       <FormProvider {...methods}>
         <form onSubmit={onSubmit}>
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div className={styles.itemFormContainer}>
             <FormInput type="text" name="firstName" label="First Name" />
             <FormInput type="text" name="lastName" label="Last Name" />
           </div>
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div className={styles.itemFormContainer}>
             <FormInput type="email" name="email" label="Email" />
             <FormInput type="phone" name="phone" label="Phone" />
           </div>

@@ -83,14 +83,20 @@
   background-color: $grayLightBg20;
 }
 
-.activityLog{
+.activityLogContainer {
   display: flex;
   flex-direction: column;
- width: 100%;
+  width: 100%;
   padding-left: 24px;
 }
 
-.circleBlue{
+.activityLogItem{
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.circleBlue {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -98,7 +104,7 @@
   position: relative;
 }
 
-.circleWhite{
+.circleWhite {
   transform: translate(-50%, -50%);
   position: absolute;
   left: 50%;
@@ -108,3 +114,10 @@
   border-radius: 50%;
   background-color: white;
 }
+
+.customerInfoItem {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+

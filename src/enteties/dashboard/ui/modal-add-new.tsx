@@ -4,9 +4,10 @@ import {
   UsergroupDeleteOutlined,
   ArrowRightOutlined,
 } from '@ant-design/icons'
-import { ModalEvent } from '../../process/modal/index.ts'
-import AddDeals from '../deals/ui/modal-add-deals.tsx'
-import AddCustomer from '../customers/ui/modal-add-customers.tsx'
+import { ModalEvent } from '../../../process/modal/index.ts'
+import AddDeals from '../../deals/ui/modal-add-deals.tsx'
+import AddCustomer from '../../customers/ui/modal-add-customers.tsx'
+import styles from './styles.module.scss'
 
 const AddNew = () => {
   const openDealModal = () => {
@@ -17,13 +18,7 @@ const AddNew = () => {
     ModalEvent.open(<AddCustomer />)
   }
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <div className={styles.modalContainer}>
       <h2>Add New </h2>
       <Button
         icon={<ShoppingOutlined />}

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Paths from '@app/router/path.ts'
 import useUserStore from '@pages/login/model/auth-store.ts'
 import fetchUserInfo from '@pages/login/api/api.ts'
+import styles from './styles.module.scss'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -36,14 +37,7 @@ const Login = () => {
   })
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
+    <div className={styles.loginContainer}>
       <Button onClick={() => login()} type="primary">
         Sign in with Google
       </Button>

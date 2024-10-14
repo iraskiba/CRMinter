@@ -29,7 +29,7 @@ const DealDetails: FC<DetailsProps> = () => {
     <Row gutter={[24, 24]}>
       <Col span={17}>
         <div className={styles.customerInfoContainer}>
-          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <div className={styles.customerInfoItem}>
             <Avatar size={50} {...avatarProps} />
             <div>
               <p className={styles.customerInfoLabel}>Customer</p>
@@ -78,7 +78,7 @@ const DealDetails: FC<DetailsProps> = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                width: '93%',
+                width: '96%',
               }}
             >
               <div>
@@ -150,15 +150,9 @@ const DealDetails: FC<DetailsProps> = () => {
             </form>
           </FormProvider>
         </Row>
-        <Row className={styles.activityLog}>
+        <Row className={styles.activityLogContainer}>
           <h2>Activity Log</h2>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '24px',
-            }}
-          >
+          <div className={styles.activityLogItem}>
             <div className={styles.circleBlue}>
               <div className={styles.circleWhite}></div>
             </div>
