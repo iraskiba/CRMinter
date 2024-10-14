@@ -14,6 +14,7 @@ import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
 import { Deal } from '@pages/deals/types.ts'
 import { usePaginationStore } from '@pages/customers'
 import useDealStore from '@pages/deals/model/deal-store.ts'
+import { useNavigate } from 'react-router-dom'
 
 const columns: ColumnsType<Deal> = [
   {
@@ -59,7 +60,8 @@ const columns: ColumnsType<Deal> = [
     render: (_, record) => (
       <Button
         icon={<EditOutlined />}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation()
           ModalEvent.open(<AddDeals deal={record} />)
         }}
       />
@@ -68,6 +70,7 @@ const columns: ColumnsType<Deal> = [
 ]
 
 const Deals = () => {
+  const navigate = useNavigate()
   const [totalCount, setTotalCount] = useState(0)
   const { params, setParams } = usePaginationStore()
   const { deal, setDeal } = useDealStore()
@@ -130,6 +133,12 @@ const Deals = () => {
         dataSource={deal}
         pagination={false}
         loading={isLoading}
+        onRow={(record) => ({
+          onClick: () =>
+            navigate(`/deals/${record.id}`, {
+              state: { deal: record },
+            }),
+        })}
       />
       <div className={styles.wrapperButton}>
         <Button

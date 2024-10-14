@@ -20,7 +20,6 @@ const DateInput = () => {
       <FormInput
         type="text"
         name="date"
-        placeholder="Appointment Date"
         icon={<ScheduleOutlined />}
         value={selectedDate ? selectedDate.toLocaleDateString() : ''}
         readOnly

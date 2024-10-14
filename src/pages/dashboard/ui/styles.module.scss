@@ -5,6 +5,11 @@
   width: 120px;
 }
 
+@mixin button-text{
+  color: $primaryBlue;
+  font-size: $large-number;
+}
+
 .main {
   display: flex;
 }
@@ -15,8 +20,8 @@
 }
 
 .container{
-  width: 268px;
-  height: 168px;
+  width: 80%;
+  height: auto;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -26,11 +31,9 @@
   padding:$gutter6;
 }
 
-.containerAppointment{
-  width: 100%;
+.containerAppointment {
+  margin-top: 24px;
   height: auto;
-  max-width: 268px;
-  box-sizing: border-box;
   border-radius: 12px;
   border: solid 1px $grayMedium30;
   display: flex;
@@ -112,12 +115,32 @@ h3{
   font-weight: 700;
 }
 
-.textDescription{
+.textDescriptionGrey{
 color: $grayDark;
 }
 
-.textTitleSpace{
-  display: inline-block;
-  margin-top: $gutter6;
-  margin-bottom: $gutter6;
+.buttonTextStyle{
+  @include button-text;
+}
+
+.recentDealsContainer{
+  margin-top: 24px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  padding:$gutter6 ;
+  width: 90%;
+}
+
+.customersContainer{
+  margin-top: 24px;
+  background-color: $grayLightBg20;
+  padding:$gutter6 ;
+  border-radius: 12px;
+}
+
+.flexCustomersButtonEdit{
+  display: flex;
+  align-items: center;
+  width: 90%;
+  justify-content: space-between;
 }

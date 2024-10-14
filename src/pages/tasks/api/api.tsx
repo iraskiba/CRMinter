@@ -19,8 +19,8 @@ export const postTask = async (
 
 export const fetchCTasks = async (
   currentPage: number,
-  sortBy: 'creationDate' | 'dueDate',
-  sortOrder: 'desc' | 'asc',
+  sortBy?: 'creationDate' | 'dueDate',
+  sortOrder?: 'desc' | 'asc',
 ) => {
   try {
     const { data } = await $api.post<PaginationResponse<TasksTableType>>(
@@ -32,6 +32,9 @@ export const fetchCTasks = async (
     return {
       ...data,
       content: data.content?.sort((a, b) => {
+        if (!sortBy || !sortOrder) {
+          return 0
+        }
         if (sortOrder === 'asc') {
           return a[sortBy] > b[sortBy] ? 1 : -1
         } else {

@@ -5,7 +5,7 @@ import styles from './styles.module.scss'
 
 const Dashboard = () => {
   return (
-    <div>
+    <div style={{ backgroundColor: ' #F6FAFD' }}>
       <Header />
       <main className={styles.main}>
         <Sidebar />

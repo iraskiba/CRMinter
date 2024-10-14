@@ -9,10 +9,13 @@ import CustomerDetails from '@pages/customer-details'
 import { Login } from '@pages/login'
 import { useIsAuthenticated } from '@pages/login'
 import { ReactNode } from 'react'
+import DealDetails from '@pages/deal-details/ui/deal-details.tsx'
+
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const isAuthenticated = useIsAuthenticated()
   return isAuthenticated ? children : <Navigate to={Paths.login.path} />
 }
+
 export const rotes: RouteObject[] = [
   {
     path: Paths.login.path,
@@ -45,6 +48,10 @@ export const rotes: RouteObject[] = [
       {
         path: Paths.tasks.path,
         element: <TasksTable />,
+      },
+      {
+        path: Paths.dealDetails.path,
+        element: <DealDetails />,
       },
       {
         path: Paths.calendar.path,

@@ -21,6 +21,7 @@ const AddNew = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       <h2>Add New </h2>

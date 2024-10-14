@@ -51,7 +51,7 @@ const RecentDeals: FC<Props> = ({
     },
   ]
   return (
-    <>
+    <div className={styles.recentDealsContainer}>
       <div
         style={{
           display: 'flex',
@@ -59,10 +59,8 @@ const RecentDeals: FC<Props> = ({
           justifyContent: 'space-between',
         }}
       >
-        <span className={(styles.textTitle, styles.textTitleSpace)}>
-          Recent Deals
-        </span>
-        <Button className={styles.textTitleSpace} type="text">
+        <span className={styles.textTitle}>Recent Deals</span>
+        <Button className={styles.buttonTextStyle} type="text">
           View All
         </Button>
       </div>
@@ -86,17 +84,17 @@ const RecentDeals: FC<Props> = ({
             <Avatar size={50} {...avatarProps} />
             <div>
               <p className={styles.textTitle}>{deal.dealName}</p>
-              <p className={styles.textDescription}>{deal.description}</p>
+              <p className={styles.textDescriptionGrey}>{deal.description}</p>
             </div>
           </div>
 
           <div>
             <p className={styles.textTitle}>{`$${deal.priceInfo}`}</p>
-            <p className={styles.textDescription}>{formattedDate}</p>
+            <p className={styles.textDescriptionGrey}>{formattedDate}</p>
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 export default RecentDeals
