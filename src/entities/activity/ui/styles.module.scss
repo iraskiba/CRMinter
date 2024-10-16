@@ -1,0 +1,19 @@
+@import 'src/shared/config/vars';
+.buttonText{
+  margin-right: 8px;
+  color: red;
+}
+
+.formItemContainer > *{
+  margin-bottom: $gutter5;
+}
+
+.formContainer > *:last-child {
+  margin-bottom: 0;
+}
+
+.stylePrimaryButton{
+  width: 160px;
+  border-radius:70px ;
+  height: 50px;
+}

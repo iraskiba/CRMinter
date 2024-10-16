@@ -1,1 +1,2 @@
-export * as ModalEvent from './events'
+import * as ModalEvent from './events'
+export { ModalEvent }

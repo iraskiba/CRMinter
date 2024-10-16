@@ -1,20 +1,20 @@
-import { Avatar, Button, Select, Table, Tag } from 'antd'
-import styles from './style.module.scss'
 import {
   FilterOutlined,
   EditOutlined,
   PictureOutlined,
 } from '@ant-design/icons'
-import { ColumnsType } from 'antd/es/table'
+import { ModalEvent } from '@process/modal'
 import { useQuery } from '@tanstack/react-query'
+import { Avatar, Button, Select, Table, Tag } from 'antd'
+import { ColumnsType } from 'antd/es/table'
 import { useEffect, useState } from 'react'
-import { fetchDeals } from '@pages/deals/api/api.ts'
-import { ModalEvent } from '../../../process/modal/index.ts'
-import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
-import { Deal } from '@pages/deals/types.ts'
-import { usePaginationStore } from '@pages/customers'
-import useDealStore from '@pages/deals/model/deal-store.ts'
 import { useNavigate } from 'react-router-dom'
+import { usePaginationStore } from '@pages/customers'
+import { useDealStore } from '@pages/deals'
+import { fetchDeals } from '@pages/deals/api/api.ts'
+import { Deal } from '@pages/deals/types.ts'
+import { AddDeals } from '@entities/deals-modal'
+import styles from './style.module.scss'
 
 const columns: ColumnsType<Deal> = [
   {

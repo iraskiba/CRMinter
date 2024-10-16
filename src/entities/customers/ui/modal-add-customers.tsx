@@ -1,12 +1,12 @@
+import { UploadOutlined } from '@ant-design/icons'
+import { ModalEvent } from '@process/modal'
 import { Avatar, Button, Col, Row, Upload } from 'antd'
 import { FormEvent, useState } from 'react'
-import { eventBus } from '@shared/lib/event-bus.ts'
 import { FormProvider, useForm } from 'react-hook-form'
-import FormInput from '@shared/ui/form-items/input'
-import { UploadOutlined } from '@ant-design/icons'
+import { eventBus } from '@shared/lib/event-bus.ts'
+import { myPromiseUpload } from '@shared/lib/uploadFunction.ts'
+import { FormInput } from '@shared/ui/form-items/input'
 import styles from './styles.module.scss'
-
-import { ModalEvent } from '../../../process/modal/index.ts'
 
 const AddCustomer = () => {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
@@ -26,15 +26,6 @@ const AddCustomer = () => {
     event.preventDefault()
     methods.handleSubmit(handleSaveCustomer)()
     handleClose()
-  }
-
-  const myPromiseUpload = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.onerror = reject
-      reader.readAsDataURL(file)
-    })
   }
   const handleUpload = async (file: File) => {
     try {
@@ -61,7 +52,7 @@ const AddCustomer = () => {
         </Upload>
       </div>
       <FormProvider {...methods}>
-        <form onSubmit={onSubmit}>
+        <form className={styles.formItemContainer} onSubmit={onSubmit}>
           <div className={styles.itemFormContainer}>
             <FormInput type="text" name="firstName" label="First Name" />
             <FormInput type="text" name="lastName" label="Last Name" />
@@ -72,14 +63,13 @@ const AddCustomer = () => {
           </div>
 
           <FormInput
-            style={{ marginBottom: '20px' }}
             label="Address"
             type="text"
             name="address"
             placeholder="Street Address"
           />
 
-          <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Row gutter={[16, 16]}>
             <Col span={8}>
               <FormInput type="text" name="city" placeholder="City" />
             </Col>

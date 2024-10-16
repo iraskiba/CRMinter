@@ -1,29 +1,17 @@
-import { Button, Tooltip } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import { logo } from './logo.tsx'
-import styles from './styles.module.scss'
+import { ModalEvent } from '@process/modal'
+import { Button, Tooltip } from 'antd'
 import { ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import CustomButton from '@shared/ui/custom-button-plus'
 import Paths from '@app/router/path.ts'
-import AddCustomer from '../../../enteties/customers/ui/modal-add-customers.tsx'
-import AddDeals from '../../../enteties/deals/ui/modal-add-deals.tsx'
-import AddTasks from '../../../enteties/tasks/ui/modal-add-tasks.tsx'
-import { ModalEvent } from '../../../process/modal/index.ts'
-import AddNew from '../../../enteties/dashboard/ui/modal-add-new.tsx'
-
-const getPageTitle = (pathname: string) => {
-  const pathKey = Object.keys(Paths).find((key) => Paths[key].path === pathname)
-  return pathKey ? Paths[pathKey].name : 'Dashboard'
-}
-
-const getButtonText = (path: string): string => {
-  if (path === Paths.home.path) {
-    return 'Add New'
-  }
-  const pathEntry = Object.values(Paths).find((entry) => entry.path === path)
-  return pathEntry ? `Add New ${pathEntry.name}` : 'Add New'
-}
+import { getButtonText, getPageTitle } from '@widgets/header/model/utils.ts'
+import { AddCustomer } from '@entities/customers'
+import { AddNew } from '@entities/dashboard'
+import { AddDeals } from '@entities/deals-modal'
+import { AddTasks } from '@entities/tasks'
+import CustomButton from '@shared/ui/custom-button-plus'
+import { logo } from './logo.tsx'
+import styles from './styles.module.scss'
 
 const Header = () => {
   const navigate = useNavigate()

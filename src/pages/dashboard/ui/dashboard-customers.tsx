@@ -1,11 +1,11 @@
-import { Avatar, Button } from 'antd'
-import styles from './styles.module.scss'
-import useCustomerStore from '@pages/customers/model/customers-store.ts'
-import { ReactNode, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { fetchCustomers } from '@pages/customers/api/api.tsx'
-import DashboardTasks from '@pages/dashboard/ui/dashboard-tasks.tsx'
+import { Avatar, Button } from 'antd'
+import { ReactNode, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useCustomerStore } from '@pages/customers'
+import { fetchCustomers } from '@pages/customers/api/api.tsx'
+import { DashboardTasks } from '@pages/dashboard'
+import styles from './styles.module.scss'
 export type CustomersProps = {
   name: string
   email: string

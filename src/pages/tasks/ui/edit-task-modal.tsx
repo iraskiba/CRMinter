@@ -1,9 +1,9 @@
+import { ModalEvent } from '@process/modal'
+import { useMutation } from '@tanstack/react-query'
 import { Button, Input, Form, Checkbox } from 'antd'
 import { FC, useEffect } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import { postTask } from '../api/api.tsx'
-import { ModalEvent } from '../../../process/modal/index.ts'
-
+import { postTask } from '../api/api'
+import styles from './styles.module.scss'
 type TaskModalProps = {
   task: TaskFormValues | null
 }
@@ -54,12 +54,26 @@ const EditTaskModal: FC<TaskModalProps> = ({ task }) => {
           <Form.Item name="tasks">
             <Input.TextArea rows={4} placeholder="Description" />
           </Form.Item>
-          <Button danger onClick={handleClose} key="cancel" type="text">
-            Delete
-          </Button>
-          <Button key="ok" type="primary" htmlType="submit" form="taskForm">
-            Done
-          </Button>
+          <div className={styles.buttonFlexBlock}>
+            <Button
+              style={{ color: 'red' }}
+              danger
+              onClick={handleClose}
+              key="cancel"
+              type="text"
+            >
+              Delete
+            </Button>
+            <Button
+              className={styles.buttonDonePrimary}
+              key="ok"
+              type="primary"
+              htmlType="submit"
+              form="taskForm"
+            >
+              Done
+            </Button>
+          </div>
         </Form>
       )}
     </>

@@ -1,12 +1,12 @@
-import { Button } from 'antd'
-import styles from './styles.module.scss'
-import { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import useTaskStore from '@pages/tasks/model/tasks-store.ts'
-import { fetchCTasks } from '@pages/tasks/api/api.tsx'
 import { ArrowRightOutlined } from '@ant-design/icons'
-import ModalAddTasks from '../../../enteties/tasks/ui/modal-add-tasks.tsx'
-import { ModalEvent } from '../../../process/modal/index.ts'
+import { ModalEvent } from '@process/modal'
+import { useQuery } from '@tanstack/react-query'
+import { Button } from 'antd'
+import { useEffect, useState } from 'react'
+import { fetchCTasks } from '@pages/tasks/api/api.tsx'
+import useTaskStore from '@pages/tasks/model/tasks-store.ts'
+import { AddTasks } from '@entities/tasks'
+import styles from './styles.module.scss'
 
 const DashboardTasks = () => {
   const { task, setTask } = useTaskStore()
@@ -21,7 +21,7 @@ const DashboardTasks = () => {
   const taskToShow = viewAll ? task : task.slice(0, 4)
 
   const openDealModalTask = () => {
-    ModalEvent.open(<ModalAddTasks />)
+    ModalEvent.open(<AddTasks />)
   }
   useEffect(() => {
     if (data) {

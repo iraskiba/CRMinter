@@ -1,0 +1,63 @@
+@import 'src/shared/config/vars';
+
+@mixin button-styles {
+  border-radius: 70px;
+  height: 50px;
+  width: 120px;
+}
+
+.commonButton {
+  @include button-styles;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.itemFormContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.selectCustomerModal {
+  display: flex;
+  align-items: center;
+  gap: 200px;
+}
+
+.textTitleSpace {
+  color: $primaryBlue;
+}
+
+.textTitle {
+  color: $primaryNavy;
+  font-size: $large-number;
+  font-weight: 700;
+}
+
+.textDescriptionGrey {
+  color: $grayDark;
+}
+
+.customerItemBlock{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.customerItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.formItemContainer > *{
+  margin-bottom: $gutter5;
+}
+
+.formContainer > *:last-child {
+  margin-bottom: 0;
+}

@@ -1,12 +1,12 @@
-import { Button } from 'antd'
 import {
   ShoppingOutlined,
   UsergroupDeleteOutlined,
   ArrowRightOutlined,
 } from '@ant-design/icons'
-import { ModalEvent } from '../../../process/modal/index.ts'
-import AddDeals from '../../deals/ui/modal-add-deals.tsx'
-import AddCustomer from '../../customers/ui/modal-add-customers.tsx'
+import { ModalEvent } from '@process/modal'
+import { Button } from 'antd'
+import { AddCustomer } from '@entities/customers'
+import { AddDeals } from '@entities/deals-modal'
 import styles from './styles.module.scss'
 
 const AddNew = () => {

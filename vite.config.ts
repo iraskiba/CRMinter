@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import vitePluginImp from 'vite-plugin-imp'
 import * as path from 'path'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+import vitePluginImp from 'vite-plugin-imp'
 
 export default defineConfig({
   plugins: [
@@ -18,12 +18,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, 'src/app'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
-      '@router': path.resolve(__dirname, 'src/router'),
-      '@shared': path.resolve(__dirname, 'src/shared'),
-      '@widgets': path.resolve(__dirname, 'src/widgets'),
       '@process': path.resolve(__dirname, 'src/process'),
-      '@enteties': path.resolve(__dirname, 'src/enteties'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@widgets': path.resolve(__dirname, 'src/widgets'),
+      '@features': path.resolve(__dirname, 'src/features'),
+      '@entities': path.resolve(__dirname, 'src/entities'),
+      '@shared': path.resolve(__dirname, 'src/shared'),
+      '@router': path.resolve(__dirname, 'src/router'),
     },
   },
   css: {

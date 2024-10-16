@@ -1,5 +1,5 @@
-import Customers from './ui/customers.tsx'
-import usePaginationStore from './model/store.ts'
-import useCustomerStore from './model/customers-store.ts'
+import useCustomerStore from './model/customers-store'
+import usePaginationStore from './model/store'
+import Customers from './ui/customers'
 
 export { Customers, usePaginationStore, useCustomerStore }

@@ -1,15 +1,15 @@
+import { ReactNode } from 'react'
 import { RouteObject } from 'react-router-dom'
-import Paths from './path.ts'
 import { Navigate } from 'react-router-dom'
-import Deals from '@pages/deals'
-import { Customers } from '@pages/customers'
-import TasksTable from '@pages/tasks'
-import { Dashboard, DashboardContent } from '@pages/dashboard'
 import CustomerDetails from '@pages/customer-details'
+import { Customers } from '@pages/customers'
+import { Dashboard, DashboardContent } from '@pages/dashboard'
+import DealDetails from '@pages/deal-details'
+import { Deals } from '@pages/deals'
 import { Login } from '@pages/login'
 import { useIsAuthenticated } from '@pages/login'
-import { ReactNode } from 'react'
-import DealDetails from '@pages/deal-details/ui/deal-details.tsx'
+import TasksTable from '@pages/tasks'
+import Paths from './path.ts'
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const isAuthenticated = useIsAuthenticated()

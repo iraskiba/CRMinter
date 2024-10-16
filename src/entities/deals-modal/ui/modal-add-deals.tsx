@@ -1,14 +1,14 @@
+import { ModalEvent } from '@process/modal'
 import { Avatar, Button, Col, Row } from 'antd'
-import { FormEvent } from 'react'
-import { eventBus } from '@shared/lib/event-bus.ts'
-import { FormProvider, useForm } from 'react-hook-form'
-import FormInput from '@shared/ui/form-items/input'
-import DateInput from './day-picker.tsx'
-import UniversalSelect from '@shared/ui/form-items/select'
 import { OptionProps } from 'rc-select/lib/Option'
-import { ModalEvent } from '../../../process/modal/index.ts'
-import styles from './styles.module.scss'
+import { FormEvent } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { Deal } from '@pages/deals/types.ts'
+import { eventBus } from '@shared/lib/event-bus.ts'
+import { FormInput } from '@shared/ui/form-items/input'
+import DateInput from '@shared/ui/form-items/input/day-picker.tsx'
+import UniversalSelect from '@shared/ui/form-items/select'
+import styles from './styles.module.scss'
 
 type Props = {
   deal?: Deal
@@ -80,7 +80,7 @@ const AddDeals = ({ deal }: Props) => {
           </Col>
         </Row>
 
-        <DateInput />
+        <DateInput name="date" />
         <FormInput
           style={{ marginBottom: '20px' }}
           type="text"

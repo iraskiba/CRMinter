@@ -1,6 +1,6 @@
 import { Avatar, AvatarProps } from 'antd'
-import styles from './styles.module.scss'
 import { FC, ReactNode } from 'react'
+import styles from './styles.module.scss'
 
 type LogoContainerProps = {
   icon: ReactNode

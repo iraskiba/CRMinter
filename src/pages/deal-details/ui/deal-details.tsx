@@ -1,14 +1,14 @@
-import { Avatar, Button, Col, Row } from 'antd'
-import { FC, FormEvent } from 'react'
-import { useLocation } from 'react-router-dom'
-import styles from './styles.module.scss'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { avatarProps } from 'ant-design-vue/es/avatar'
-import DateInput from '../../../enteties/deals/ui/day-picker.tsx'
+import { Avatar, Button, Col, Row } from 'antd'
+import { FC, FormEvent } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import FormInput from '@shared/ui/form-items/input'
+import { useLocation } from 'react-router-dom'
+import { DetailsProps } from '@pages/deal-details/types'
 import { eventBus } from '@shared/lib/event-bus.ts'
-import { DetailsProps } from '@pages/deal-details/types.ts'
+import { FormInput } from '@shared/ui/form-items/input'
+import DateInput from '@shared/ui/form-items/input/day-picker.tsx'
+import styles from './styles.module.scss'
 
 const DealDetails: FC<DetailsProps> = () => {
   const location = useLocation()
@@ -127,13 +127,8 @@ const DealDetails: FC<DetailsProps> = () => {
                 name="description"
                 label="Description"
               />
-              <DateInput />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
+              <DateInput name="date" />
+              <div className={styles.rightColumnForm}>
                 <label>Images</label>
                 <Button type="default">ADD</Button>
               </div>

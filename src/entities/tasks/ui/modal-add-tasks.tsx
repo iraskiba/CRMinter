@@ -1,9 +1,10 @@
+import { ModalEvent } from '@process/modal'
 import { Button, Input } from 'antd'
 import { FormEvent } from 'react'
-import FormInput from '@shared/ui/form-items/input'
 import { FormProvider, useForm } from 'react-hook-form'
 import { eventBus } from '@shared/lib/event-bus.ts'
-import { ModalEvent } from '../../../process/modal/index.ts'
+import { FormInput } from '@shared/ui/form-items/input'
+import styles from './styles.module.scss'
 
 const AddTasks = () => {
   const methods = useForm()
@@ -28,15 +29,19 @@ const AddTasks = () => {
       <form onSubmit={onSubmit}>
         <Input.TextArea rows={4} placeholder="Enter task description" />
         <FormInput type="text" name="dueDate" label="Due Date" />
-        <div style={{ marginTop: '16px', textAlign: 'right' }}>
+        <div className={styles.addTasksContainer}>
           <Button
+            className={styles.buttonBlock}
             onClick={handleClose}
-            type="default"
-            style={{ marginRight: '8px' }}
+            type="text"
           >
             Cancel
           </Button>
-          <Button type="primary" htmlType="submit">
+          <Button
+            className={styles.commonButton}
+            type="primary"
+            htmlType="submit"
+          >
             Save Task
           </Button>
         </div>

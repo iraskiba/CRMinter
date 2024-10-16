@@ -1,8 +1,8 @@
-import styles from './styles.module.scss'
 import { Avatar, AvatarProps, Button, Col, Row } from 'antd'
-import { FC } from 'react'
 import dayjs from 'dayjs'
+import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
+import styles from './styles.module.scss'
 
 type AppointmentProps = {
   deal: string

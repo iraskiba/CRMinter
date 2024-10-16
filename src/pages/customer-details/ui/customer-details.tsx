@@ -1,16 +1,16 @@
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
-import FormInput from '@shared/ui/form-items/input'
-import styles from './styles.module.scss'
-import AvatarUpload from '@pages/customer-details/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useQuery } from '@tanstack/react-query'
 import { Avatar, Button, Col, Row } from 'antd'
 import { useEffect, useState } from 'react'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { zocker } from 'zocker'
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
+import { zocker } from 'zocker'
+import { z } from 'zod'
+import AvatarUpload from '@pages/customer-details/ui'
 import { useCustomerStore } from '@pages/customers'
-import { useQuery } from '@tanstack/react-query'
 import { $api } from '@shared/lib/axios.tsx'
+import { FormInput } from '@shared/ui/form-items/input'
+import styles from './styles.module.scss'
 
 const CustomerScheme = z.object({
   avatar: z.string().length(1),
@@ -49,8 +49,6 @@ const CustomerDetails = () => {
 
   const fetchCustomer = async (id: string) => {
     try {
-      console.log(id)
-
       const { data } = await $api.get(`/customers/${id}`)
       return data
     } catch (error) {

@@ -1,10 +1,10 @@
+import { EditOutlined, UsergroupDeleteOutlined } from '@ant-design/icons'
+import { Col, Row } from 'antd'
+import { DashboardCustomers } from '@pages/dashboard'
 import Appoitment from './appoitment.tsx'
 import CountElement from './count-element.tsx'
-import { EditOutlined, UsergroupDeleteOutlined } from '@ant-design/icons'
-import styles from './styles.module.scss'
-import { Col, Row } from 'antd'
 import RecentDeals from './recent-deals.tsx'
-import DashboardCustomers from '@pages/dashboard/ui/dashboard-customers.tsx'
+import styles from './styles.module.scss'
 
 const DashboardContent = () => {
   return (

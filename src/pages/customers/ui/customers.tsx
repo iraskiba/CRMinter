@@ -1,15 +1,15 @@
-import { Button, Table, Avatar, Select } from 'antd'
-import styles from './styles.module.scss'
 import { FilterOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
+import { Button, Table, Avatar, Select } from 'antd'
+import { ColumnsType } from 'antd/es/table'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePaginationStore } from '@pages/customers'
+import { useCustomerStore } from '@pages/customers'
 import { fetchCustomers } from '@pages/customers/api/api.tsx'
-import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
-import { ColumnsType } from 'antd/es/table'
-import useCustomerStore from '@pages/customers/model/customers-store.ts'
 import { Customer } from '@pages/customers/types.ts'
+import styles from './styles.module.scss'
 
 const columns: ColumnsType<Customer> = [
   {

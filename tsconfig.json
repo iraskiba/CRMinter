@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+
 
     "strict": true,
     "noUnusedLocals": true,
@@ -20,15 +20,14 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
+      "@entities/*": ["src/entities/*"],
       "@widgets/*": ["src/widgets/*"],
       "@pages/*": ["src/pages/*"],
       "@router/*": ["src/router/*"],
       "@shared/*": ["src/shared/*"],
-      "@process/*": ["src/process/*"],
-      "@enteties/*": ["src/enteties/*"]
-
+      "@process/*": ["src/process/*"]
     },
-    "jsx": "react-jsx"
+  "jsx": "react-jsx"
   },
   "include": ["src/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]

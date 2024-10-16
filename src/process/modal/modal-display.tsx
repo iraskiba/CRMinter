@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react'
 import CustomModal from '@shared/modal.tsx'
-import { ModalEvent } from '../modal/index.ts'
+import { ModalEvent } from './index.ts'
 
 interface ModalConfig {
   children: ReactNode

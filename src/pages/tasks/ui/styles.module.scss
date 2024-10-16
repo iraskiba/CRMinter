@@ -16,8 +16,14 @@
 }
 
 .button {
-  height: 50px;
   width: auto;
+  height: 50px;
+  border-radius: 30px;
+}
+
+.buttonDonePrimary{
+  width: 150px;
+  height: 50px;
   border-radius: 30px;
 }
 
@@ -36,3 +42,10 @@
   justify-content: center;
   margin-top: $gutter6;
 }
+
+.buttonFlexBlock{
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+
