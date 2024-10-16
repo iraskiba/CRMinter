@@ -1,7 +1,8 @@
-import styles from './styles.module.scss'
 import { Avatar, AvatarProps, Button, Col, Row } from 'antd'
-import { FC } from 'react'
 import dayjs from 'dayjs'
+import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from './styles.module.scss'
 
 type AppointmentProps = {
   deal: string
@@ -23,6 +24,11 @@ const Appoitment: FC<Props> = ({
   ...avatarProps
 }) => {
   const formattedDate = dayjs(date).format('MMM DD, YYYY HH:mm')
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/deals/:id', { state: { deal } })
+  }
   return (
     <div className={styles.containerAppointment}>
       <h3>Next Appointment</h3>
@@ -56,7 +62,7 @@ const Appoitment: FC<Props> = ({
           <span>Price</span>
           <span>{`$${priceInfo}`}</span>
         </div>
-        <Button className={styles.button} type="default">
+        <Button onClick={handleClick} className={styles.button} type="default">
           See Detail
         </Button>
       </div>

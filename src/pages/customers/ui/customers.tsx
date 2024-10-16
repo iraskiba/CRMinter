@@ -1,23 +1,15 @@
-import { AvatarProps, Button, Table, Avatar } from 'antd'
-import styles from './styles.module.scss'
 import { FilterOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
+import { Button, Table, Avatar, Select } from 'antd'
+import { ColumnsType } from 'antd/es/table'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePaginationStore } from '@pages/customers'
+import { useCustomerStore } from '@pages/customers'
 import { fetchCustomers } from '@pages/customers/api/api.tsx'
-import { UserSwitchOutlined, EditOutlined } from '@ant-design/icons'
-import { ColumnsType } from 'antd/es/table'
-
-type Customer = {
-  id: string
-  name: string
-  email: string
-  phone: number
-  address: string
-  avatar: string
-  avatarProps?: AvatarProps
-}
+import { Customer } from '@pages/customers/types.ts'
+import styles from './styles.module.scss'
 
 const columns: ColumnsType<Customer> = [
   {
@@ -57,27 +49,36 @@ const columns: ColumnsType<Customer> = [
 ]
 const Customers = () => {
   const navigate = useNavigate()
-  const handleClick = (record: Customer) => {
-    navigate(`/customers/${record.id}`)
-  }
 
   const [totalCount, setTotalCount] = useState(0)
   const { params, setParams } = usePaginationStore()
-  const { page, pageSize } = params
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['customers', page, pageSize],
-    queryFn: () => fetchCustomers(page),
-  })
+  const { customer, setCustomer } = useCustomerStore()
 
+  const { page, pageSize, sortBy, sortOrder } = params
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['customers', page, pageSize, sortBy, sortOrder],
+
+    queryFn: () => fetchCustomers(page, sortBy, sortOrder),
+  })
   useEffect(() => {
     if (data) {
-      setTotalCount(data.totalCount)
+      setTotalCount(data.totalCount ?? 0)
+      setCustomer(data.content ?? [])
     }
-  }, [data])
+  }, [data, setCustomer])
 
   if (error) {
     return <div>Error loading data</div>
   }
+
+  const handleSortChange = (value: string) => {
+    const [sortBy, sortOrder] = value.split('.') as [
+      'creationDate' | 'dueDate',
+      'asc' | 'desc',
+    ]
+    setParams({ sortBy, sortOrder })
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -85,7 +86,20 @@ const Customers = () => {
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
+            <Select
+              popupMatchSelectWidth={false}
+              options={[
+                { value: 'creationDate.desc', label: 'Date Created ↓' },
+                { value: 'creationDate.asc', label: 'Date Created ↑' },
+                { value: 'dueDate.desc', label: 'Due Date ↓' },
+                { value: 'dueDate.asc', label: 'Due Date ↑' },
+              ]}
+              defaultValue="creationDate.desc"
+              style={{ marginLeft: 8 }}
+              onChange={handleSortChange}
+            />
           </Button>
+
           <Button
             className={styles.button}
             type="default"
@@ -97,11 +111,14 @@ const Customers = () => {
       </div>
       <Table
         columns={columns}
-        dataSource={data?.content || []}
+        dataSource={customer}
         pagination={false}
         loading={isLoading}
         onRow={(record) => ({
-          onClick: () => handleClick(record),
+          onClick: () =>
+            navigate(`/customers/${record.id}`, {
+              state: { customer: record },
+            }),
         })}
       />
       <div className={styles.wrapperButton}>

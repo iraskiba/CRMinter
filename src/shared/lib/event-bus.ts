@@ -1,4 +1,5 @@
-type EventCallback = (...args: unknown[]) => void
+// eslint-disable-next-line
+export type EventCallback = (...args: any[]) => void
 
 const createEventBus = () => {
   const events: Record<string, Set<EventCallback>> = {}
