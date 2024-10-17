@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
@@ -6,7 +7,7 @@ type State = {
     id: string
     name: string
     email: string
-    avatar: string
+    avatar: ReactNode
     accessToken: string
   } | null
 }

@@ -1,9 +1,10 @@
-import { SearchOutlined } from '@ant-design/icons'
+import { SearchOutlined, UserOutlined } from '@ant-design/icons'
 import { ModalEvent } from '@process/modal'
-import { Button, Tooltip } from 'antd'
+import { Avatar, Button, Tooltip } from 'antd'
 import { ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Paths from '@app/router/path.ts'
+import useUserStore from '@pages/login/model/auth-store.ts'
 import { getButtonText, getPageTitle } from '@widgets/header/model/utils.ts'
 import { AddCustomer } from '@entities/customers'
 import { AddNew } from '@entities/dashboard'
@@ -14,6 +15,7 @@ import { logo } from './logo.tsx'
 import styles from './styles.module.scss'
 
 const Header = () => {
+  const { user } = useUserStore((state) => state)
   const navigate = useNavigate()
   const location = useLocation()
   const pageTitle = getPageTitle(location.pathname)
@@ -58,7 +60,11 @@ const Header = () => {
             </Tooltip>
           </li>
           <li>
-            <Button shape="circle" />
+            {user?.avatar ? (
+              <Avatar size={49} src={user.avatar} alt={user.name} />
+            ) : (
+              <Button icon={<UserOutlined />} shape="circle" />
+            )}
           </li>
         </ul>
       </div>
