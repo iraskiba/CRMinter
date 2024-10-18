@@ -1,27 +1,21 @@
-import { Button, Checkbox, Table } from 'antd'
+import { Button, Checkbox, Select, Table } from 'antd'
 import styles from './styles.module.scss'
-import { FilterOutlined } from '@ant-design/icons'
-import { useState } from 'react'
+import {
+  FilterOutlined,
+  EditOutlined,
+  PictureOutlined,
+} from '@ant-design/icons'
+import { useEffect, useState } from 'react'
 import EditTaskModal from '@pages/tasks/ui/edit-task-modal.tsx'
 import { useQuery } from '@tanstack/react-query'
-import useModelStore from '@pages/customers/model/modal-store.ts'
 import { ColumnsType } from 'antd/es/table'
-import { EditOutlined, PictureOutlined } from '@ant-design/icons'
 import { fetchCTasks } from '@pages/tasks/api/api.tsx'
+import { ModalEvent } from '../../../process/modal/index.ts'
+import { TasksTableType } from '@pages/tasks/types.ts'
+import { usePaginationStore } from '@pages/customers'
+import useTaskStore from '@pages/tasks/model/tasks-store.ts'
 
-type TasksTable = {
-  id: string
-  date: string
-  tasks: string
-}
-
-type ColumnsProps = {
-  showModal: () => void
-}
-
-const columns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
-  showModal,
-}) => [
+const columns: ColumnsType<TasksTableType> = [
   {
     title: <PictureOutlined />,
     dataIndex: 'check',
@@ -42,30 +36,64 @@ const columns: (props: ColumnsProps) => ColumnsType<TasksTable> = ({
     title: 'Edit',
     dataIndex: 'edit',
     key: 'edit',
-    render: () => <Button icon={<EditOutlined />} onClick={showModal} />,
+    render: (_, record) => (
+      <Button
+        icon={<EditOutlined />}
+        onClick={() => {
+          ModalEvent.open(<EditTaskModal task={record} />)
+        }}
+      />
+    ),
   },
 ]
-
 const TasksTable = () => {
-  const { isModalVisible, showModal, hiddenModal } = useModelStore()
-  const [currentPage, setCurrentPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(0)
+  const { params, setParams } = usePaginationStore()
+  const { task, setTask } = useTaskStore()
 
+  const { page, pageSize, sortBy, sortOrder } = params
   const { data, error, isLoading } = useQuery({
-    queryKey: ['tasks', currentPage],
-    queryFn: () => fetchCTasks(currentPage),
+    queryKey: ['tasks', page, pageSize, sortBy, sortOrder],
+    queryFn: () => fetchCTasks(page, sortBy, sortOrder),
   })
+
+  useEffect(() => {
+    if (data) {
+      setTotalCount(data.totalCount ?? 0)
+      setTask(data.content ?? [])
+    }
+  }, [data, setTask])
 
   if (error) {
     return <div>Error loading data</div>
   }
 
+  const handleSortChange = (value: string) => {
+    const [sortBy, sortOrder] = value.split('.') as [
+      'creationDate' | 'dueDate',
+      'asc' | 'desc',
+    ]
+    setParams({ sortBy, sortOrder })
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <span>Total:{data?.totalCount || 0} tasks </span>
+        <span>Total:{totalCount || 0} tasks </span>
         <div className={styles.containerButton}>
           <Button className={styles.button} type="default">
             Sort by:
+            <Select
+              popupMatchSelectWidth={false}
+              options={[
+                { value: 'creationDate.desc', label: 'Date Created ↓' },
+                { value: 'creationDate.asc', label: 'Date Created ↑' },
+                { value: 'dueDate.desc', label: 'Due Date ↓' },
+                { value: 'dueDate.asc', label: 'Due Date ↑' },
+              ]}
+              defaultValue="creationDate.desc"
+              style={{ marginLeft: 8 }}
+              onChange={handleSortChange}
+            />
           </Button>
           <Button
             className={styles.button}
@@ -77,16 +105,15 @@ const TasksTable = () => {
         </div>
       </div>
       <Table
-        columns={columns({ showModal })}
-        dataSource={data?.content || []}
+        columns={columns}
+        dataSource={task}
         pagination={false}
         loading={isLoading}
       />
-      <EditTaskModal visible={isModalVisible} onClose={hiddenModal} />
       <div className={styles.wrapperButton}>
         <Button
           className={styles.loadMoreButton}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => setParams({ page: page + 1 })}
         >
           Load More
         </Button>

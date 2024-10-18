@@ -1,31 +1,43 @@
-@import "src/shared/config/vars";
+@import 'src/shared/config/vars';
+@mixin button-styles {
+  border-radius: 70px;
+  height: 50px;
+  width: 120px;
+}
+
+.dashboard {
+  background-color: $lightGrey10;
+}
+
+@mixin button-text {
+  color: $primaryBlue;
+  font-size: $large-number;
+}
 
 .main {
   display: flex;
 }
 
-.section{
+.section {
   width: 100%;
   padding-left: $gutter6;
 }
 
-.container{
-  width: 268px;
-  height: 168px;
+.container {
+  width: 80%;
+  height: auto;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
   align-items: center;
   border: solid 1px $grayMedium30;
   border-radius: $gutter3;
-  padding:$gutter6;
+  padding: $gutter6;
 }
 
-.containerAppointment{
-  width: 100%;
+.containerAppointment {
+  margin-top: 24px;
   height: auto;
-  max-width: 268px;
-  box-sizing: border-box;
   border-radius: 12px;
   border: solid 1px $grayMedium30;
   display: flex;
@@ -33,28 +45,52 @@
   background-color: $primaryBlue;
   color: $white;
   padding: $gutter6;
-  gap:$gutter6;
+  gap: $gutter6;
   font-size: $medium;
 }
 
-.title{
-  font-size:$xlarge;
+.title {
+  font-size: $xlarge;
   color: $grayDark;
 }
 
 .gradientGreen {
-  background-image: linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
-  background: -webkit-linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
-  background: -moz-linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
+  background-image: linear-gradient(
+    180deg,
+    rgb(45, 200, 168),
+    rgb(255, 255, 255)
+  );
+  background: -webkit-linear-gradient(
+    180deg,
+    rgb(45, 200, 168),
+    rgb(255, 255, 255)
+  );
+  background: -moz-linear-gradient(
+    180deg,
+    rgb(45, 200, 168),
+    rgb(255, 255, 255)
+  );
   background: linear-gradient(180deg, rgb(45, 200, 168), rgb(255, 255, 255));
   background-size: cover;
   background-clip: padding-box;
 }
 
 .gradientPink {
-  background-image: linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
-  background: -webkit-linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
-  background: -moz-linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
+  background-image: linear-gradient(
+    180deg,
+    rgb(254, 128, 132),
+    rgb(255, 255, 255)
+  );
+  background: -webkit-linear-gradient(
+    180deg,
+    rgb(254, 128, 132),
+    rgb(255, 255, 255)
+  );
+  background: -moz-linear-gradient(
+    180deg,
+    rgb(254, 128, 132),
+    rgb(255, 255, 255)
+  );
   background: linear-gradient(180deg, rgb(254, 128, 132), rgb(255, 255, 255));
   background-size: cover;
   background-clip: padding-box;
@@ -64,57 +100,121 @@
   overflow: hidden;
 }
 
-h3{
-  margin:0;
+h3 {
+  margin: 0;
 }
 
-.button{
-  border-radius:70px;
-  height: 50px;
-  width: 132px;
+.button {
+  @include button-styles;
 }
 
-.avatarBlock{
+.avatarBlock {
   display: flex;
   align-items: center;
-  gap:$gutter3
+  gap: $gutter3;
 }
 
-.deal{
+.deal {
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap:$gutter;
+  gap: $gutter;
 }
 
-.common{
+.common {
   display: flex;
   flex-direction: column;
 }
 
-.details{
+.details {
   display: flex;
-  gap:$gutter4;
+  gap: $gutter4;
 }
 
-.priceBlock{
+.priceBlock {
   display: flex;
   gap: $gutter4;
   justify-content: space-between;
 }
 
-.textTitle{
+.textTitle {
   color: $primaryNavy;
   font-size: $large-number;
   font-weight: 700;
 }
 
-.textDescription{
-color: $grayDark;
+.textDescriptionGrey {
+  color: $grayDark;
 }
 
-.textTitleSpace{
-  display: inline-block;
-  margin-top: $gutter6;
-  margin-bottom: $gutter6;
+.buttonTextStyle {
+  @include button-text;
+}
+
+.recentDealsContainer {
+  margin-top: 24px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: $gutter6;
+  width: 90%;
+}
+
+.customersContainer {
+  margin-top: 24px;
+  background-color: $grayLightBg20;
+  padding: $gutter6;
+  border-radius: 12px;
+}
+
+.flexCustomersButtonEdit {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.buttonAddNewTask {
+  color: $grayDark;
+}
+
+.tasksContainerDashboard {
+  border: solid 1px $grayMedium30;
+  padding: 24px;
+  border-radius: 30px;
+  background-color: $lightGrey10;
+}
+
+.tasksBlock {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.taskItem {
+  display: flex;
+  gap: 30px;
+}
+
+.containerDealItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dealItem {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.dashboardCustomersItem {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.customersItemContainer {
+  display: flex;
+  align-items: center;
+  gap: 217px;
 }

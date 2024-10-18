@@ -1,61 +1,72 @@
-import { Avatar, AvatarProps, Button } from 'antd'
-import React, { FC } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { Avatar, Button } from 'antd'
+import { ReactNode, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useCustomerStore } from '@pages/customers'
+import { fetchCustomers } from '@pages/customers/api/api.tsx'
+import { DashboardTasks } from '@pages/dashboard'
 import styles from './styles.module.scss'
-import { EditOutlined } from '@ant-design/icons'
-
-type CustomersProps = {
+export type CustomersProps = {
   name: string
   email: string
-  icon: React.ReactNode
+  icon: ReactNode
 }
+const DashboardCustomers = ({ icon }: CustomersProps) => {
+  const navigate = useNavigate()
+  const { customer, setCustomer } = useCustomerStore()
+  const [viewAll, setViewAll] = useState(false)
 
-type Props = CustomersProps & AvatarProps
+  const handleEdit = (id: string) => {
+    navigate(`/customers/${id}`)
+  }
+  const { data, error } = useQuery({
+    queryKey: ['dashboardCustomers'],
+    queryFn: () => fetchCustomers(1),
+  })
+  const handleView = () => {
+    setViewAll((prevViewAll) => !prevViewAll)
+  }
+  const customerToShow = viewAll ? customer : customer.slice(0, 4)
 
-const DashboardCustomers: FC<Props> = ({
-  name,
-  email,
-  icon,
-  ...avatarProps
-}) => {
-  const customers = [
-    { name: 'John Doe', email: 'john@example.com', avatarProps },
-    { name: 'Jane Smith', email: 'jane@example.com', avatarProps },
-    { name: 'Alice Johnson', email: 'alice@example.com', avatarProps },
-  ]
+  useEffect(() => {
+    if (data) {
+      setCustomer(data.content)
+    }
+  }, [data, setCustomer])
+
+  if (error) {
+    return <div>Error loading data</div>
+  }
+
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '200px',
-        }}
-      >
-        <span className={(styles.textTitle, styles.textTitleSpace)}>
-          Customers
-        </span>
-        <Button className={styles.textTitleSpace} type="text">
+    <div className={styles.customersContainer}>
+      <div className={styles.customersItemContainer}>
+        <span className={styles.textTitle}>Customers</span>
+        <Button
+          onClick={handleView}
+          className={styles.buttonTextStyle}
+          type="text"
+        >
           View All
         </Button>
       </div>
-      {customers.map((customer, index) => (
-        <div
-          key={index}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '40px',
-          }}
-        >
+      {customerToShow.map((customer, index: number) => (
+        <div key={index} className={styles.dashboardCustomersItem}>
           <Avatar size={50} {...customer.avatarProps} />
-          <div>
-            <p className={styles.textTitle}>{customer.name}</p>
-            <p className={styles.textDescription}>{customer.email}</p>
+
+          <div className={styles.flexCustomersButtonEdit}>
+            <div>
+              <p className={styles.textTitle}>{customer.name}</p>
+              <p className={styles.textDescription}>{customer.email}</p>
+            </div>
+            <div>
+              <Button onClick={() => handleEdit(customer.id)} icon={icon} />
+            </div>
           </div>
-          <Button icon={<EditOutlined />} />
         </div>
       ))}
-    </>
+      <DashboardTasks />
+    </div>
   )
 }
 
