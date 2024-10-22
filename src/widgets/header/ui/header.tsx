@@ -1,29 +1,50 @@
-import { Button, Tooltip } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { SearchOutlined, UserOutlined } from '@ant-design/icons'
+import { ModalEvent } from '@process/modal'
+import { Avatar, Button, Tooltip } from 'antd'
+import { ReactNode } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import Paths from '@app/router/path.ts'
+import useUserStore from '@pages/login/model/auth-store.ts'
+import { getButtonText, getPageTitle } from '@widgets/header/model/utils.ts'
+import { AddCustomer } from '@entities/customers'
+import { AddNew } from '@entities/dashboard'
+import { AddDeals } from '@entities/deals-modal'
+import { AddTasks } from '@entities/tasks'
+import CustomButton from '@shared/ui/custom-button-plus'
 import { logo } from './logo.tsx'
 import styles from './styles.module.scss'
-import AddNewTask from '@pages/tasks/ui/add-new-task.tsx'
-import { FC } from 'react'
-import Paths from '@app/router/path.ts'
-import { useLocation } from 'react-router-dom'
 
-type TaskModalProps = {
-  visible: boolean
-  onClose: () => void
-}
-const getPageTitle = (pathname: string) => {
-  const pathKey = Object.keys(Paths).find((key) => Paths[key].path === pathname)
-  return pathKey ? Paths[pathKey].name : 'Dashboard'
-}
-
-const Header: FC<TaskModalProps> = ({ visible, onClose }) => {
+const Header = () => {
+  const { user } = useUserStore((state) => state)
+  const navigate = useNavigate()
   const location = useLocation()
   const pageTitle = getPageTitle(location.pathname)
+  const buttonText = getButtonText(location.pathname)
+  const handleLogoClick = () => {
+    navigate(Paths.home.path)
+  }
+  const getChildren = (): ReactNode => {
+    if (buttonText.includes('Customers')) {
+      return <AddCustomer />
+    } else if (buttonText.includes('Deals')) {
+      return <AddDeals />
+    } else if (buttonText.includes('Tasks')) {
+      return <AddTasks />
+    } else if (buttonText.includes('New')) {
+      return <AddNew />
+    }
+    return null
+  }
+  const handleOpenModal = () => {
+    ModalEvent.open(getChildren())
+  }
 
   return (
     <header className={styles.header}>
       <div className={styles.containerLogo}>
-        <div className={styles.logo}>{logo}</div>
+        <div onClick={handleLogoClick} className={styles.logo}>
+          {logo}
+        </div>
         <div className={styles.title}>
           <h2>{pageTitle}</h2>
         </div>
@@ -31,7 +52,7 @@ const Header: FC<TaskModalProps> = ({ visible, onClose }) => {
       <div className={styles.profile}>
         <ul>
           <li>
-            <AddNewTask visible={visible} onClose={onClose} />
+            <CustomButton onClick={handleOpenModal}>{buttonText}</CustomButton>
           </li>
           <li>
             <Tooltip title="search">
@@ -39,7 +60,11 @@ const Header: FC<TaskModalProps> = ({ visible, onClose }) => {
             </Tooltip>
           </li>
           <li>
-            <Button shape="circle" />
+            {user?.pict ? (
+              <Avatar size={49} src={user.pict} alt={user.name} />
+            ) : (
+              <Button icon={<UserOutlined />} shape="circle" />
+            )}
           </li>
         </ul>
       </div>

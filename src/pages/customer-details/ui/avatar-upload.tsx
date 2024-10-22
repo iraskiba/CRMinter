@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { Upload, Button } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import { useForm, Controller } from 'react-hook-form'
+import { Upload, Button } from 'antd'
 import type { UploadFile } from 'antd/es/upload/interface'
+import { useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { myPromiseUpload } from '@shared/lib/uploadFunction.ts'
 import styles from './styles.module.scss'
 
 type FormValues = {
@@ -12,15 +13,6 @@ type FormValues = {
 const AvatarUpload = () => {
   const { control } = useForm<FormValues>()
   const [imageUrl, setImageUrl] = useState<string | null>(null)
-
-  const myPromiseUpload = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.onerror = reject
-      reader.readAsDataURL(file)
-    })
-  }
   const handleUpload = async (file: File) => {
     try {
       const result = await myPromiseUpload(file)

@@ -8,12 +8,17 @@ import {
   TableOutlined,
 } from '@ant-design/icons'
 import { Button } from 'antd'
-import styles from './styles.module.scss'
 import { NavLink } from 'react-router-dom'
 import Paths from '@app/router/path.ts'
+import styles from './styles.module.scss'
 
 const items = [
-  { icon: <AppstoreAddOutlined />, to: Paths.home.path, name: Paths.home.name },
+  {
+    icon: <AppstoreAddOutlined />,
+    to: Paths.home.path,
+    name: Paths.home.name,
+    buttonVariant: 'new',
+  },
   { icon: <ShoppingOutlined />, to: Paths.deals.path, name: Paths.deals.name },
   {
     icon: <UsergroupAddOutlined />,
@@ -28,8 +33,8 @@ const items = [
   },
   {
     icon: <SignatureOutlined />,
-    to: Paths.reminder.path,
-    name: Paths.reminder.name,
+    to: Paths.events.path,
+    name: Paths.events.name,
   },
   {
     icon: <SettingOutlined />,

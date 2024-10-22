@@ -5,8 +5,16 @@ import styles from './styles.module.scss'
 import { OptionProps } from 'rc-select/lib/Option'
 
 const { Option } = Select
-type Props = { name: string; options: OptionProps } & SelectProps //кастомные пропсы + наследование пропсов из библиотеки
-const UniversalSelect = ({ name, options, ...selectProps }: Props) => {
+interface CustomOptionProps extends Omit<OptionProps, 'children'> {
+  value: string
+  label: string
+}
+type Props = {
+  name: string
+  options: CustomOptionProps[]
+  label?: string
+} & SelectProps //кастомные пропсы + наследование пропсов из библиотеки
+const UniversalSelect = ({ name, options, label, ...selectProps }: Props) => {
   const { control } = useFormContext()
   const {
     field,
@@ -18,6 +26,7 @@ const UniversalSelect = ({ name, options, ...selectProps }: Props) => {
 
   return (
     <div className={styles.select}>
+      {label && <label htmlFor={name}>{label}</label>}
       <Select {...field} {...selectProps}>
         {options.map((option) => (
           <Option key={option.value} value={option.value}>

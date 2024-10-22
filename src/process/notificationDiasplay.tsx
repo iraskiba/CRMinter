@@ -51,6 +51,7 @@ const NotificationDisplay = () => {
   useEffect(() => {
     const handleNotification = (config: NotificationConfig) =>
       openNotification(config)
+
     eventBus.subscribe('notification', handleNotification)
     return () => eventBus.unsubscribe('notification', handleNotification)
   }, [])
