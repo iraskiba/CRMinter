@@ -30,7 +30,7 @@ const DealDetails: FC<DetailsProps> = () => {
       <Col span={17}>
         <div className={styles.customerInfoContainer}>
           <div className={styles.customerInfoItem}>
-            <Avatar size={50} {...avatarProps} />
+            <Avatar size={50} src={deal.avatar} {...avatarProps} />
             <div>
               <p className={styles.customerInfoLabel}>Customer</p>
               <p className={styles.customerInfo}>{deal.name}</p>
