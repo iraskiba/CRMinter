@@ -43,11 +43,12 @@ const Login = () => {
         try {
           const userInfo = await fetchUserInfo(response.access_token)
           console.log('User Info:', userInfo)
+          console.log('Avatar URL:', userInfo.picture)
           setUser({
             id: userInfo.id,
             name: userInfo.name,
             email: userInfo.email,
-            avatar: userInfo.picture,
+            pict: userInfo.picture,
             accessToken: response.access_token,
           })
           navigate(Paths.home.path)
@@ -72,7 +73,7 @@ const Login = () => {
           id: result.id,
           name: result.name,
           email: result.email,
-          avatar: result.avatar,
+          pict: result.picture,
           accessToken: result.accessToken,
         })
         navigate(Paths.home.path)
@@ -111,5 +112,4 @@ const Login = () => {
     </div>
   )
 }
-
 export default Login

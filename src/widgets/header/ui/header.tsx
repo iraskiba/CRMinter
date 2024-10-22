@@ -60,8 +60,8 @@ const Header = () => {
             </Tooltip>
           </li>
           <li>
-            {user?.avatar ? (
-              <Avatar size={49} src={user.avatar} alt={user.name} />
+            {user?.pict ? (
+              <Avatar size={49} src={user.pict} alt={user.name} />
             ) : (
               <Button icon={<UserOutlined />} shape="circle" />
             )}

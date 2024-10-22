@@ -13,7 +13,7 @@ import { FormInput } from '@shared/ui/form-items/input'
 import styles from './styles.module.scss'
 
 const CustomerScheme = z.object({
-  avatar: z.string().length(1),
+  avatar: z.string(),
   title: z.string(),
   time: z.string(),
   price: z.number(),
