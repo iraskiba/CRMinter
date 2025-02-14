@@ -1,0 +1,128 @@
+@import 'src/shared/config/vars';
+
+.customerInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  border: solid 1px $grayMedium30;
+  padding-right: $gutter6;
+  padding-left: $gutter6;
+  background-color: $lightGrey10;
+}
+
+.customerInfoLabel {
+  color: $grayDark;
+  font-size: $medium;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.customerInfo {
+  color: $gray;
+  font-size: $large;
+  font-weight: 700;
+}
+
+.containerTitle {
+  background-color: $white;
+  min-height: 138px;
+  border: solid 1px $grayMedium30;
+  padding-right: $gutter6;
+  padding-left: $gutter6;
+  line-height: 30px;
+}
+
+.iconOutlined {
+  color: $grayDark;
+}
+
+.customerInfoInstruction {
+  color: $gray;
+  font-size: $medium;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.containerInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.emptyDiv {
+  width: 100%;
+  height: 100%;
+  border: solid 1px #eaeef4;
+  margin-top: 24px;
+  background-color: #eaeef4;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonSubmit {
+  width: 100px;
+  height: 50px;
+  border-radius: 70px;
+}
+
+.formContainer {
+  background-color: $white;
+  border: solid 1px #eaeef4;
+  padding: 24px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 12px;
+}
+
+.rightColumn {
+  background-color: $grayLightBg20;
+}
+
+.activityLogContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 24px;
+}
+
+.activityLogItem{
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.circleBlue {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: $primaryBlue;
+  position: relative;
+}
+
+.circleWhite {
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.customerInfoItem {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.rightColumnForm{
+  display: flex;
+  flex-direction: column;
+}
+

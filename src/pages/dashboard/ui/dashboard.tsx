@@ -1,17 +1,12 @@
-import Sidebar from '@widgets/sidebar'
 import { Outlet } from 'react-router-dom'
 import Header from '@widgets/header'
+import Sidebar from '@widgets/sidebar'
 import styles from './styles.module.scss'
-import { FC } from 'react'
 
-type TaskModalProps = {
-  visible: boolean
-  onClose: () => void
-}
-const Dashboard: FC<TaskModalProps> = ({ visible, onClose }) => {
+const Dashboard = () => {
   return (
-    <div>
-      <Header visible={visible} onClose={onClose} />
+    <div className={styles.dashboard}>
+      <Header />
       <main className={styles.main}>
         <Sidebar />
         <section className={styles.section}>

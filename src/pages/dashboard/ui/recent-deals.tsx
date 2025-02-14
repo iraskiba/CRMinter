@@ -1,6 +1,6 @@
 import { Avatar, AvatarProps, Button } from 'antd'
 import dayjs from 'dayjs'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import styles from './styles.module.scss'
 
 type RecentDealProps = {
@@ -20,6 +20,10 @@ const RecentDeals: FC<Props> = ({
   ...avatarProps
 }) => {
   const formattedDate = dayjs(date).format('MMM DD, YYYY HH:mm')
+  const [viewAll, setViewAll] = useState(false)
+  const handleView = () => {
+    setViewAll((prev) => !prev)
+  }
   const deals = [
     {
       dealName: '319 Haul Road',
@@ -50,53 +54,38 @@ const RecentDeals: FC<Props> = ({
       avatarProps,
     },
   ]
+  const dealsToShow = viewAll ? deals : deals.slice(0, 3)
+
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <span className={(styles.textTitle, styles.textTitleSpace)}>
-          Recent Deals
-        </span>
-        <Button className={styles.textTitleSpace} type="text">
+    <div className={styles.recentDealsContainer}>
+      <div className={styles.containerDealItem}>
+        <span className={styles.textTitle}>Recent Deals</span>
+        <Button
+          onClick={handleView}
+          className={styles.buttonTextStyle}
+          type="text"
+        >
           View All
         </Button>
       </div>
 
-      {deals.map((deal, index) => (
-        <div
-          key={index}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              gap: '24px',
-              alignItems: 'center',
-            }}
-          >
+      {dealsToShow.map((deal, index) => (
+        <div key={index} className={styles.containerDealItem}>
+          <div className={styles.dealItem}>
             <Avatar size={50} {...avatarProps} />
             <div>
               <p className={styles.textTitle}>{deal.dealName}</p>
-              <p className={styles.textDescription}>{deal.description}</p>
+              <p className={styles.textDescriptionGrey}>{deal.description}</p>
             </div>
           </div>
 
           <div>
             <p className={styles.textTitle}>{`$${deal.priceInfo}`}</p>
-            <p className={styles.textDescription}>{formattedDate}</p>
+            <p className={styles.textDescriptionGrey}>{formattedDate}</p>
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 export default RecentDeals

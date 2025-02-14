@@ -1,0 +1,21 @@
+@import 'src/shared/config/vars';
+
+.loginContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 24px;
+}
+
+.formBlock >*{
+  margin-bottom: 24px;
+}
+
+.formBlock {
+  display:flex;
+  flex-direction: column;
+  border: solid 1px #EAEEF4;
+  border-radius: 12px;
+  padding: 24px;
+}
